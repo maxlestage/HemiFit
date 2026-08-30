@@ -151,13 +151,29 @@ enum Catalogue {
             position: .assis
         ),
         Exercice(
+            id: "main-poignet-actif",
+            nom: "Apprendre à bouger le poignet",
+            categorie: .main,
+            objectif: "Réapprendre au poignet droit à se plier et se redresser : la gravité fait le mouvement, vous apprenez d'abord à le retenir.",
+            etapes: [
+                "Posez l'avant-bras droit sur la table, la main dans le vide au bord de la table, paume vers le bas.",
+                "Laissez la main pendre : la gravité plie le poignet toute seule, vous n'avez rien à faire.",
+                "Avec la main gauche, remontez doucement la main droite à l'horizontale, puis laissez-la redescendre lentement.",
+                "Après quelques allers-retours guidés, essayez de retenir un peu la descente, ou de remonter d'un millimètre : retenir est plus facile que soulever, c'est par là qu'on commence.",
+                "Terminez en laissant la main pendre et se détendre complètement.",
+            ],
+            dosage: "8 allers-retours doux",
+            dureeSec: 150,
+            position: .assis
+        ),
+        Exercice(
             id: "main-tenodese",
             nom: "L'astuce du poignet plié",
             categorie: .main,
             objectif: "Utiliser un réflexe naturel : poignet plié vers l'avant, les doigts se détendent et s'ouvrent plus facilement.",
             etapes: [
                 "Posez l'avant-bras droit sur la table ou votre cuisse.",
-                "Avec la main gauche, pliez doucement le poignet droit vers l'avant (la main descend vers le sol).",
+                "Avec la main gauche, pliez doucement le poignet droit vers l'avant (la main descend vers le sol). C'est la main gauche qui fait tout : le poignet droit n'a rien à faire, il se laisse porter.",
                 "Vous sentirez les doigts se desserrer un peu : profitez-en pour les ouvrir doucement avec la main gauche.",
                 "Doigts ouverts, redressez très lentement le poignet, sans perdre l'ouverture.",
                 "Si les doigts se referment, repliez le poignet et recommencez : c'est normal, ça se gagne petit à petit.",
@@ -403,7 +419,7 @@ enum Catalogue {
             return Seance(
                 titre: "Main & doigts",
                 description: "Aujourd'hui, on prend soin de la main droite : détente d'abord, la spasticité déteste la lenteur.",
-                exercices: ["detente-respiration", "eveil-paume", "main-tenodese", "main-ouverture", "main-extension-active", "main-appui-paume"].map(exercice)
+                exercices: ["detente-respiration", "eveil-paume", "main-poignet-actif", "main-tenodese", "main-ouverture", "main-extension-active"].map(exercice)
             )
         case 3, 6: // mardi, vendredi
             return Seance(
