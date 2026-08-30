@@ -1,21 +1,22 @@
-# HemiFit 💚
+# HemiFit
 
 **Ma rééducation en douceur, un petit mouvement à la fois.**
 
-HemiFit est une application personnelle de rééducation après une lésion cérébrale, pensée pour une **hémiparésie droite avec forte spasticité** : le côté gauche est sain et vient assister le côté droit. Tous les exercices se font **assis ou allongé**, en sécurité, sans jamais forcer.
+HemiFit est une application personnelle de rééducation après une lésion cérébrale, pensée pour une **hémiparésie droite avec forte spasticité**, un **déplacement en fauteuil roulant** et un **équilibre très altéré** : le côté gauche est sain et vient assister le côté droit. Tous les exercices se font **assis avec le dos soutenu, ou allongé** — jamais debout.
 
 Face à la spasticité, l'application applique les bons réflexes : **jamais de mouvement rapide ni forcé** (ça déclenche le réflexe spastique), des **étirements lents et prolongés** (30 s), de la **détente et de la respiration avant chaque séance**, de l'**appui sur la paume ouverte**, et l'entraînement du **relâchement** plutôt que du serrage.
 
 ## Ce que fait HemiFit
 
-- 🗓 **Une séance guidée chaque jour** (~15 minutes) : chaque séance commence par la détente et un **massage** (qui fait baisser le tonus spastique), puis le programme alterne main & ouverture, main & poignet, bras & épaule, jambe & pré-marche au fil de la semaine. Le dimanche est entièrement consacré au massage.
-- 💆 **Une section massage complète** : avant-bras, main, espace du pouce, drainage vers l'épaule, nuque, mollet et pied — tout se fait d'une seule main, la gauche.
-- ⏱ **Un lecteur de séance** : un exercice à la fois, un grand minuteur, des consignes pas à pas.
-- ✋ **Des exercices adaptés** : ouverture de main assistée, imagerie mentale, transferts d'appui, extension du genou… la main gauche guide, le cerveau réapprend.
-- 📈 **Un suivi motivant et jamais punitif** : série de jours consécutifs, **meilleure série (jamais perdue)**, minutes cumulées, ressenti après chaque séance. Après une longue interruption, l'application accueille le retour plutôt que de sanctionner l'absence — on reprend là où on en est, jamais à zéro.
-- 🔔 **Un rappel quotidien** (application iPhone) pour garder la régularité.
+- **Une séance guidée chaque jour** (~15 minutes), réalisable seul : chaque séance commence par la détente et un **massage** (qui fait baisser le tonus spastique), puis le programme alterne main & ouverture, main & poignet, bras & épaule, tronc & jambes au fil de la semaine. Le dimanche est entièrement consacré au massage.
+- **Une séance du soir avec une tierce personne** (~30 minutes) : massages et mobilisations passives impossibles à faire seul — épaule, coude, doigts, hanche, cheville, drainage des jambes, puis installation pour la nuit. Les consignes s'adressent directement à la personne qui accompagne.
+- **Une section massage complète**, réalisable d'une seule main : avant-bras, main, espace du pouce, drainage vers l'épaule et nuque.
+- **Des exercices adaptés au fauteuil** : soulagement des appuis (prévention des escarres), bascule du bassin, redressement du buste, mobilité de cheville et drainage.
+- **Un lecteur de séance** : un exercice à la fois, un grand minuteur, des consignes pas à pas.
+- **Un suivi motivant et jamais punitif** : série de jours consécutifs, **meilleure série (jamais perdue)**, minutes cumulées, ressenti après chaque séance. Après une longue interruption, l'application accueille le retour plutôt que de sanctionner l'absence — on reprend là où on en est, jamais à zéro.
+- **Un rappel quotidien** (application iPhone) pour garder la régularité.
 
-L'interface est conçue pour être utilisée **d'une seule main (la gauche)** : gros boutons (64 px minimum), navigation en bas d'écran, texte large et contrasté, mode sombre automatique.
+L'interface est conçue pour être utilisée **d'une seule main (la gauche)** : gros boutons (64 px minimum), navigation en bas d'écran, texte large et contrasté, mode sombre automatique, et un jeu d'icônes vectorielles sobre — sans aucun emoji.
 
 ## Deux applications
 
@@ -56,6 +57,6 @@ cd web && bun install && bun dev
 cd ios && xcodegen generate && open HemiFit.xcodeproj
 ```
 
-## ⚕️ Important
+## Important
 
 HemiFit **accompagne** la rééducation mais **ne remplace pas** un kinésithérapeute ni un médecin. Les exercices proposés sont doux et classiques en rééducation de l'hémiparésie, mais chaque situation est unique : faites-les valider par vos soignants, et arrêtez immédiatement tout mouvement douloureux.

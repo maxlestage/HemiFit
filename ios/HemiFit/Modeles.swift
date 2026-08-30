@@ -17,13 +17,8 @@ enum Ressenti: Int, Codable, CaseIterable, Identifiable {
 
     var id: Int { rawValue }
 
-    var emoji: String {
-        switch self {
-        case .difficile: "😮‍💨"
-        case .correct: "🙂"
-        case .bien: "😊"
-        }
-    }
+    /// Nombre de barres pleines dans la jauge de ressenti (sur 3).
+    var niveau: Int { rawValue }
 
     var libelle: String {
         switch self {

@@ -1,51 +1,98 @@
 /**
  * Catalogue d'exercices HemiFit.
  *
- * Conçu pour une hémiparésie droite avec forte spasticité :
- * tous les exercices se font assis ou allongé, en toute sécurité,
- * et la main gauche (saine) vient assister le côté droit.
+ * Profil visé : hémiparésie droite avec forte spasticité, déplacement
+ * en fauteuil roulant et équilibre très altéré.
  *
- * Règles face à la spasticité : jamais de mouvement rapide ni forcé
- * (le muscle spastique résiste d'autant plus qu'on l'étire vite),
- * des étirements lents et prolongés, de la détente avant l'effort,
- * et on entraîne le relâchement plutôt que le serrage.
- * Jamais de douleur : on s'arrête dès que ça tire trop.
+ * Règles de sécurité non négociables :
+ * - tout se fait assis avec le dos soutenu, ou allongé ;
+ * - aucun exercice debout, aucun transfert non sécurisé ;
+ * - la main gauche (saine) assiste le côté droit ;
+ * - jamais de mouvement rapide ni forcé (réflexe spastique) ;
+ * - étirements lents et prolongés, précédés de détente et de massage.
  */
 
-export type Categorie = "massage" | "main" | "bras" | "jambe" | "sensoriel";
+import type { NomIcone } from "../Icones";
+
+export type Categorie =
+  | "massage"
+  | "sensoriel"
+  | "main"
+  | "bras"
+  | "tronc"
+  | "jambe";
+
+/** Qui réalise l'exercice. */
+export type Realisation = "autonome" | "tierce-personne";
 
 export interface Exercice {
   id: string;
   nom: string;
   categorie: Categorie;
+  realisation: Realisation;
   /** Ce que l'exercice travaille, en une phrase. */
   objectif: string;
   /** Consignes pas à pas, phrases courtes. */
   etapes: string[];
-  /** Dosage lisible, ex. « 5 répétitions, tenir 10 s ». */
+  /** Dosage lisible, ex. « 5 répétitions, tenir 30 s ». */
   dosage: string;
   /** Durée guidée en secondes pour le minuteur de séance. */
   dureeSec: number;
-  /** Position de départ. */
   position: "assis" | "allongé";
 }
 
-export const CATEGORIES: Record<Categorie, { titre: string; emoji: string }> = {
-  massage: { titre: "Massage & détente", emoji: "💆" },
-  sensoriel: { titre: "Éveil sensoriel", emoji: "🫱" },
-  main: { titre: "Main & doigts", emoji: "✋" },
-  bras: { titre: "Bras & épaule", emoji: "💪" },
-  jambe: { titre: "Jambe & pré-marche", emoji: "🦶" },
+export const CATEGORIES: Record<
+  Categorie,
+  { titre: string; icone: NomIcone }
+> = {
+  massage: { titre: "Massage et détente", icone: "massage" },
+  sensoriel: { titre: "Éveil sensoriel", icone: "sensoriel" },
+  main: { titre: "Main et doigts", icone: "main" },
+  bras: { titre: "Bras et épaule", icone: "bras" },
+  tronc: { titre: "Tronc et posture", icone: "tronc" },
+  jambe: { titre: "Jambes et bassin", icone: "jambe" },
+};
+
+export const REALISATIONS: Record<
+  Realisation,
+  { titre: string; court: string; icone: NomIcone }
+> = {
+  autonome: {
+    titre: "En autonomie",
+    court: "Seul",
+    icone: "autonome",
+  },
+  "tierce-personne": {
+    titre: "Avec une tierce personne",
+    court: "Avec de l'aide",
+    icone: "aide",
+  },
 };
 
 export const EXERCICES: Exercice[] = [
-  // ——— Massage & détente ———
-  // Le massage fait baisser le tonus spastique : c'est la meilleure
-  // préparation avant de chercher à bouger.
+  // ————————————————— Massage et détente —————————————————
+  {
+    id: "detente-respiration",
+    nom: "Détente et respiration",
+    categorie: "massage",
+    realisation: "autonome",
+    objectif:
+      "Faire baisser la spasticité avant de bouger : un corps détendu s'étire beaucoup mieux.",
+    etapes: [
+      "Installez-vous bien calé, dos soutenu, bras droit posé sur un coussin.",
+      "Inspirez lentement par le nez en comptant jusqu'à 4.",
+      "Soufflez très lentement par la bouche en comptant jusqu'à 6, en laissant tomber les épaules.",
+      "À chaque expiration, imaginez votre bras et votre main droite devenir lourds, chauds et mous.",
+    ],
+    dosage: "Environ 2 minutes de respiration lente",
+    dureeSec: 120,
+    position: "assis",
+  },
   {
     id: "massage-avant-bras",
     nom: "Massage de l'avant-bras",
     categorie: "massage",
+    realisation: "autonome",
     objectif:
       "Détendre les muscles qui ferment la main : ce sont eux qui sont trop contractés.",
     etapes: [
@@ -62,6 +109,7 @@ export const EXERCICES: Exercice[] = [
     id: "massage-main",
     nom: "Massage de la main",
     categorie: "massage",
+    realisation: "autonome",
     objectif: "Assouplir la paume et réveiller les sensations de la main droite.",
     etapes: [
       "Main droite posée sur votre cuisse, paume vers le haut.",
@@ -77,6 +125,7 @@ export const EXERCICES: Exercice[] = [
     id: "massage-pouce",
     nom: "Ouvrir l'espace du pouce",
     categorie: "massage",
+    realisation: "autonome",
     objectif:
       "Empêcher le pouce de se bloquer dans la paume : c'est lui qui verrouille souvent toute la main.",
     etapes: [
@@ -93,6 +142,7 @@ export const EXERCICES: Exercice[] = [
     id: "massage-drainage",
     nom: "Drainage de la main vers l'épaule",
     categorie: "massage",
+    realisation: "autonome",
     objectif:
       "Faire circuler : une main peu mobile a tendance à gonfler, surtout en fin de journée.",
     etapes: [
@@ -109,65 +159,34 @@ export const EXERCICES: Exercice[] = [
     id: "massage-epaule",
     nom: "Massage de l'épaule et de la nuque",
     categorie: "massage",
+    realisation: "autonome",
     objectif:
       "Soulager l'épaule droite, souvent douloureuse quand le bras est peu actif.",
     etapes: [
       "Avec la main gauche, massez le haut de l'épaule droite par pressions lentes.",
       "Remontez vers la nuque, puis redescendez vers l'omoplate.",
       "Soufflez lentement pendant le massage, en laissant l'épaule redescendre.",
-      "Si l'épaule est douloureuse, restez très léger et parlez-en à votre kiné.",
+      "Si l'épaule est douloureuse, restez très léger et parlez-en à votre kinésithérapeute.",
     ],
     dosage: "Environ 2 minutes",
     dureeSec: 120,
     position: "assis",
   },
-  {
-    id: "massage-jambe",
-    nom: "Massage du mollet et du pied",
-    categorie: "massage",
-    objectif:
-      "Détendre le mollet droit et réveiller la plante du pied, essentielle pour marcher.",
-    etapes: [
-      "Assis, remontez si possible le pied droit sur un tabouret ou l'autre genou.",
-      "Massez le mollet à deux mains, de la cheville vers le genou, par pressions lentes.",
-      "Passez à la plante du pied : massez-la avec le pouce gauche, du talon vers les orteils.",
-      "Terminez en mobilisant doucement chaque orteil.",
-      "Si cette position est difficile, faites-le allongé, jambe pliée.",
-    ],
-    dosage: "Environ 3 minutes",
-    dureeSec: 180,
-    position: "assis",
-  },
 
-  // ——— Éveil sensoriel ———
-  {
-    id: "detente-respiration",
-    nom: "Détente et respiration",
-    categorie: "sensoriel",
-    objectif:
-      "Faire baisser la spasticité avant de bouger : un corps détendu s'étire beaucoup mieux.",
-    etapes: [
-      "Installez-vous confortablement, dos soutenu, bras droit posé sur un coussin.",
-      "Inspirez lentement par le nez en comptant jusqu'à 4.",
-      "Soufflez très lentement par la bouche en comptant jusqu'à 6, en laissant tomber les épaules.",
-      "À chaque expiration, imaginez votre bras et votre main droite devenir lourds, chauds et mous.",
-    ],
-    dosage: "Environ 2 minutes de respiration lente",
-    dureeSec: 120,
-    position: "assis",
-  },
+  // ————————————————— Éveil sensoriel —————————————————
   {
     id: "eveil-paume",
     nom: "Réveil de la main droite",
     categorie: "sensoriel",
-    objectif: "Réveiller les sensations de la main droite avant de bouger.",
+    realisation: "autonome",
+    objectif: "Réveiller les sensations de la main droite avant de la mobiliser.",
     etapes: [
-      "Asseyez-vous confortablement, le bras droit posé sur une table ou un coussin.",
+      "Bras droit posé sur une table ou un coussin.",
       "Avec la main gauche, frottez doucement la paume droite, du poignet vers les doigts.",
-      "Massez chaque doigt l'un après l'autre, sans forcer.",
-      "Terminez par de petites pressions douces sur toute la main.",
+      "Variez les textures : tissu, éponge, brosse douce.",
+      "Terminez par de petites pressions sur toute la main.",
     ],
-    dosage: "Environ 2 minutes, en douceur",
+    dosage: "Environ 2 minutes",
     dureeSec: 120,
     position: "assis",
   },
@@ -175,63 +194,64 @@ export const EXERCICES: Exercice[] = [
     id: "eveil-avant-bras",
     nom: "Caresses de l'avant-bras",
     categorie: "sensoriel",
-    objectif: "Stimuler la peau et détendre l'avant-bras droit.",
+    realisation: "autonome",
+    objectif: "Stimuler la peau et abaisser le tonus de l'avant-bras droit.",
     etapes: [
       "Posez l'avant-bras droit sur vos genoux ou une table.",
       "Avec la main gauche, caressez lentement du coude jusqu'à la main.",
-      "Variez : paume, dos de la main, textures différentes (tissu, éponge).",
+      "Alternez le dessus et le dessous de l'avant-bras.",
     ],
     dosage: "Environ 1 minute 30",
     dureeSec: 90,
     position: "assis",
   },
-
-  // ——— Main & doigts ———
   {
-    id: "main-ouverture",
-    nom: "Ouverture de main assistée",
-    categorie: "main",
+    id: "main-miroir",
+    nom: "Thérapie miroir",
+    categorie: "sensoriel",
+    realisation: "autonome",
     objectif:
-      "Ouvrir la main malgré la spasticité : très lentement, en laissant le temps aux muscles de lâcher.",
+      "Voir une main droite qui s'ouvre aide le cerveau à réapprendre le mouvement.",
     etapes: [
-      "Commencez par masser doucement l'avant-bras et la paume pour préparer la main.",
-      "Astuce : penchez d'abord le poignet droit légèrement vers l'avant, les doigts se laissent ouvrir plus facilement.",
-      "Avec la main gauche, dépliez TRÈS lentement les doigts droits, en commençant par le pouce.",
-      "Si les doigts résistent (c'est la spasticité), ne forcez jamais : arrêtez-vous, soufflez, et attendez que ça se relâche tout seul.",
-      "Quand la main est ouverte, maintenez l'ouverture 30 secondes : c'est l'étirement prolongé qui calme la spasticité.",
-      "Relâchez doucement et laissez la main se reposer avant de recommencer.",
+      "Posez un miroir debout devant vous, tranche contre votre ventre, face réfléchissante vers la gauche.",
+      "Cachez la main droite derrière le miroir ; regardez le reflet de la main gauche.",
+      "Ouvrez et fermez lentement la main gauche en regardant le reflet.",
+      "Pendant ce temps, essayez le même mouvement avec la main droite cachée, sans forcer.",
     ],
-    dosage: "3 ouvertures très lentes, tenir 30 s",
+    dosage: "Environ 3 minutes",
     dureeSec: 180,
     position: "assis",
   },
   {
-    id: "main-poignet",
-    nom: "Étirement doux du poignet",
-    categorie: "main",
-    objectif: "Garder le poignet droit souple.",
+    id: "main-imagerie",
+    nom: "Imagerie du geste",
+    categorie: "sensoriel",
+    realisation: "autonome",
+    objectif: "Activer les circuits du mouvement sans effort musculaire.",
     etapes: [
-      "Coude droit posé sur la table, avant-bras vertical si possible.",
-      "Avec la main gauche, amenez doucement la main droite vers l'arrière (paume vers l'avant).",
-      "Si le poignet résiste, n'insistez pas : gardez la position et attendez, la spasticité cède avec la lenteur.",
-      "Tenez 15 secondes en respirant calmement.",
-      "Revenez au repos, puis penchez doucement la main vers l'avant.",
+      "Fermez les yeux, main droite posée confortablement.",
+      "Ouvrez et fermez lentement la main gauche en observant bien la sensation.",
+      "Puis imaginez très précisément le même mouvement avec la main droite.",
+      "Visualisez les doigts qui se déplient, un par un, sans effort.",
     ],
-    dosage: "3 répétitions dans chaque sens, tenir 15 s",
-    dureeSec: 160,
+    dosage: "Environ 2 minutes",
+    dureeSec: 120,
     position: "assis",
   },
+
+  // ————————————————— Main et doigts —————————————————
   {
     id: "main-poignet-actif",
     nom: "Apprendre à bouger le poignet",
     categorie: "main",
+    realisation: "autonome",
     objectif:
-      "Réapprendre au poignet droit à se plier et se redresser : la gravité fait le mouvement, vous apprenez d'abord à le retenir.",
+      "Réapprendre au poignet à se plier et se redresser : la gravité fait le mouvement, vous apprenez d'abord à le retenir.",
     etapes: [
-      "Posez l'avant-bras droit sur la table, la main dans le vide au bord de la table, paume vers le bas.",
-      "Laissez la main pendre : la gravité plie le poignet toute seule, vous n'avez rien à faire.",
+      "Avant-bras droit posé sur une table, main dans le vide au bord, paume vers le bas.",
+      "Laissez la main pendre : la gravité plie le poignet toute seule.",
       "Avec la main gauche, remontez doucement la main droite à l'horizontale, puis laissez-la redescendre lentement.",
-      "Après quelques allers-retours guidés, essayez de retenir un peu la descente, ou de remonter d'un millimètre : retenir est plus facile que soulever, c'est par là qu'on commence.",
+      "Essayez ensuite de retenir un peu la descente, ou de remonter d'un millimètre : retenir est plus facile que soulever.",
       "Terminez en laissant la main pendre et se détendre complètement.",
     ],
     dosage: "8 allers-retours doux",
@@ -242,110 +262,102 @@ export const EXERCICES: Exercice[] = [
     id: "main-tenodese",
     nom: "L'astuce du poignet plié",
     categorie: "main",
+    realisation: "autonome",
     objectif:
-      "Utiliser un réflexe naturel : poignet plié vers l'avant, les doigts se détendent et s'ouvrent plus facilement.",
+      "Poignet plié vers l'avant, les doigts se détendent et s'ouvrent plus facilement.",
     etapes: [
       "Posez l'avant-bras droit sur la table ou votre cuisse.",
-      "Avec la main gauche, pliez doucement le poignet droit vers l'avant (la main descend vers le sol). C'est la main gauche qui fait tout : le poignet droit n'a rien à faire, il se laisse porter.",
-      "Vous sentirez les doigts se desserrer un peu : profitez-en pour les ouvrir doucement avec la main gauche.",
+      "Avec la main gauche, pliez doucement le poignet droit vers l'avant. C'est la main gauche qui fait tout : le poignet droit se laisse porter.",
+      "Les doigts se desserrent : profitez-en pour les ouvrir doucement avec la main gauche.",
       "Doigts ouverts, redressez très lentement le poignet, sans perdre l'ouverture.",
-      "Si les doigts se referment, repliez le poignet et recommencez : c'est normal, ça se gagne petit à petit.",
+      "Si les doigts se referment, repliez le poignet et recommencez.",
     ],
     dosage: "5 essais tranquilles",
     dureeSec: 150,
     position: "assis",
   },
   {
+    id: "main-ouverture",
+    nom: "Ouverture de main assistée",
+    categorie: "main",
+    realisation: "autonome",
+    objectif:
+      "Ouvrir la main malgré la spasticité, en laissant le temps aux muscles de lâcher.",
+    etapes: [
+      "Massez d'abord l'avant-bras et la paume pour préparer la main.",
+      "Penchez légèrement le poignet vers l'avant : les doigts se laissent ouvrir plus facilement.",
+      "Avec la main gauche, dépliez très lentement les doigts droits, en commençant par le pouce.",
+      "Si les doigts résistent, ne forcez jamais : arrêtez-vous, soufflez, attendez que ça se relâche.",
+      "Maintenez l'ouverture 30 secondes : c'est l'étirement prolongé qui calme la spasticité.",
+    ],
+    dosage: "3 ouvertures très lentes, tenir 30 s",
+    dureeSec: 180,
+    position: "assis",
+  },
+  {
     id: "main-extension-active",
     nom: "Ouvrir avec de l'aide",
     categorie: "main",
+    realisation: "autonome",
     objectif:
-      "Vos doigts savent se fermer : on entraîne le mouvement inverse, l'ouverture, avec assistance.",
+      "Vos doigts savent se fermer : on entraîne le mouvement inverse, l'ouverture.",
     etapes: [
       "Main droite posée sur la cuisse, détendue.",
-      "Serrez très légèrement le poing 3 secondes — ça, vous savez faire.",
-      "Puis arrêtez de serrer, soufflez, et essayez d'OUVRIR les doigts, même d'un millimètre.",
-      "Pendant que vous essayez, la main gauche accompagne et termine l'ouverture en douceur.",
-      "L'essai compte autant que le résultat : c'est l'intention d'ouvrir qui réveille les muscles endormis.",
+      "Serrez très légèrement le poing 3 secondes — cela, vous savez le faire.",
+      "Puis arrêtez de serrer, soufflez, et essayez d'ouvrir les doigts, même d'un millimètre.",
+      "Pendant que vous essayez, la main gauche accompagne et termine l'ouverture.",
+      "L'essai compte autant que le résultat : c'est l'intention d'ouvrir qui réveille les muscles.",
     ],
     dosage: "6 essais, sans forcer",
     dureeSec: 150,
     position: "assis",
   },
   {
-    id: "main-miroir",
-    nom: "Thérapie miroir",
-    categorie: "main",
-    objectif:
-      "Tromper (gentiment) le cerveau : voir une main droite qui s'ouvre l'aide à réapprendre le mouvement.",
-    etapes: [
-      "Posez un miroir debout devant vous, tranche contre votre ventre, face réfléchissante vers la gauche.",
-      "Cachez la main droite derrière le miroir ; regardez le reflet de la main gauche.",
-      "Ouvrez et fermez lentement la main gauche en regardant le reflet : on dirait la main droite qui bouge.",
-      "Pendant ce temps, essayez de faire le même mouvement avec la main droite cachée, sans forcer.",
-    ],
-    dosage: "Environ 3 minutes",
-    dureeSec: 180,
-    position: "assis",
-  },
-  {
-    id: "main-relacher",
-    nom: "Apprendre à relâcher",
-    categorie: "main",
-    objectif:
-      "Avec la spasticité, relâcher est plus difficile que serrer : c'est le relâchement qu'on entraîne.",
-    etapes: [
-      "Posez la main droite sur votre cuisse ou sur une serviette roulée, sans rien tenir.",
-      "Avec la main gauche, bercez doucement l'avant-bras droit de petits mouvements lents, comme pour l'endormir.",
-      "Soufflez lentement en imaginant la main qui fond, doigt par doigt.",
-      "Si la main se referme, ne luttez pas : reprenez le bercement, puis rouvrez-la tout doucement.",
-    ],
-    dosage: "Environ 2 minutes, tout en douceur",
-    dureeSec: 120,
-    position: "assis",
-  },
-  {
     id: "main-appui-paume",
     nom: "Appui sur la paume ouverte",
     categorie: "main",
+    realisation: "autonome",
     objectif:
-      "Mettre un peu de poids sur la main ouverte : un appui doux qui calme la spasticité des doigts.",
+      "Un appui doux sur la main ouverte calme la spasticité des doigts.",
     etapes: [
       "Ouvrez la main droite avec l'aide de la gauche, très lentement.",
       "Posez la paume droite bien à plat sur votre cuisse, doigts écartés si possible.",
       "Avec la main gauche posée par-dessus, appuyez très légèrement, comme pour ancrer la main.",
-      "Gardez l'appui en respirant lentement ; si les doigts se replient, rouvrez-les calmement, sans jamais forcer.",
+      "Gardez l'appui en respirant lentement ; si les doigts se replient, rouvrez-les calmement.",
     ],
     dosage: "3 appuis d'environ 30 s",
     dureeSec: 150,
     position: "assis",
   },
   {
-    id: "main-imagerie",
-    nom: "Imagerie du geste",
+    id: "main-relacher",
+    nom: "Apprendre à relâcher",
     categorie: "main",
-    objectif: "Faire travailler le cerveau : imaginer la main droite qui s'ouvre.",
+    realisation: "autonome",
+    objectif:
+      "Avec la spasticité, relâcher est plus difficile que serrer : c'est le relâchement qu'on entraîne.",
     etapes: [
-      "Fermez les yeux, main droite posée confortablement.",
-      "Ouvrez et fermez lentement la main GAUCHE en observant bien la sensation.",
-      "Puis imaginez, très précisément, le même mouvement avec la main droite.",
-      "Visualisez les doigts qui se déplient, un par un, sans effort.",
+      "Posez la main droite sur votre cuisse ou sur une serviette roulée, sans rien tenir.",
+      "Avec la main gauche, bercez doucement l'avant-bras droit, comme pour l'endormir.",
+      "Soufflez lentement en imaginant la main qui fond, doigt par doigt.",
+      "Si la main se referme, ne luttez pas : reprenez le bercement, puis rouvrez-la doucement.",
     ],
     dosage: "Environ 2 minutes",
     dureeSec: 120,
     position: "assis",
   },
 
-  // ——— Bras & épaule ———
+  // ————————————————— Bras et épaule —————————————————
   {
     id: "bras-glisser-table",
     nom: "Glisser sur la table",
     categorie: "bras",
+    realisation: "autonome",
     objectif: "Mobiliser l'épaule et le coude droits en douceur.",
     etapes: [
-      "Assis face à une table, posez la main droite sur un linge ou un torchon.",
+      "Installé face à une table, posez la main droite sur un linge.",
       "Avec la main gauche par-dessus la droite, faites glisser le linge vers l'avant.",
-      "Allez aussi loin que confortable, sans décoller le buste.",
+      "Allez aussi loin que confortable, sans décoller le dos du dossier.",
       "Revenez lentement vers vous.",
     ],
     dosage: "8 allers-retours lents",
@@ -356,6 +368,7 @@ export const EXERCICES: Exercice[] = [
     id: "bras-elevation",
     nom: "Élévation mains croisées",
     categorie: "bras",
+    realisation: "autonome",
     objectif: "Lever le bras droit avec l'aide du gauche, sans forcer l'épaule.",
     etapes: [
       "Croisez les doigts, ou tenez le poignet droit avec la main gauche.",
@@ -371,10 +384,11 @@ export const EXERCICES: Exercice[] = [
     id: "bras-coude",
     nom: "Coude plié, coude tendu",
     categorie: "bras",
+    realisation: "autonome",
     objectif: "Entretenir la souplesse du coude droit.",
     etapes: [
       "Bras droit posé sur les genoux ou une table.",
-      "Avec la main gauche, pliez doucement le coude droit (la main vers l'épaule).",
+      "Avec la main gauche, pliez doucement le coude droit, la main vers l'épaule.",
       "Puis étendez-le doucement, le plus droit possible sans douleur.",
       "Respirez calmement pendant tout le mouvement.",
     ],
@@ -386,9 +400,10 @@ export const EXERCICES: Exercice[] = [
     id: "bras-epaules",
     nom: "Épaules qui roulent",
     categorie: "bras",
+    realisation: "autonome",
     objectif: "Détendre le cou et les deux épaules.",
     etapes: [
-      "Assis bien droit, bras relâchés.",
+      "Bien calé au fond du siège, bras relâchés.",
       "Haussez doucement les épaules vers les oreilles, puis relâchez.",
       "Roulez ensuite les épaules vers l'arrière, en cercles lents.",
     ],
@@ -397,31 +412,87 @@ export const EXERCICES: Exercice[] = [
     position: "assis",
   },
 
-  // ——— Jambe & pré-marche ———
+  // ————————————————— Tronc et posture —————————————————
   {
-    id: "jambe-transfert",
-    nom: "Transferts d'appui assis",
-    categorie: "jambe",
-    objectif: "Préparer la marche : apprendre à mettre du poids côté droit.",
+    id: "tronc-appuis",
+    nom: "Soulagement des appuis",
+    categorie: "tronc",
+    realisation: "autonome",
+    objectif:
+      "Décharger régulièrement les points d'appui : c'est la meilleure prévention des rougeurs et des escarres.",
     etapes: [
-      "Assis sur une chaise stable, pieds bien à plat au sol.",
-      "Penchez doucement le buste vers la droite : le poids passe sur la fesse droite.",
-      "Tenez 3 secondes, revenez au centre, puis penchez à gauche.",
-      "Gardez toujours un appui sûr, près d'une table si besoin.",
+      "Freins du fauteuil bloqués, mains sur les accoudoirs.",
+      "Poussez sur le bras gauche pour décoller légèrement la fesse droite, quelques secondes.",
+      "Reposez-vous, puis penchez-vous doucement de l'autre côté pour soulager la fesse gauche.",
+      "Restez toujours dans une amplitude petite et sûre : on cherche à soulager, pas à se pencher loin.",
     ],
-    dosage: "10 transferts de chaque côté",
-    dureeSec: 150,
+    dosage: "3 fois de chaque côté, tenir 5 s",
+    dureeSec: 120,
     position: "assis",
   },
+  {
+    id: "tronc-bascule",
+    nom: "Bascule du bassin",
+    categorie: "tronc",
+    realisation: "autonome",
+    objectif:
+      "Assouplir le bas du dos et retrouver le contrôle du bassin, base de la stabilité assise.",
+    etapes: [
+      "Dos bien soutenu par le dossier, mains posées sur les cuisses.",
+      "Basculez doucement le bassin vers l'arrière : le bas du dos s'arrondit.",
+      "Puis basculez-le vers l'avant : le bas du dos se creuse légèrement.",
+      "Mouvement lent et de petite amplitude ; le buste bouge à peine.",
+    ],
+    dosage: "10 bascules lentes",
+    dureeSec: 130,
+    position: "assis",
+  },
+  {
+    id: "tronc-rotation",
+    nom: "Rotation douce du buste",
+    categorie: "tronc",
+    realisation: "autonome",
+    objectif: "Garder de la mobilité dans le tronc, sans jamais se déséquilibrer.",
+    etapes: [
+      "Dos soutenu, mains posées à plat sur les cuisses.",
+      "Tournez lentement les épaules vers la gauche, en gardant le bassin immobile.",
+      "Revenez au centre, puis tournez vers la droite.",
+      "Gardez toujours un contact avec le dossier : c'est votre sécurité.",
+    ],
+    dosage: "8 rotations de chaque côté",
+    dureeSec: 130,
+    position: "assis",
+  },
+  {
+    id: "tronc-grandir",
+    nom: "Se grandir",
+    categorie: "tronc",
+    realisation: "autonome",
+    objectif:
+      "Lutter contre l'affaissement du buste, fréquent quand on passe la journée assis.",
+    etapes: [
+      "Dos soutenu, pieds posés sur les repose-pieds.",
+      "Inspirez en imaginant un fil qui tire le sommet de votre tête vers le plafond.",
+      "Le buste se redresse, les épaules descendent, le menton reste horizontal.",
+      "Tenez 5 secondes en respirant, puis relâchez sans vous affaisser d'un coup.",
+    ],
+    dosage: "8 redressements, tenir 5 s",
+    dureeSec: 120,
+    position: "assis",
+  },
+
+  // ————————————————— Jambes et bassin —————————————————
   {
     id: "jambe-genou",
     nom: "Extension du genou droit",
     categorie: "jambe",
-    objectif: "Renforcer la cuisse droite, indispensable pour se lever et marcher.",
+    realisation: "autonome",
+    objectif:
+      "Entretenir la cuisse droite et la mobilité du genou, utiles pour les transferts.",
     etapes: [
-      "Assis au fond de la chaise, dos soutenu.",
+      "Bien calé au fond du siège, dos soutenu.",
       "Tendez doucement le genou droit pour lever le pied vers l'avant.",
-      "Si la jambe ne monte pas seule, passez une serviette sous la cuisse ou le mollet et aidez avec la main gauche.",
+      "Si la jambe ne monte pas seule, passez une serviette sous le mollet et aidez avec la main gauche.",
       "Redescendez lentement, sans laisser tomber le pied.",
     ],
     dosage: "8 extensions, même petites",
@@ -432,44 +503,194 @@ export const EXERCICES: Exercice[] = [
     id: "jambe-cheville",
     nom: "Cheville en mouvement",
     categorie: "jambe",
-    objectif: "Garder la cheville droite souple pour poser le pied à plat.",
+    realisation: "autonome",
+    objectif:
+      "Garder la cheville souple et faire circuler le sang : essentiel quand on reste assis toute la journée.",
     etapes: [
-      "Assis, jambe droite légèrement tendue, talon au sol.",
-      "Essayez de relever la pointe du pied droit vers vous, puis de la pointer.",
+      "Pied droit posé à plat, ou sur le repose-pied.",
+      "Essayez de relever la pointe du pied vers vous, puis de la pointer vers le bas.",
       "Si besoin, passez une serviette sous l'avant du pied et tirez doucement avec la main gauche.",
+      "Terminez par des cercles lents avec la cheville, dans un sens puis dans l'autre.",
     ],
-    dosage: "10 mouvements doux",
-    dureeSec: 130,
+    dosage: "10 mouvements, puis 5 cercles",
+    dureeSec: 150,
     position: "assis",
   },
   {
-    id: "jambe-marche-assise",
-    nom: "Marche assise",
+    id: "jambe-alternance",
+    nom: "Alternance des appuis",
     categorie: "jambe",
-    objectif: "Réveiller le rythme de la marche, en toute sécurité sur la chaise.",
+    realisation: "autonome",
+    objectif:
+      "Réveiller l'alternance droite-gauche des jambes, qui entretient la commande motrice.",
     etapes: [
-      "Assis bien droit, pieds à plat.",
+      "Bien calé, pieds posés à plat.",
       "Décollez légèrement le talon droit, reposez-le. Puis le talon gauche.",
-      "Alternez comme une marche lente, au rythme de votre respiration.",
-      "Si le pied droit bouge peu, même une intention de mouvement compte.",
+      "Alternez lentement, au rythme de votre respiration.",
+      "Si le pied droit bouge peu, l'intention de le décoller compte déjà.",
     ],
-    dosage: "Environ 1 minute, à votre rythme",
-    dureeSec: 60,
+    dosage: "Environ 1 minute 30",
+    dureeSec: 90,
     position: "assis",
   },
   {
     id: "jambe-pont",
     nom: "Pont tout doux",
     categorie: "jambe",
-    objectif: "Renforcer les fessiers et le dos, utiles pour les transferts.",
+    realisation: "autonome",
+    objectif:
+      "Renforcer les fessiers et le bas du dos, ce qui facilite les transferts et l'installation au lit.",
     etapes: [
       "Allongé sur le dos, genoux pliés, pieds à plat (aidez le pied droit avec la main gauche si besoin).",
       "Soulevez légèrement le bassin, juste quelques centimètres.",
       "Tenez 3 secondes, puis reposez très lentement.",
-      "À ne faire que si vous êtes installé en sécurité sur un lit ferme ou un tapis.",
+      "À faire uniquement bien installé au centre du lit, jamais près du bord.",
     ],
     dosage: "5 répétitions douces",
     dureeSec: 120,
+    position: "allongé",
+  },
+
+  // ————————————————— Avec une tierce personne (le soir) —————————————————
+  {
+    id: "aide-massage-bras",
+    nom: "Massage complet du bras droit",
+    categorie: "massage",
+    realisation: "tierce-personne",
+    objectif:
+      "Faire baisser le tonus de tout le membre avant les mobilisations : on masse toujours avant de mobiliser.",
+    etapes: [
+      "Personne aidante : installez le bras droit posé et soutenu, la personne bien calée.",
+      "Massez de la main vers l'épaule, par pressions larges et lentes, jamais dans l'autre sens.",
+      "Insistez sur l'avant-bras, où les muscles fléchisseurs sont les plus contractés.",
+      "Terminez par la main : paume, dos de la main, puis chaque doigt.",
+      "Demandez régulièrement si la pression est confortable.",
+    ],
+    dosage: "Environ 5 minutes",
+    dureeSec: 300,
+    position: "assis",
+  },
+  {
+    id: "aide-epaule",
+    nom: "Mobilisation passive de l'épaule",
+    categorie: "bras",
+    realisation: "tierce-personne",
+    objectif:
+      "Entretenir l'amplitude de l'épaule et prévenir l'enraidissement, très fréquent du côté atteint.",
+    etapes: [
+      "Personne aidante : une main soutient le coude, l'autre tient l'avant-bras. Ne tirez jamais par la main seule.",
+      "Montez lentement le bras vers l'avant, jusqu'à la limite confortable, sans jamais forcer.",
+      "Redescendez tout aussi lentement.",
+      "Puis écartez doucement le bras sur le côté, dans une amplitude modérée.",
+      "Arrêtez immédiatement en cas de douleur : l'épaule du côté atteint est fragile.",
+    ],
+    dosage: "8 mouvements lents dans chaque direction",
+    dureeSec: 240,
+    position: "assis",
+  },
+  {
+    id: "aide-coude-poignet",
+    nom: "Mobilisation du coude et du poignet",
+    categorie: "bras",
+    realisation: "tierce-personne",
+    objectif: "Conserver la souplesse du coude et du poignet droits.",
+    etapes: [
+      "Personne aidante : soutenez le bras, une main au-dessus du coude, l'autre au poignet.",
+      "Pliez et tendez le coude lentement, dix fois.",
+      "Puis tournez doucement l'avant-bras : paume vers le haut, paume vers le bas.",
+      "Terminez par le poignet : fléchissez-le et étendez-le doucement, en tenant chaque position 15 secondes.",
+    ],
+    dosage: "10 mouvements, puis tenues de 15 s",
+    dureeSec: 240,
+    position: "assis",
+  },
+  {
+    id: "aide-doigts",
+    nom: "Étirement prolongé des doigts",
+    categorie: "main",
+    realisation: "tierce-personne",
+    objectif:
+      "L'étirement long est ce qui calme le mieux la spasticité — plus efficace le soir, après le massage.",
+    etapes: [
+      "Personne aidante : massez d'abord la main et l'avant-bras pendant deux bonnes minutes.",
+      "Pliez légèrement le poignet vers l'avant : les doigts se desserrent d'eux-mêmes.",
+      "Ouvrez les doigts un par un, en commençant par le pouce, très lentement.",
+      "Main ouverte, maintenez l'étirement 60 secondes en redressant progressivement le poignet.",
+      "Ne forcez jamais contre une résistance : attendez, le muscle finit par céder.",
+    ],
+    dosage: "3 étirements de 60 s",
+    dureeSec: 300,
+    position: "assis",
+  },
+  {
+    id: "aide-hanche-genou",
+    nom: "Mobilisation de la hanche et du genou",
+    categorie: "jambe",
+    realisation: "tierce-personne",
+    objectif:
+      "Entretenir les articulations des jambes, peu sollicitées en fauteuil, et limiter l'enraidissement.",
+    etapes: [
+      "À faire allongé sur le dos, bien installé au centre du lit.",
+      "Personne aidante : une main sous le genou, l'autre sous le talon.",
+      "Ramenez lentement le genou vers la poitrine, dans la limite du confort, puis rallongez la jambe.",
+      "Répétez dix fois, sans à-coup, en soutenant toujours le poids de la jambe.",
+      "Faites les deux jambes : la gauche en profite aussi.",
+    ],
+    dosage: "10 mouvements par jambe",
+    dureeSec: 300,
+    position: "allongé",
+  },
+  {
+    id: "aide-cheville-mollet",
+    nom: "Étirement du mollet et de la cheville",
+    categorie: "jambe",
+    realisation: "tierce-personne",
+    objectif:
+      "Empêcher le pied de se figer en pointe : c'est l'un des enraidissements les plus gênants en fauteuil.",
+    etapes: [
+      "Allongé, jambe tendue et soutenue.",
+      "Personne aidante : posez une main à plat sous la plante du pied, l'autre au-dessus du genou.",
+      "Poussez très lentement le pied vers le tibia, jusqu'à sentir l'étirement du mollet.",
+      "Maintenez 30 secondes en respirant, sans jamais forcer par à-coups.",
+      "Répétez trois fois, puis faites quelques cercles doux avec la cheville.",
+    ],
+    dosage: "3 étirements de 30 s par pied",
+    dureeSec: 300,
+    position: "allongé",
+  },
+  {
+    id: "aide-drainage-jambes",
+    nom: "Massage drainant des jambes",
+    categorie: "massage",
+    realisation: "tierce-personne",
+    objectif:
+      "Faire circuler et limiter le gonflement des jambes et des pieds, très fréquent après une journée assis.",
+    etapes: [
+      "Allongé, jambes légèrement surélevées sur un coussin.",
+      "Personne aidante : remontez à deux mains, de la cheville vers le genou, par pressions lentes.",
+      "Continuez du genou vers la cuisse, toujours vers le cœur.",
+      "Terminez par les pieds : massez la plante du talon vers les orteils, puis mobilisez chaque orteil.",
+    ],
+    dosage: "Environ 5 minutes",
+    dureeSec: 300,
+    position: "allongé",
+  },
+  {
+    id: "aide-installation-nuit",
+    nom: "Installation pour la nuit",
+    categorie: "tronc",
+    realisation: "tierce-personne",
+    objectif:
+      "Une bonne installation prolonge l'effet des étirements pendant toute la nuit.",
+    etapes: [
+      "Personne aidante : installez le bras droit posé sur un coussin, légèrement écarté du corps, main ouverte si possible.",
+      "Évitez que la main reste serrée sous le corps ou coincée contre le flanc.",
+      "Placez un coussin sous le mollet droit pour que le talon ne porte pas directement sur le matelas.",
+      "Vérifiez que le pied droit n'est pas tourné vers l'intérieur ni figé en pointe.",
+      "Demandez confirmation que la position est confortable avant de quitter la pièce.",
+    ],
+    dosage: "Environ 3 minutes",
+    dureeSec: 180,
     position: "allongé",
   },
 ];
@@ -490,12 +711,13 @@ export interface Seance {
   titre: string;
   description: string;
   exercices: Exercice[];
+  realisation: Realisation;
 }
 
 /**
- * Séance du jour. Chaque séance commence par la détente puis un
- * massage : sur un membre spastique, c'est la meilleure préparation
- * avant de chercher à bouger. Le dimanche est consacré au massage.
+ * Séance du jour, réalisable seul. Chaque séance commence par la
+ * détente puis un massage : sur un membre spastique, c'est la
+ * meilleure préparation avant de chercher à bouger.
  */
 export function seanceDuJour(date: Date = new Date()): Seance {
   const jour = date.getDay(); // 0 = dimanche
@@ -503,9 +725,10 @@ export function seanceDuJour(date: Date = new Date()): Seance {
   switch (jour) {
     case 1: // lundi
       return {
-        titre: "Main & ouverture",
+        titre: "Main et ouverture",
         description:
           "On masse la main, puis on travaille l'ouverture des doigts, tout en lenteur.",
+        realisation: "autonome",
         exercices: parId(
           "detente-respiration",
           "massage-main",
@@ -517,9 +740,10 @@ export function seanceDuJour(date: Date = new Date()): Seance {
       };
     case 4: // jeudi
       return {
-        titre: "Main & poignet",
+        titre: "Main et poignet",
         description:
           "On détend l'avant-bras, puis on réapprend le mouvement du poignet.",
+        realisation: "autonome",
         exercices: parId(
           "detente-respiration",
           "massage-avant-bras",
@@ -532,8 +756,9 @@ export function seanceDuJour(date: Date = new Date()): Seance {
     case 2: // mardi
     case 5: // vendredi
       return {
-        titre: "Bras & épaule",
+        titre: "Bras et épaule",
         description: "Le bras droit bouge en douceur, guidé par le gauche.",
+        realisation: "autonome",
         exercices: parId(
           "detente-respiration",
           "massage-avant-bras",
@@ -546,22 +771,25 @@ export function seanceDuJour(date: Date = new Date()): Seance {
     case 3: // mercredi
     case 6: // samedi
       return {
-        titre: "Jambe & pré-marche",
-        description: "On prépare la marche, pas à pas, bien assis.",
+        titre: "Tronc et jambes",
+        description:
+          "Posture, appuis et souplesse des jambes, entièrement en sécurité dans le fauteuil.",
+        realisation: "autonome",
         exercices: parId(
           "detente-respiration",
-          "massage-jambe",
-          "jambe-transfert",
-          "jambe-genou",
+          "tronc-appuis",
+          "tronc-bascule",
+          "tronc-grandir",
           "jambe-cheville",
-          "jambe-marche-assise",
+          "jambe-genou",
         ),
       };
     default: // dimanche
       return {
-        titre: "Massage & détente",
+        titre: "Massage et détente",
         description:
           "Journée douce : on masse tout le côté droit, sans rien forcer.",
+        realisation: "autonome",
         exercices: parId(
           "detente-respiration",
           "massage-main",
@@ -572,6 +800,29 @@ export function seanceDuJour(date: Date = new Date()): Seance {
         ),
       };
   }
+}
+
+/**
+ * Séance du soir, réalisée par une tierce personne. Massage d'abord,
+ * mobilisations ensuite, installation pour la nuit en dernier.
+ */
+export function seanceDuSoir(): Seance {
+  return {
+    titre: "Séance du soir",
+    description:
+      "Massages et mobilisations passives, réalisés par une tierce personne. À faire de préférence après une douche chaude.",
+    realisation: "tierce-personne",
+    exercices: parId(
+      "aide-massage-bras",
+      "aide-epaule",
+      "aide-coude-poignet",
+      "aide-doigts",
+      "aide-hanche-genou",
+      "aide-cheville-mollet",
+      "aide-drainage-jambes",
+      "aide-installation-nuit",
+    ),
+  };
 }
 
 export function dureeTotaleMin(seance: Seance): number {

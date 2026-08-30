@@ -34,51 +34,67 @@ struct ConseilsView: View {
                     carteRappel
 
                     conseil(
-                        titre: "⏳ Il n'est jamais trop tard pour progresser",
+                        titre: "Il n'est jamais trop tard pour progresser",
                         texte: "On a longtemps cru que tout se jouait dans les six premiers mois. Cette idée a été largement remise en cause : le cerveau reste capable de créer de nouveaux chemins pendant des années, et des progrès ont été observés très longtemps après la lésion, chez des personnes qui continuaient à s'entraîner régulièrement. Cela demande de la patience, et les progrès sont souvent lents et partiels — mais ce qui compte n'est pas le temps écoulé depuis la lésion : c'est ce que vous faites à partir d'aujourd'hui."
                     )
                     conseil(
-                        titre: "💆 Pourquoi masser avant de bouger",
+                        titre: "La sécurité avant tout",
+                        texte: "Votre équilibre étant très altéré, aucun exercice de cette application ne se fait debout. Tout est prévu assis avec le dos soutenu, ou allongé. Bloquez toujours les freins du fauteuil avant de commencer, gardez une amplitude modérée, et ne tentez jamais un transfert ou un redressement seul si vous n'en êtes pas certain."
+                    )
+                    conseil(
+                        titre: "Pourquoi masser avant de bouger",
                         texte: "Le massage fait baisser le tonus des muscles spastiques, réchauffe les tissus et réveille les sensations. Un membre massé s'étire beaucoup mieux : c'est pour cela que chaque séance commence par là. Vous pouvez masser autant de fois par jour que vous le souhaitez, il n'y a aucun risque à en faire trop, tant que c'est doux."
                     )
                     conseil(
-                        titre: "👐 Fermer facile, ouvrir difficile : c'est classique",
+                        titre: "Le soir, l'aide d'une tierce personne change tout",
+                        texte: "Certaines mobilisations sont impossibles à faire seul : l'épaule, la hanche, l'étirement du mollet. Confiées le soir à une personne qui vous accompagne, elles entretiennent les articulations et prolongent leur effet pendant la nuit. La séance du soir de l'application est écrite pour être suivie par cette personne, consigne par consigne."
+                    )
+                    conseil(
+                        titre: "Soulager les appuis, tout au long de la journée",
+                        texte: "Rester assis longtemps met en tension les mêmes points d'appui. Prenez l'habitude de décharger vos appuis quelques secondes toutes les vingt à trente minutes, en vous penchant légèrement d'un côté puis de l'autre, mains sur les accoudoirs. C'est court, discret, et cela prévient les rougeurs et les escarres."
+                    )
+                    conseil(
+                        titre: "Fermer facile, ouvrir difficile : c'est classique",
                         texte: "Après une lésion cérébrale, les muscles qui ferment la main restent forts (et spastiques), tandis que ceux qui l'ouvrent sont affaiblis. L'ouverture se rééduque donc avec de l'aide : le poignet plié vers l'avant desserre naturellement les doigts, la main gauche termine le mouvement, et chaque intention d'ouvrir — même sans mouvement visible — entraîne le cerveau."
                     )
                     conseil(
-                        titre: "🌊 Comprendre la spasticité",
+                        titre: "Comprendre la spasticité",
                         texte: "Vos muscles droits sont trop « toniques » : ils se contractent tout seuls et résistent, surtout quand on les étire vite. Ce n'est pas de la mauvaise volonté de votre main — c'est un réflexe. La bonne nouvelle : la lenteur, le calme et les étirements prolongés la font baisser."
                     )
                     conseil(
-                        titre: "🐢 Lent, toujours plus lent",
+                        titre: "Lent, toujours plus lent",
                         texte: "Un mouvement rapide ou forcé déclenche le réflexe spastique : la main se referme encore plus. Étirez très lentement, arrêtez-vous dès que ça résiste, respirez… et attendez que ça lâche tout seul. Ça vient toujours."
                     )
                     conseil(
-                        titre: "🛁 La chaleur détend",
+                        titre: "La chaleur détend",
                         texte: "La spasticité diminue avec la chaleur : faites les exercices de la main après une douche chaude, ou passez la main droite quelques minutes sous l'eau chaude (testez la température avec la main gauche). Le froid, le stress et la fatigue, eux, l'augmentent."
                     )
                     conseil(
-                        titre: "🧠 Le cerveau apprend par la répétition",
+                        titre: "Le cerveau apprend par la répétition",
                         texte: "Après une lésion cérébrale, le cerveau peut créer de nouveaux chemins : c'est la neuroplasticité. Elle se nourrit de répétitions courtes et fréquentes — 15 minutes par jour valent mieux qu'une heure une fois par semaine."
                     )
                     conseil(
-                        titre: "👀 Regardez votre côté droit",
+                        titre: "Regardez votre côté droit",
                         texte: "Pendant les exercices, regardez votre main ou votre jambe droite bouger, même quand c'est la main gauche qui aide. Voir le mouvement aide le cerveau à le réapprendre."
                     )
                     conseil(
-                        titre: "✋ L'intention compte déjà",
+                        titre: "L'intention compte déjà",
                         texte: "Même si le mouvement ne vient pas, le fait d'essayer, d'imaginer et de vouloir bouger active les bonnes zones du cerveau. Aucun essai n'est perdu."
                     )
                     conseil(
-                        titre: "💬 Parlez de votre spasticité à vos soignants",
+                        titre: "Parlez de votre spasticité à vos soignants",
                         texte: "Il existe des traitements spécifiques de la spasticité (kinésithérapie, médicaments, injections ciblées, attelles) qui complètent très bien ces exercices. Si la spasticité vous gêne beaucoup, c'est une vraie question à poser à votre médecin."
                     )
                     conseil(
-                        titre: "🛑 Les signaux pour s'arrêter",
-                        texte: "Douleur vive, vertige, essoufflement inhabituel, fatigue soudaine : on s'arrête, on se repose, et on en parle à son médecin si ça se répète."
+                        titre: "Les signaux pour s'arrêter",
+                        texte: "Douleur vive, vertige, essoufflement inhabituel, fatigue soudaine, rougeur qui ne s'efface pas sur un point d'appui : on s'arrête, on se repose, et on en parle à son médecin si cela se répète."
                     )
 
-                    Text("⚕️ Ces exercices sont doux et classiques en rééducation, mais chaque situation est unique : faites-les valider par votre kinésithérapeute ou votre médecin, et signalez-leur toute douleur ou changement.")
+                    Label {
+                        Text("Ces exercices sont doux et classiques en rééducation, mais chaque situation est unique : faites-les valider par votre kinésithérapeute ou votre médecin, et signalez-leur toute douleur ou changement.")
+                    } icon: {
+                        Image(systemName: "info.circle")
+                    }
                         .font(.subheadline)
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)

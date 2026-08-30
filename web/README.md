@@ -1,4 +1,4 @@
-# HemiFit — site web 🌐
+# HemiFit — site web
 
 Site **mobile-first** de rééducation en douceur, construit avec :
 
