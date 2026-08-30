@@ -98,9 +98,9 @@ struct SeanceGuideeView: View {
         HStack(spacing: 6) {
             ForEach(seance.exercices.indices, id: \.self) { i in
                 Capsule()
-                    .fill(i <= indice ? AnyShapeStyle(.degradeAccent)
+                    .fill(i <= indice ? AnyShapeStyle(Color.vert)
                                       : AnyShapeStyle(.quaternary))
-                    .frame(height: 7)
+                    .frame(height: 4)
             }
         }
     }
@@ -125,22 +125,22 @@ struct MinuteurView: View {
         VStack(spacing: 16) {
             ZStack {
                 Circle()
-                    .stroke(.quaternary, lineWidth: 12)
+                    .stroke(.quaternary, lineWidth: 9)
 
                 Circle()
                     .trim(from: 0, to: proportion)
                     .stroke(
-                        .degradeAccent,
-                        style: StrokeStyle(lineWidth: 12, lineCap: .round)
+                        Color.vert,
+                        style: StrokeStyle(lineWidth: 9, lineCap: .round)
                     )
                     .rotationEffect(.degrees(-90))
                     .animation(.linear(duration: 1), value: restant)
 
                 if restant > 0 {
                     Text(texteTemps)
-                        .font(.system(size: 50, weight: .bold, design: .rounded))
+                        .font(.system(size: 52, weight: .bold))
                         .monospacedDigit()
-                        .foregroundStyle(Color.vert)
+                        .foregroundStyle(.primary)
                         .contentTransition(.numericText())
                 } else {
                     Text("Terminé")
@@ -190,10 +190,10 @@ struct FinDeSeanceView: View {
             Spacer()
 
             Image(systemName: "checkmark")
-                .font(.system(size: 42, weight: .bold))
-                .foregroundStyle(Color.vert)
-                .frame(width: 88, height: 88)
-                .background(Color.vertClair, in: .circle)
+                .font(.system(size: 36, weight: .bold))
+                .foregroundStyle(.white)
+                .frame(width: 76, height: 76)
+                .background(Color.vert, in: .circle)
             Text("Séance terminée")
                 .font(.largeTitle.bold())
             Text("Chaque séance renforce les nouveaux chemins de votre cerveau. Vous pouvez en être fier.")
