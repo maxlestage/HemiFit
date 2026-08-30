@@ -54,6 +54,14 @@ Les exercices visent une **hémiparésie droite spastique**, avec ces principes 
 - **jamais de mouvement rapide ni forcé** : cela déclenche le réflexe spastique ;
 - privilégier les **étirements lents et prolongés** (15–30 s) et la détente préalable ;
 - entraîner le **relâchement et l'ouverture** de la main, jamais le serrage (les fléchisseurs sont déjà trop forts, les extenseurs affaiblis) ;
-- l'**intention de mouvement compte**, même sans mouvement visible.
+- l'**intention de mouvement compte**, même sans mouvement visible ;
+- **masser avant de mobiliser** : le massage abaisse le tonus, chaque séance commence donc par la détente puis un massage.
+
+## Ton de l'application
+
+Le propriétaire veut continuer à récupérer **même longtemps après la lésion**, et c'est une attente légitime : l'idée d'un plateau définitif à six mois est largement remise en cause, la neuroplasticité se poursuivant des années durant. L'application doit donc :
+
+- **encourager honnêtement** — progrès possibles à long terme, mais souvent lents et partiels : ni fatalisme, ni fausses promesses de guérison ;
+- **ne jamais punir une interruption** : la meilleure série est conservée, un retour après plusieurs semaines est accueilli chaleureusement, et rien n'est jamais remis à zéro.
 
 Conserver systématiquement les avertissements médicaux (ne remplace ni kinésithérapeute ni médecin ; arrêter en cas de douleur).
