@@ -21,12 +21,19 @@ struct ExercicesListeView: View {
                     Section("\(categorie.emoji) \(categorie.titre)") {
                         ForEach(Catalogue.parCategorie(categorie)) { exercice in
                             NavigationLink(value: exercice) {
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(exercice.nom)
-                                        .font(.headline)
-                                    Text("\(exercice.dosage) · \(exercice.position.rawValue)")
-                                        .font(.subheadline)
-                                        .foregroundStyle(.secondary)
+                                HStack(spacing: 14) {
+                                    Text(exercice.categorie.emoji)
+                                        .font(.title2)
+                                        .frame(width: 44, height: 44)
+                                        .background(Color.vertClair, in: .rect(cornerRadius: 14))
+
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text(exercice.nom)
+                                            .font(.headline)
+                                        Text("\(exercice.dosage) · \(exercice.position.rawValue)")
+                                            .font(.subheadline)
+                                            .foregroundStyle(.secondary)
+                                    }
                                 }
                                 .padding(.vertical, 8)
                             }

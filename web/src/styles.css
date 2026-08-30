@@ -1,40 +1,82 @@
 /* ————————————————————————————————————————————————
    HemiFit — design mobile-first, une seule main (gauche)
-   Cibles tactiles larges, gros texte, contrastes élevés.
+
+   Principe : moderniser sans jamais dégrader la lisibilité.
+   Les cibles tactiles restent larges (64 px), le texte grand et
+   les contrastes élevés ; la modernité passe par la profondeur,
+   la couleur, le mouvement et la finesse des détails.
    ———————————————————————————————————————————————— */
 
 :root {
   color-scheme: light dark;
 
-  --fond: #f4f6f4;
+  /* Fonds étagés, du plus profond au plus proche */
+  --fond: #eef2f0;
+  --fond-halo: #d9ebe3;
   --carte: #ffffff;
-  --encre: #17251f;
-  --encre-douce: #4d5f57;
-  --accent: #1f7a5c;
-  --accent-fonce: #155943;
-  --accent-clair: #e0f0e9;
-  --bordure: #d5ddd8;
-  --alerte-fond: #fdf3e3;
-  --alerte-encre: #6b4d12;
-  --succes: #1f7a5c;
+  --carte-douce: #f6faf8;
 
-  --rayon: 20px;
-  --ombre: 0 2px 10px rgba(23, 37, 31, 0.07);
+  /* Encres */
+  --encre: #10201a;
+  --encre-douce: #4f6259;
+  /* Contraste vérifié pour rester lisible même en petit corps. */
+  --encre-tenue: #5e6e66;
+
+  /* Accent */
+  --accent: #12795a;
+  --accent-vif: #16a37a;
+  --accent-fonce: #0d5b44;
+  --accent-clair: #dcf0e8;
+  --accent-contraste: #ffffff;
+
+  --bordure: #e2e9e5;
+  --bordure-nette: #cfdad4;
+
+  --alerte-fond: #fdf4e4;
+  --alerte-encre: #7a5714;
+  --alerte-bordure: #f0dcb4;
+
+  /* Formes */
+  --rayon: 24px;
+  --rayon-petit: 16px;
+
+  /* Élévation : douce, jamais lourde */
+  --ombre-1: 0 1px 2px rgba(16, 32, 26, 0.05),
+    0 4px 16px rgba(16, 32, 26, 0.05);
+  --ombre-2: 0 2px 4px rgba(16, 32, 26, 0.06),
+    0 12px 32px rgba(16, 32, 26, 0.09);
+  --ombre-accent: 0 6px 20px rgba(18, 121, 90, 0.28);
+
+  --transition: 200ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --fond: #121a17;
-    --carte: #1c2822;
-    --encre: #eef4f0;
-    --encre-douce: #a7b8af;
-    --accent: #3fae85;
-    --accent-fonce: #2e8465;
-    --accent-clair: #21382f;
-    --bordure: #2e3d36;
-    --alerte-fond: #33290f;
-    --alerte-encre: #ecd6a0;
-    --ombre: 0 2px 10px rgba(0, 0, 0, 0.35);
+    --fond: #0d1512;
+    --fond-halo: #163026;
+    --carte: #17231e;
+    --carte-douce: #1d2b25;
+
+    --encre: #eef4f1;
+    --encre-douce: #adbfb6;
+    --encre-tenue: #97a99f;
+
+    --accent: #3fc194;
+    --accent-vif: #4fd6a6;
+    --accent-fonce: #2c9a73;
+    --accent-clair: #1c3a2f;
+    --accent-contraste: #06231a;
+
+    --bordure: #263630;
+    --bordure-nette: #33463e;
+
+    --alerte-fond: #2e2410;
+    --alerte-encre: #f0d9a4;
+    --alerte-bordure: #4a3a17;
+
+    --ombre-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.28);
+    --ombre-2: 0 2px 4px rgba(0, 0, 0, 0.34), 0 12px 32px rgba(0, 0, 0, 0.42);
+    --ombre-accent: 0 6px 20px rgba(63, 193, 148, 0.22);
   }
 }
 
@@ -52,14 +94,34 @@ body {
   background: var(--fond);
   color: var(--encre);
   font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
-    Arial, sans-serif;
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
   font-size: 18px;
   line-height: 1.55;
+  letter-spacing: -0.005em;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Halo coloré discret en haut de page : donne de la profondeur
+   sans nuire au contraste du texte. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 340px;
+  background: radial-gradient(
+    120% 100% at 50% 0%,
+    var(--fond-halo) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
 }
 
 #root {
+  position: relative;
+  z-index: 1;
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
@@ -71,59 +133,97 @@ body {
 
 .contenu {
   flex: 1;
-  padding: 16px 16px 120px;
-  padding-top: calc(16px + env(safe-area-inset-top));
+  padding: 8px 16px 128px;
+  padding-top: calc(12px + env(safe-area-inset-top));
 }
 
 .entete {
-  margin: 8px 0 20px;
+  margin: 12px 0 22px;
 }
 
 .entete h1 {
-  font-size: 1.7rem;
-  margin: 0 0 4px;
-  letter-spacing: -0.01em;
+  font-size: clamp(1.75rem, 7vw, 2.1rem);
+  font-weight: 800;
+  margin: 0 0 6px;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
 }
 
 .entete p {
   margin: 0;
   color: var(--encre-douce);
+  font-size: 1.02rem;
 }
 
 /* ——— Cartes ——— */
 
 .carte {
+  position: relative;
   background: var(--carte);
   border: 1px solid var(--bordure);
   border-radius: var(--rayon);
-  box-shadow: var(--ombre);
-  padding: 20px;
-  margin-bottom: 16px;
+  box-shadow: var(--ombre-1);
+  padding: 22px;
+  margin-bottom: 14px;
+  animation: apparition 420ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
 
 .carte h2 {
   margin: 0 0 8px;
-  font-size: 1.25rem;
+  font-size: 1.35rem;
+  font-weight: 750;
+  letter-spacing: -0.02em;
 }
 
 .carte h3 {
   margin: 0 0 6px;
-  font-size: 1.05rem;
+  font-size: 1.08rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .carte p {
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   color: var(--encre-douce);
 }
 
-.carte .grand-chiffre {
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: var(--accent);
-  line-height: 1.1;
+.carte p:last-child {
+  margin-bottom: 0;
 }
 
-/* ——— Boutons : minimum 60 px de haut, pleine largeur ——— */
+/* Carte mise en avant : la séance du jour */
+.carte-vedette {
+  background: linear-gradient(
+    165deg,
+    var(--carte) 0%,
+    var(--carte-douce) 100%
+  );
+  border-color: var(--bordure-nette);
+  box-shadow: var(--ombre-2);
+}
+
+.grand-chiffre {
+  display: block;
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes apparition {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ——— Boutons : minimum 64 px de haut, pleine largeur ——— */
 
 button {
   font: inherit;
@@ -140,23 +240,30 @@ button {
   border: none;
   border-radius: var(--rayon);
   font-size: 1.15rem;
-  font-weight: 650;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   cursor: pointer;
   touch-action: manipulation;
-  transition: transform 0.06s ease, background 0.15s ease;
-}
-
-.btn:active {
-  transform: scale(0.985);
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition),
+    background var(--transition);
 }
 
 .btn-principal {
-  background: var(--accent);
-  color: #ffffff;
+  background: linear-gradient(
+    135deg,
+    var(--accent-vif) 0%,
+    var(--accent) 55%,
+    var(--accent-fonce) 100%
+  );
+  color: var(--accent-contraste);
+  box-shadow: var(--ombre-accent);
 }
 
 .btn-principal:active {
-  background: var(--accent-fonce);
+  transform: scale(0.975);
+  box-shadow: 0 2px 8px rgba(18, 121, 90, 0.24);
 }
 
 .btn-secondaire {
@@ -164,10 +271,15 @@ button {
   color: var(--accent);
 }
 
+.btn-secondaire:active {
+  transform: scale(0.975);
+}
+
 .btn-discret {
   background: transparent;
   color: var(--encre-douce);
   min-height: 56px;
+  font-weight: 600;
 }
 
 .btn + .btn {
@@ -179,10 +291,12 @@ button {
 .bandeau-securite {
   background: var(--alerte-fond);
   color: var(--alerte-encre);
+  border: 1px solid var(--alerte-bordure);
   border-radius: var(--rayon);
-  padding: 14px 16px;
+  padding: 16px 18px;
   font-size: 0.95rem;
-  margin-bottom: 16px;
+  line-height: 1.5;
+  margin-bottom: 14px;
 }
 
 /* ——— Navigation basse (accessible au pouce gauche) ——— */
@@ -196,34 +310,51 @@ button {
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  padding: 8px 8px 0;
+  padding-bottom: max(8px, env(safe-area-inset-bottom));
+  /* Opaque volontairement : le moindre texte transparaissant sous la
+     barre nuit à la lisibilité, ce qui prime sur l'effet de verre. */
   background: var(--carte);
+  box-shadow: 0 -8px 24px rgba(16, 32, 26, 0.06);
   border-top: 1px solid var(--bordure);
-  padding-bottom: env(safe-area-inset-bottom);
+  z-index: 5;
 }
 
 .nav-basse button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
-  min-height: 68px;
-  padding: 10px 4px;
+  justify-content: center;
+  gap: 3px;
+  min-height: 62px;
+  padding: 8px 4px;
   background: none;
   border: none;
-  color: var(--encre-douce);
-  font-size: 0.8rem;
-  font-weight: 600;
+  border-radius: var(--rayon-petit);
+  color: var(--encre-tenue);
+  font-size: 0.78rem;
+  font-weight: 650;
   cursor: pointer;
   touch-action: manipulation;
+  transition:
+    color var(--transition),
+    background var(--transition);
 }
 
 .nav-basse button.actif {
   color: var(--accent);
+  background: var(--accent-clair);
 }
 
 .nav-basse .icone {
-  font-size: 1.5rem;
+  font-size: 1.45rem;
   line-height: 1;
+  transition: transform var(--transition);
+}
+
+.nav-basse button.actif .icone {
+  transform: translateY(-1px) scale(1.08);
 }
 
 /* ——— Séance guidée ——— */
@@ -244,28 +375,69 @@ button {
 
 .seance-progression {
   display: flex;
-  gap: 6px;
-  margin-bottom: 16px;
+  gap: 5px;
+  margin-bottom: 18px;
 }
 
 .seance-progression span {
   flex: 1;
-  height: 8px;
-  border-radius: 4px;
-  background: var(--bordure);
+  height: 7px;
+  border-radius: 99px;
+  background: var(--bordure-nette);
+  transition: background var(--transition);
 }
 
 .seance-progression span.fait {
-  background: var(--accent);
+  background: linear-gradient(90deg, var(--accent-vif), var(--accent));
 }
 
-.minuteur {
-  font-size: 3.4rem;
-  font-weight: 700;
-  text-align: center;
+/* Minuteur circulaire */
+.minuteur-anneau {
+  position: relative;
+  width: 208px;
+  height: 208px;
+  margin: 18px auto 14px;
+  display: grid;
+  place-items: center;
+}
+
+.minuteur-anneau svg {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.minuteur-anneau .piste {
+  fill: none;
+  stroke: var(--bordure-nette);
+  stroke-width: 12;
+}
+
+.minuteur-anneau .jauge {
+  fill: none;
+  stroke: url(#degradeMinuteur);
+  stroke-width: 12;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 980ms linear;
+}
+
+.minuteur-texte {
+  position: relative;
+  font-size: 3rem;
+  font-weight: 800;
   font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
   color: var(--accent);
-  margin: 12px 0;
+  line-height: 1;
+}
+
+.minuteur-fini {
+  position: relative;
+  font-size: 1.5rem;
+  font-weight: 750;
+  color: var(--accent);
+  text-align: center;
+  padding: 0 12px;
 }
 
 .etapes {
@@ -276,7 +448,7 @@ button {
 
 .etapes li {
   position: relative;
-  padding: 8px 0 8px 34px;
+  padding: 10px 0 10px 30px;
   border-bottom: 1px solid var(--bordure);
 }
 
@@ -285,12 +457,14 @@ button {
 }
 
 .etapes li::before {
-  content: "•";
+  content: "";
   position: absolute;
-  left: 10px;
-  color: var(--accent);
-  font-size: 1.4rem;
-  line-height: 1.2;
+  left: 8px;
+  top: 20px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
 }
 
 .badge {
@@ -298,18 +472,29 @@ button {
   background: var(--accent-clair);
   color: var(--accent);
   border-radius: 999px;
-  padding: 4px 14px;
-  font-size: 0.9rem;
-  font-weight: 650;
-  margin-bottom: 8px;
+  padding: 6px 15px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
 }
 
 .zone-boutons-bas {
   margin-top: auto;
-  padding-top: 16px;
+  padding-top: 18px;
 }
 
 /* ——— Liste d'exercices ——— */
+
+.titre-section {
+  margin: 26px 0 12px;
+  font-size: 1.18rem;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
 
 .ligne-exercice {
   display: flex;
@@ -320,23 +505,42 @@ button {
   background: var(--carte);
   border: 1px solid var(--bordure);
   border-radius: var(--rayon);
-  padding: 16px;
-  margin-bottom: 12px;
-  min-height: 72px;
+  box-shadow: var(--ombre-1);
+  padding: 16px 18px;
+  margin-bottom: 10px;
+  min-height: 76px;
   cursor: pointer;
+  transition:
+    transform var(--transition),
+    border-color var(--transition);
+}
+
+.ligne-exercice:active {
+  transform: scale(0.99);
+  border-color: var(--bordure-nette);
 }
 
 .ligne-exercice .emoji {
-  font-size: 1.8rem;
+  font-size: 1.7rem;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  background: var(--accent-clair);
+  border-radius: 14px;
 }
 
 .ligne-exercice .infos {
   flex: 1;
+  min-width: 0;
 }
 
 .ligne-exercice .infos strong {
   display: block;
   font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   color: var(--encre);
 }
 
@@ -345,24 +549,80 @@ button {
   font-size: 0.9rem;
 }
 
+.chevron {
+  color: var(--encre-tenue);
+  font-size: 0.9rem;
+  transition: transform var(--transition);
+}
+
+.chevron.ouvert {
+  transform: rotate(180deg);
+}
+
 /* ——— Statistiques ——— */
 
 .grille-stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .grille-stats .carte {
   margin-bottom: 0;
   text-align: center;
-  padding: 16px 10px;
+  padding: 20px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .grille-stats .carte p {
-  margin: 4px 0 0;
+  margin: 6px 0 0;
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+/* Bande d'activité des 7 derniers jours */
+.semaine {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.semaine .jour {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.semaine .pastille {
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 38px;
+  border-radius: 12px;
+  background: var(--bordure);
+  display: grid;
+  place-items: center;
   font-size: 0.9rem;
+  color: transparent;
+}
+
+.semaine .pastille.actif {
+  background: linear-gradient(145deg, var(--accent-vif), var(--accent));
+  color: var(--accent-contraste);
+  box-shadow: var(--ombre-accent);
+}
+
+.semaine .etiquette {
+  font-size: 0.72rem;
+  font-weight: 650;
+  color: var(--encre-tenue);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .historique-ligne {
@@ -370,7 +630,7 @@ button {
   justify-content: space-between;
   align-items: baseline;
   gap: 10px;
-  padding: 12px 0;
+  padding: 13px 0;
   border-bottom: 1px solid var(--bordure);
 }
 
@@ -380,7 +640,7 @@ button {
 
 .historique-ligne .date {
   color: var(--encre-douce);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   white-space: nowrap;
 }
 
@@ -394,8 +654,8 @@ button {
 }
 
 .choix-ressenti button {
-  min-height: 88px;
-  border: 2px solid var(--bordure);
+  min-height: 92px;
+  border: 2px solid var(--bordure-nette);
   border-radius: var(--rayon);
   background: var(--carte);
   color: var(--encre);
@@ -404,15 +664,20 @@ button {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 0.88rem;
+  font-weight: 650;
   cursor: pointer;
+  transition:
+    transform var(--transition),
+    border-color var(--transition),
+    background var(--transition);
 }
 
 .choix-ressenti button.choisi {
   border-color: var(--accent);
   background: var(--accent-clair);
   color: var(--accent);
+  transform: translateY(-2px);
 }
 
 .choix-ressenti .emoji {
@@ -423,17 +688,33 @@ button {
 
 .felicitations {
   text-align: center;
-  padding: 32px 8px;
+  padding: 30px 8px;
 }
 
 .felicitations .emoji {
   font-size: 4rem;
   display: block;
   margin-bottom: 12px;
+  animation: fete 700ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
 
+@keyframes fete {
+  from {
+    opacity: 0;
+    transform: scale(0.6) rotate(-12deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ——— Accessibilité : mouvement réduit ——— */
+
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *,
+  *::before,
+  *::after {
     transition: none !important;
     animation: none !important;
   }

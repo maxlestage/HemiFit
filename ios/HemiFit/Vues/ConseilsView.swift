@@ -82,7 +82,7 @@ struct ConseilsView: View {
                         .font(.subheadline)
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(.yellow.opacity(0.15), in: .rect(cornerRadius: 20))
+                        .background(.yellow.opacity(0.15), in: .rect(cornerRadius: rayonHemiFit))
                 }
                 .padding()
             }

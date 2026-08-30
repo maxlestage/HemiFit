@@ -89,8 +89,9 @@ struct SeanceGuideeView: View {
         HStack(spacing: 6) {
             ForEach(seance.exercices.indices, id: \.self) { i in
                 Capsule()
-                    .fill(i <= indice ? Color.vert : Color.secondary.opacity(0.25))
-                    .frame(height: 8)
+                    .fill(i <= indice ? AnyShapeStyle(.degradeAccent)
+                                      : AnyShapeStyle(.quaternary))
+                    .frame(height: 7)
             }
         }
     }
@@ -106,13 +107,44 @@ struct MinuteurView: View {
 
     private let horloge = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
+    /// Part du temps restant, pour la jauge circulaire.
+    private var proportion: Double {
+        dureeSec > 0 ? Double(restant) / Double(dureeSec) : 0
+    }
+
     var body: some View {
-        VStack(spacing: 12) {
-            Text(restant > 0 ? texteTemps : "Bien joué 💚")
-                .font(.system(size: 56, weight: .bold, design: .rounded))
-                .monospacedDigit()
-                .foregroundStyle(Color.vert)
-                .contentTransition(.numericText())
+        VStack(spacing: 16) {
+            ZStack {
+                Circle()
+                    .stroke(.quaternary, lineWidth: 12)
+
+                Circle()
+                    .trim(from: 0, to: proportion)
+                    .stroke(
+                        .degradeAccent,
+                        style: StrokeStyle(lineWidth: 12, lineCap: .round)
+                    )
+                    .rotationEffect(.degrees(-90))
+                    .animation(.linear(duration: 1), value: restant)
+
+                if restant > 0 {
+                    Text(texteTemps)
+                        .font(.system(size: 50, weight: .bold, design: .rounded))
+                        .monospacedDigit()
+                        .foregroundStyle(Color.vert)
+                        .contentTransition(.numericText())
+                } else {
+                    Text("Bien joué 💚")
+                        .font(.title2.weight(.bold))
+                        .foregroundStyle(Color.vert)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 12)
+                }
+            }
+            .frame(width: 208, height: 208)
+            .accessibilityLabel(
+                restant > 0 ? "Temps restant : \(texteTemps)" : "Exercice terminé"
+            )
 
             if restant > 0 {
                 Button {
@@ -120,13 +152,13 @@ struct MinuteurView: View {
                 } label: {
                     Label(enPause ? "Reprendre" : "Pause", systemImage: enPause ? "play.fill" : "pause.fill")
                 }
-                .buttonStyle(BoutonLargeStyle(couleurFond: .vertClair, couleurTexte: .vert))
+                .buttonStyle(BoutonLargeStyle(degrade: false, couleurTexte: .vert))
             }
         }
         .onAppear { restant = dureeSec }
         .onReceive(horloge) { _ in
             guard !enPause, restant > 0 else { return }
-            withAnimation { restant -= 1 }
+            restant -= 1
         }
     }
 
@@ -171,15 +203,17 @@ struct FinDeSeanceView: View {
                             Text(choix.emoji).font(.title)
                             Text(choix.libelle).font(.subheadline.weight(.semibold))
                         }
-                        .frame(maxWidth: .infinity, minHeight: 88)
+                        .frame(maxWidth: .infinity, minHeight: 92)
                         .background(
                             ressenti == choix ? Color.vertClair : Color(.secondarySystemBackground),
-                            in: .rect(cornerRadius: 20)
+                            in: .rect(cornerRadius: rayonHemiFit)
                         )
                         .overlay(
-                            RoundedRectangle(cornerRadius: 20)
+                            RoundedRectangle(cornerRadius: rayonHemiFit)
                                 .stroke(ressenti == choix ? Color.vert : .clear, lineWidth: 2)
                         )
+                        .offset(y: ressenti == choix ? -2 : 0)
+                        .animation(.spring(duration: 0.25), value: ressenti)
                     }
                     .buttonStyle(.plain)
                 }

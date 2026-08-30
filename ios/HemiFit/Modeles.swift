@@ -122,4 +122,31 @@ enum Statistiques {
     static func seanceFaiteAujourdhui(_ journal: [JournalSeance]) -> Bool {
         journal.contains { Calendar.current.isDateInToday($0.date) }
     }
+
+    struct JourActivite: Identifiable {
+        let id: Date
+        /// Initiale du jour, ex. « L » pour lundi.
+        let etiquette: String
+        let actif: Bool
+    }
+
+    /// Les 7 derniers jours, du plus ancien à aujourd'hui.
+    static func derniers7Jours(_ journal: [JournalSeance]) -> [JourActivite] {
+        let calendrier = Calendar.current
+        let faits = Set(journal.map { calendrier.startOfDay(for: $0.date) })
+        let initiales = ["D", "L", "M", "M", "J", "V", "S"]
+
+        return (0..<7).reversed().compactMap { decalage in
+            guard let jour = calendrier.date(
+                byAdding: .day, value: -decalage,
+                to: calendrier.startOfDay(for: .now)
+            ) else { return nil }
+            let indice = calendrier.component(.weekday, from: jour) - 1
+            return JourActivite(
+                id: jour,
+                etiquette: initiales[indice],
+                actif: faits.contains(jour)
+            )
+        }
+    }
 }
