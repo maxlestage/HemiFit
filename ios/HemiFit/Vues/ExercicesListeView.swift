@@ -84,9 +84,9 @@ struct ExercicesListeView: View {
         HStack(spacing: 14) {
             Image(systemName: exercice.categorie.symbole)
                 .font(.headline)
-                .foregroundStyle(Color.vert)
-                .frame(width: 44, height: 44)
-                .background(Color.vertClair, in: .rect(cornerRadius: 13))
+                .foregroundStyle(.secondary)
+                .frame(width: 42, height: 42)
+                .background(Color(.tertiarySystemFill), in: .rect(cornerRadius: 11))
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(exercice.nom)

@@ -40,29 +40,29 @@ struct ProgresView: View {
     }
 
     private func tuile(symbole: String, valeur: String, legende: String) -> some View {
-        VStack(spacing: 6) {
+        VStack(alignment: .leading, spacing: 0) {
             Image(systemName: symbole)
                 .font(.subheadline.weight(.semibold))
-                .foregroundStyle(Color.vert)
-                .frame(width: 36, height: 36)
-                .background(Color.vertClair, in: .rect(cornerRadius: 11))
-                .padding(.bottom, 2)
+                .foregroundStyle(.secondary)
+                .frame(width: 32, height: 32)
+                .background(Color(.tertiarySystemFill), in: .rect(cornerRadius: 9))
+                .padding(.bottom, 12)
 
             Text(valeur)
-                .font(.system(size: 38, weight: .bold, design: .rounded))
-                .foregroundStyle(Color.vert)
+                .font(.system(size: 40, weight: .bold))
+                .foregroundStyle(.primary)
                 .contentTransition(.numericText())
             Text(legende)
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
+                .padding(.top, 4)
         }
-        .frame(maxWidth: .infinity, minHeight: 108)
-        .padding(.horizontal, 8)
+        .frame(maxWidth: .infinity, minHeight: 108, alignment: .leading)
+        .padding(18)
         .background {
             RoundedRectangle(cornerRadius: rayonHemiFit)
                 .fill(.background.secondary)
-                .shadow(color: .black.opacity(0.05), radius: 10, y: 4)
+                .shadow(color: .black.opacity(0.04), radius: 6, y: 2)
         }
     }
 
@@ -80,7 +80,7 @@ struct ProgresView: View {
                 ForEach(Statistiques.derniers7Jours(journal)) { jour in
                     VStack(spacing: 6) {
                         RoundedRectangle(cornerRadius: 12)
-                            .fill(jour.actif ? AnyShapeStyle(.degradeAccent)
+                            .fill(jour.actif ? AnyShapeStyle(Color.vert)
                                              : AnyShapeStyle(.quaternary))
                             .aspectRatio(1, contentMode: .fit)
                             .overlay {
