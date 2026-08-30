@@ -20,8 +20,20 @@ L'interface est conçue pour être utilisée **d'une seule main (la gauche)** : 
 
 | Dossier | Description |
 |---|---|
-| [`web/`](web/) | Site mobile-first — **React 19 + Bun + TypeScript** |
-| [`ios/`](ios/) | Application iPhone — **Swift 6 + SwiftUI + SwiftData** |
+| [`web/`](web/) | Site mobile-first — **React 19.2 + Bun 1.4 + TypeScript 7** |
+| [`ios/`](ios/) | Application iPhone — **Swift 6.3 + SwiftUI + SwiftData** (Xcode 26.6, iOS 26) |
+
+### Versions utilisées
+
+| Élément | Version | Remarque |
+|---|---|---|
+| Bun | 1.4.0 | Développement et construction du site |
+| React | 19.2.8 | |
+| TypeScript | 7.0.2 | Réécriture native ; `baseUrl` supprimé |
+| Node (Heroku) | 24.x | LTS active, recommandée par Heroku en production |
+| Pile Heroku | heroku-26 | Ubuntu 26.04 LTS |
+| Swift | 6.3 | Fourni par Xcode 26.6 |
+| iOS | 26 | Cible de déploiement, abaissable dans `ios/project.yml` |
 
 Les deux partagent le même catalogue d'exercices et le même programme hebdomadaire. Les données restent sur l'appareil : rien ne part sur internet.
 

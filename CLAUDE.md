@@ -30,6 +30,21 @@ cd web && bunx tsc --noEmit && bun run build   # met à jour web/dist
 
 Vérifications avant de pousser : `bunx tsc --noEmit` puis `bun run build` doivent passer.
 
+## Versions
+
+Le propriétaire souhaite que tout reste à jour. **Ne jamais se fier à sa mémoire pour les numéros de version** : les interroger en direct.
+
+```bash
+curl -s https://registry.npmjs.org/<paquet>/latest   # npm (react, typescript, bun…)
+curl -s https://nodejs.org/dist/index.json           # versions Node et statut LTS
+cd web && bun update --latest                        # met à jour les dépendances du site
+```
+
+Deux règles de jugement :
+
+- **Node (Heroku) reste sur la LTS active**, pas sur la version « Current » : Heroku recommande explicitement les LTS en production. Actuellement **24.x**.
+- **Changer de version majeure demande une vérification**, pas une simple substitution de numéro. Exemple vécu : TypeScript 7 a supprimé `baseUrl`, ce qui cassait le `tsconfig.json`.
+
 ## Contenu des exercices
 
 Les exercices visent une **hémiparésie droite spastique**, avec ces principes non négociables :

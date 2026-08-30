@@ -4,7 +4,7 @@
   "keywords": ["rééducation", "santé", "react", "mobile-first"],
   "website": "https://github.com/maxlestage/HemiFit",
   "repository": "https://github.com/maxlestage/HemiFit",
-  "stack": "heroku-24",
+  "stack": "heroku-26",
   "buildpacks": [{ "url": "heroku/nodejs" }],
   "formation": {
     "web": {
