@@ -94,6 +94,7 @@ export const EXERCICES: Exercice[] = [
       "Ouvrir la main malgré la spasticité : très lentement, en laissant le temps aux muscles de lâcher.",
     etapes: [
       "Commencez par masser doucement l'avant-bras et la paume pour préparer la main.",
+      "Astuce : penchez d'abord le poignet droit légèrement vers l'avant, les doigts se laissent ouvrir plus facilement.",
       "Avec la main gauche, dépliez TRÈS lentement les doigts droits, en commençant par le pouce.",
       "Si les doigts résistent (c'est la spasticité), ne forcez jamais : arrêtez-vous, soufflez, et attendez que ça se relâche tout seul.",
       "Quand la main est ouverte, maintenez l'ouverture 30 secondes : c'est l'étirement prolongé qui calme la spasticité.",
@@ -117,6 +118,56 @@ export const EXERCICES: Exercice[] = [
     ],
     dosage: "3 répétitions dans chaque sens, tenir 15 s",
     dureeSec: 160,
+    position: "assis",
+  },
+  {
+    id: "main-tenodese",
+    nom: "L'astuce du poignet plié",
+    categorie: "main",
+    objectif:
+      "Utiliser un réflexe naturel : poignet plié vers l'avant, les doigts se détendent et s'ouvrent plus facilement.",
+    etapes: [
+      "Posez l'avant-bras droit sur la table ou votre cuisse.",
+      "Avec la main gauche, pliez doucement le poignet droit vers l'avant (la main descend vers le sol).",
+      "Vous sentirez les doigts se desserrer un peu : profitez-en pour les ouvrir doucement avec la main gauche.",
+      "Doigts ouverts, redressez très lentement le poignet, sans perdre l'ouverture.",
+      "Si les doigts se referment, repliez le poignet et recommencez : c'est normal, ça se gagne petit à petit.",
+    ],
+    dosage: "5 essais tranquilles",
+    dureeSec: 150,
+    position: "assis",
+  },
+  {
+    id: "main-extension-active",
+    nom: "Ouvrir avec de l'aide",
+    categorie: "main",
+    objectif:
+      "Vos doigts savent se fermer : on entraîne le mouvement inverse, l'ouverture, avec assistance.",
+    etapes: [
+      "Main droite posée sur la cuisse, détendue.",
+      "Serrez très légèrement le poing 3 secondes — ça, vous savez faire.",
+      "Puis arrêtez de serrer, soufflez, et essayez d'OUVRIR les doigts, même d'un millimètre.",
+      "Pendant que vous essayez, la main gauche accompagne et termine l'ouverture en douceur.",
+      "L'essai compte autant que le résultat : c'est l'intention d'ouvrir qui réveille les muscles endormis.",
+    ],
+    dosage: "6 essais, sans forcer",
+    dureeSec: 150,
+    position: "assis",
+  },
+  {
+    id: "main-miroir",
+    nom: "Thérapie miroir",
+    categorie: "main",
+    objectif:
+      "Tromper (gentiment) le cerveau : voir une main droite qui s'ouvre l'aide à réapprendre le mouvement.",
+    etapes: [
+      "Posez un miroir debout devant vous, tranche contre votre ventre, face réfléchissante vers la gauche.",
+      "Cachez la main droite derrière le miroir ; regardez le reflet de la main gauche.",
+      "Ouvrez et fermez lentement la main gauche en regardant le reflet : on dirait la main droite qui bouge.",
+      "Pendant ce temps, essayez de faire le même mouvement avec la main droite cachée, sans forcer.",
+    ],
+    dosage: "Environ 3 minutes",
+    dureeSec: 180,
     position: "assis",
   },
   {
@@ -341,8 +392,9 @@ export function seanceDuJour(date: Date = new Date()): Seance {
         exercices: parId(
           "detente-respiration",
           "eveil-paume",
+          "main-tenodese",
           "main-ouverture",
-          "main-relacher",
+          "main-extension-active",
           "main-appui-paume",
         ),
       };
@@ -380,7 +432,7 @@ export function seanceDuJour(date: Date = new Date()): Seance {
         description: "Séance courte et relaxante, pour garder le rythme.",
         exercices: parId(
           "detente-respiration",
-          "eveil-paume",
+          "main-miroir",
           "main-imagerie",
           "bras-epaules",
         ),

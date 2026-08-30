@@ -344,6 +344,18 @@ function Conseils() {
       </header>
 
       <div className="carte">
+        <h3>👐 Fermer facile, ouvrir difficile : c'est classique</h3>
+        <p>
+          Après une lésion cérébrale, les muscles qui ferment la main restent
+          forts (et spastiques), tandis que ceux qui l'ouvrent sont
+          affaiblis. L'ouverture se rééduque donc avec de l'aide : le poignet
+          plié vers l'avant desserre naturellement les doigts, la main gauche
+          termine le mouvement, et chaque intention d'ouvrir — même sans
+          mouvement visible — entraîne le cerveau.
+        </p>
+      </div>
+
+      <div className="carte">
         <h3>🌊 Comprendre la spasticité</h3>
         <p>
           Vos muscles droits sont trop « toniques » : ils se contractent tout
