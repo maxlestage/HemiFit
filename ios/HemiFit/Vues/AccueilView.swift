@@ -106,8 +106,9 @@ struct AccueilView: View {
                 )
             }
             .buttonStyle(BoutonLargeStyle())
+            .padding(.top, 4)
         }
-        .carteHemiFit()
+        .carteHemiFit(vedette: true)
     }
 
     private var carteDejaFaite: some View {
@@ -125,7 +126,7 @@ struct AccueilView: View {
             .font(.subheadline)
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(.yellow.opacity(0.15), in: .rect(cornerRadius: 20))
+            .background(.yellow.opacity(0.15), in: .rect(cornerRadius: rayonHemiFit))
     }
 }
 
@@ -134,11 +135,24 @@ extension Seance: Identifiable {
 }
 
 extension View {
-    func carteHemiFit() -> some View {
+    /// Carte standard : fond, coins arrondis et ombre douce.
+    func carteHemiFit(vedette: Bool = false) -> some View {
         self
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(20)
-            .background(.background.secondary, in: .rect(cornerRadius: 20))
+            .padding(22)
+            .background {
+                RoundedRectangle(cornerRadius: rayonHemiFit)
+                    .fill(.background.secondary)
+                    .shadow(
+                        color: .black.opacity(vedette ? 0.10 : 0.05),
+                        radius: vedette ? 20 : 10,
+                        y: vedette ? 8 : 4
+                    )
+            }
+            .overlay {
+                RoundedRectangle(cornerRadius: rayonHemiFit)
+                    .strokeBorder(.separator.opacity(0.5), lineWidth: 0.5)
+            }
     }
 }
 
