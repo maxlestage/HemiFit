@@ -34,8 +34,16 @@ struct ConseilsView: View {
                     carteRappel
 
                     conseil(
-                        titre: "🐢 La lenteur est votre alliée",
-                        texte: "Un mouvement lent et contrôlé fait plus travailler le cerveau qu'un mouvement rapide. Prenez votre temps, respirez."
+                        titre: "🌊 Comprendre la spasticité",
+                        texte: "Vos muscles droits sont trop « toniques » : ils se contractent tout seuls et résistent, surtout quand on les étire vite. Ce n'est pas de la mauvaise volonté de votre main — c'est un réflexe. La bonne nouvelle : la lenteur, le calme et les étirements prolongés la font baisser."
+                    )
+                    conseil(
+                        titre: "🐢 Lent, toujours plus lent",
+                        texte: "Un mouvement rapide ou forcé déclenche le réflexe spastique : la main se referme encore plus. Étirez très lentement, arrêtez-vous dès que ça résiste, respirez… et attendez que ça lâche tout seul. Ça vient toujours."
+                    )
+                    conseil(
+                        titre: "🛁 La chaleur détend",
+                        texte: "La spasticité diminue avec la chaleur : faites les exercices de la main après une douche chaude, ou passez la main droite quelques minutes sous l'eau chaude (testez la température avec la main gauche). Le froid, le stress et la fatigue, eux, l'augmentent."
                     )
                     conseil(
                         titre: "🧠 Le cerveau apprend par la répétition",
@@ -48,6 +56,10 @@ struct ConseilsView: View {
                     conseil(
                         titre: "✋ L'intention compte déjà",
                         texte: "Même si le mouvement ne vient pas, le fait d'essayer, d'imaginer et de vouloir bouger active les bonnes zones du cerveau. Aucun essai n'est perdu."
+                    )
+                    conseil(
+                        titre: "💬 Parlez de votre spasticité à vos soignants",
+                        texte: "Il existe des traitements spécifiques de la spasticité (kinésithérapie, médicaments, injections ciblées, attelles) qui complètent très bien ces exercices. Si la spasticité vous gêne beaucoup, c'est une vraie question à poser à votre médecin."
                     )
                     conseil(
                         titre: "🛑 Les signaux pour s'arrêter",

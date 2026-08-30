@@ -1,10 +1,15 @@
 /**
  * Catalogue d'exercices HemiFit.
  *
- * Conçu pour une hémiparésie droite : tous les exercices se font
- * assis ou allongé, en toute sécurité, et la main gauche (saine)
- * vient assister le côté droit. Jamais de douleur : on s'arrête
- * dès que ça tire trop.
+ * Conçu pour une hémiparésie droite avec forte spasticité :
+ * tous les exercices se font assis ou allongé, en toute sécurité,
+ * et la main gauche (saine) vient assister le côté droit.
+ *
+ * Règles face à la spasticité : jamais de mouvement rapide ni forcé
+ * (le muscle spastique résiste d'autant plus qu'on l'étire vite),
+ * des étirements lents et prolongés, de la détente avant l'effort,
+ * et on entraîne le relâchement plutôt que le serrage.
+ * Jamais de douleur : on s'arrête dès que ça tire trop.
  */
 
 export type Categorie = "main" | "bras" | "jambe" | "sensoriel";
@@ -34,6 +39,22 @@ export const CATEGORIES: Record<Categorie, { titre: string; emoji: string }> = {
 
 export const EXERCICES: Exercice[] = [
   // ——— Éveil sensoriel ———
+  {
+    id: "detente-respiration",
+    nom: "Détente et respiration",
+    categorie: "sensoriel",
+    objectif:
+      "Faire baisser la spasticité avant de bouger : un corps détendu s'étire beaucoup mieux.",
+    etapes: [
+      "Installez-vous confortablement, dos soutenu, bras droit posé sur un coussin.",
+      "Inspirez lentement par le nez en comptant jusqu'à 4.",
+      "Soufflez très lentement par la bouche en comptant jusqu'à 6, en laissant tomber les épaules.",
+      "À chaque expiration, imaginez votre bras et votre main droite devenir lourds, chauds et mous.",
+    ],
+    dosage: "Environ 2 minutes de respiration lente",
+    dureeSec: 120,
+    position: "assis",
+  },
   {
     id: "eveil-paume",
     nom: "Réveil de la main droite",
@@ -69,16 +90,17 @@ export const EXERCICES: Exercice[] = [
     id: "main-ouverture",
     nom: "Ouverture de main assistée",
     categorie: "main",
-    objectif: "Assouplir les doigts et travailler l'ouverture de la main droite.",
+    objectif:
+      "Ouvrir la main malgré la spasticité : très lentement, en laissant le temps aux muscles de lâcher.",
     etapes: [
-      "Posez la main droite sur vos genoux, paume vers le haut si possible.",
-      "Avec la main gauche, dépliez très doucement les doigts droits, un par un.",
-      "Quand la main est ouverte, maintenez l'ouverture 10 secondes.",
-      "Relâchez, laissez la main se reposer, puis recommencez.",
-      "Jamais de douleur : si ça tire trop, ouvrez moins grand.",
+      "Commencez par masser doucement l'avant-bras et la paume pour préparer la main.",
+      "Avec la main gauche, dépliez TRÈS lentement les doigts droits, en commençant par le pouce.",
+      "Si les doigts résistent (c'est la spasticité), ne forcez jamais : arrêtez-vous, soufflez, et attendez que ça se relâche tout seul.",
+      "Quand la main est ouverte, maintenez l'ouverture 30 secondes : c'est l'étirement prolongé qui calme la spasticité.",
+      "Relâchez doucement et laissez la main se reposer avant de recommencer.",
     ],
-    dosage: "5 répétitions, tenir 10 s",
-    dureeSec: 150,
+    dosage: "3 ouvertures très lentes, tenir 30 s",
+    dureeSec: 180,
     position: "assis",
   },
   {
@@ -89,26 +111,44 @@ export const EXERCICES: Exercice[] = [
     etapes: [
       "Coude droit posé sur la table, avant-bras vertical si possible.",
       "Avec la main gauche, amenez doucement la main droite vers l'arrière (paume vers l'avant).",
-      "Tenez 10 secondes en respirant calmement.",
+      "Si le poignet résiste, n'insistez pas : gardez la position et attendez, la spasticité cède avec la lenteur.",
+      "Tenez 15 secondes en respirant calmement.",
       "Revenez au repos, puis penchez doucement la main vers l'avant.",
     ],
-    dosage: "4 répétitions dans chaque sens, tenir 10 s",
+    dosage: "3 répétitions dans chaque sens, tenir 15 s",
     dureeSec: 160,
     position: "assis",
   },
   {
-    id: "main-presse",
-    nom: "Presse douce",
+    id: "main-relacher",
+    nom: "Apprendre à relâcher",
     categorie: "main",
-    objectif: "Essayer de serrer puis de relâcher, même un tout petit peu.",
+    objectif:
+      "Avec la spasticité, relâcher est plus difficile que serrer : c'est le relâchement qu'on entraîne.",
     etapes: [
-      "Placez une balle en mousse souple (ou une chaussette roulée) dans la main droite.",
-      "Essayez de serrer, même très légèrement. Chaque petit mouvement compte.",
-      "Puis, avec l'aide de la main gauche, rouvrez doucement les doigts.",
-      "L'ouverture est aussi importante que le serrage.",
+      "Posez la main droite sur votre cuisse ou sur une serviette roulée, sans rien tenir.",
+      "Avec la main gauche, bercez doucement l'avant-bras droit de petits mouvements lents, comme pour l'endormir.",
+      "Soufflez lentement en imaginant la main qui fond, doigt par doigt.",
+      "Si la main se referme, ne luttez pas : reprenez le bercement, puis rouvrez-la tout doucement.",
     ],
-    dosage: "8 essais, sans forcer",
+    dosage: "Environ 2 minutes, tout en douceur",
     dureeSec: 120,
+    position: "assis",
+  },
+  {
+    id: "main-appui-paume",
+    nom: "Appui sur la paume ouverte",
+    categorie: "main",
+    objectif:
+      "Mettre un peu de poids sur la main ouverte : un appui doux qui calme la spasticité des doigts.",
+    etapes: [
+      "Ouvrez la main droite avec l'aide de la gauche, très lentement.",
+      "Posez la paume droite bien à plat sur votre cuisse, doigts écartés si possible.",
+      "Avec la main gauche posée par-dessus, appuyez très légèrement, comme pour ancrer la main.",
+      "Gardez l'appui en respirant lentement ; si les doigts se replient, rouvrez-les calmement, sans jamais forcer.",
+    ],
+    dosage: "3 appuis d'environ 30 s",
+    dureeSec: 150,
     position: "assis",
   },
   {
@@ -296,13 +336,14 @@ export function seanceDuJour(date: Date = new Date()): Seance {
     case 4: // jeudi
       return {
         titre: "Main & doigts",
-        description: "Aujourd'hui, on prend soin de la main droite.",
+        description:
+          "Aujourd'hui, on prend soin de la main droite : détente d'abord, la spasticité déteste la lenteur.",
         exercices: parId(
+          "detente-respiration",
           "eveil-paume",
           "main-ouverture",
-          "main-poignet",
-          "main-presse",
-          "jambe-transfert",
+          "main-relacher",
+          "main-appui-paume",
         ),
       };
     case 2: // mardi
@@ -311,6 +352,7 @@ export function seanceDuJour(date: Date = new Date()): Seance {
         titre: "Bras & épaule",
         description: "Le bras droit bouge en douceur, guidé par le gauche.",
         exercices: parId(
+          "detente-respiration",
           "eveil-avant-bras",
           "bras-epaules",
           "bras-glisser-table",
@@ -324,6 +366,7 @@ export function seanceDuJour(date: Date = new Date()): Seance {
         titre: "Jambe & pré-marche",
         description: "On prépare la marche, pas à pas, bien assis.",
         exercices: parId(
+          "detente-respiration",
           "jambe-transfert",
           "jambe-genou",
           "jambe-cheville",
@@ -335,7 +378,12 @@ export function seanceDuJour(date: Date = new Date()): Seance {
       return {
         titre: "Douceur du dimanche",
         description: "Séance courte et relaxante, pour garder le rythme.",
-        exercices: parId("eveil-paume", "main-imagerie", "bras-epaules"),
+        exercices: parId(
+          "detente-respiration",
+          "eveil-paume",
+          "main-imagerie",
+          "bras-epaules",
+        ),
       };
   }
 }
