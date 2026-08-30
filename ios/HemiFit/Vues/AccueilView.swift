@@ -86,12 +86,12 @@ struct AccueilView: View {
             HStack(spacing: 14) {
                 Image(systemName: "flame.fill")
                     .font(.title2)
-                    .foregroundStyle(Color.vert)
+                    .foregroundStyle(Color.ardoise)
                     .frame(width: 52, height: 52)
-                    .background(Color.vertClair, in: .rect(cornerRadius: 16))
+                    .background(Color.ardoiseClaire, in: .rect(cornerRadius: 8))
                 Text("\(serie)")
                     .font(.system(size: 40, weight: .bold, design: .rounded))
-                    .foregroundStyle(Color.vert)
+                    .foregroundStyle(Color.ardoise)
             }
             Text(serie == 1
                 ? "jour de suite. La régularité commence ici."
@@ -154,7 +154,7 @@ struct AccueilView: View {
         VStack(alignment: .leading, spacing: 4) {
             Label("Séance du jour déjà faite", systemImage: "checkmark.circle.fill")
                 .font(.headline)
-                .foregroundStyle(Color.vert)
+                .foregroundStyle(Color.ardoise)
             Text("L'important est la régularité, pas la quantité. Reposez-vous.")
                 .foregroundStyle(.secondary)
         }
@@ -188,10 +188,10 @@ struct PastilleRealisation: View {
             .padding(.horizontal, 11)
             .padding(.vertical, 5)
             .background(
-                realisation == .autonome ? Color.vertClair : Color.aideClair,
+                realisation == .autonome ? Color.ardoiseClaire : Color.aideClair,
                 in: .capsule
             )
-            .foregroundStyle(realisation == .autonome ? Color.vert : Color.aide)
+            .foregroundStyle(realisation == .autonome ? Color.ardoise : Color.aide)
     }
 }
 

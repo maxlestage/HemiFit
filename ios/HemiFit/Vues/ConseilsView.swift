@@ -112,7 +112,7 @@ struct ConseilsView: View {
                 Label("Rappel quotidien", systemImage: "bell.fill")
                     .font(.headline)
             }
-            .tint(.vert)
+            .tint(.ardoise)
             .onChange(of: rappelActif) { _, actif in
                 Task {
                     if actif {

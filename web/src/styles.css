@@ -11,84 +11,85 @@
    texte large, contrastes élevés, navigation au pouce gauche.
    ———————————————————————————————————————————————— */
 
+/* Palette « papier » : blanc clinique, filets fins, bleu ardoise.
+   Le bleu porte les actions, un vert profond distingue tout ce qui
+   requiert une tierce personne, l'ambre est réservé aux avertissements. */
 :root {
   color-scheme: light dark;
 
-  /* Neutres chauds : plus habités qu'un gris pur, moins fades
-     qu'un vert délavé. */
-  --fond: #faf9f7;
+  --fond: #ffffff;
   --carte: #ffffff;
-  --neutre: #f4f2ef;
-  --neutre-fort: #e9e5e0;
+  --neutre: #f1f3f5;
+  --neutre-fort: #e3e7ea;
 
-  --encre: #1a1715;
-  --encre-douce: #56504b;
-  --encre-tenue: #6d665f;
+  --encre: #14181c;
+  --encre-douce: #4f585f;
+  --encre-tenue: #737d85;
 
-  /* Vert profond, réservé aux actions et aux indicateurs. */
-  --accent: #0e6b50;
-  --accent-vif: #12916d;
-  --accent-clair: #e7f1ed;
+  --accent: #2f5580;
+  --accent-vif: #3a6a9f;
+  --accent-clair: #eaf0f7;
   --accent-contraste: #ffffff;
 
   /* Zone sombre : la séance du jour. */
-  --sombre-1: #0e3d2f;
-  --sombre-2: #072019;
-  --sur-sombre: #f2f7f5;
-  --sur-sombre-douce: #a9c4ba;
+  --sombre-1: #1e2e3e;
+  --sombre-2: #0f1922;
+  --sur-sombre: #f4f7fa;
+  --sur-sombre-douce: #a9bdd0;
 
-  /* Bleu : tout ce qui requiert une tierce personne. */
-  --aide: #2f5580;
-  --aide-clair: #e8eef6;
+  /* Vert profond : tout ce qui requiert une tierce personne. */
+  --aide: #2c6b58;
+  --aide-clair: #e8f1ee;
 
-  --bordure: #e8e4df;
-  --bordure-nette: #d6d0c9;
+  --bordure: #e4e8eb;
+  --bordure-nette: #cdd4da;
 
-  --alerte-fond: #fdf8ee;
-  --alerte-encre: #6b5313;
-  --alerte-bordure: #ecdfc2;
+  --alerte-fond: #fdf7e9;
+  --alerte-encre: #6d5417;
+  --alerte-bordure: #eddfbf;
 
-  --rayon: 18px;
-  --rayon-petit: 12px;
+  --rayon: 10px;
+  --rayon-petit: 8px;
 
-  --ombre: 0 1px 2px rgba(26, 23, 21, 0.04);
-  --ombre-sombre: 0 12px 32px rgba(7, 32, 25, 0.28);
+  --ombre: none;
+  --ombre-sombre: none;
 
   --transition: 180ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --fond: #0d0c0b;
-    --carte: #1a1817;
-    --neutre: #242120;
-    --neutre-fort: #302c2a;
+    --fond: #0d1014;
+    --carte: #161a1f;
+    --neutre: #1f242a;
+    --neutre-fort: #2b3138;
 
-    --encre: #f7f5f3;
-    --encre-douce: #b0a9a3;
-    --encre-tenue: #948c85;
+    --encre: #f2f5f8;
+    --encre-douce: #a9b3bc;
+    --encre-tenue: #8b959e;
 
-    --accent: #3ec295;
-    --accent-vif: #4ed8a8;
-    --accent-clair: #17322a;
+    --accent: #7ba9dc;
+    --accent-vif: #93bce9;
+    --accent-clair: #18232f;
+    --accent-contraste: #0d1620;
 
-    --sombre-1: #12523e;
-    --sombre-2: #0a2e23;
-    --sur-sombre: #f2f7f5;
-    --sur-sombre-douce: #a9c4ba;
+    --sombre-1: #24313d;
+    --sombre-2: #121b24;
+    --sur-sombre: #f2f7fb;
+    --sur-sombre-douce: #a3b6c8;
 
-    --aide: #8fb4e0;
-    --aide-clair: #1b2735;
+    --aide: #74b8a1;
+    --aide-clair: #16261f;
 
-    --bordure: #2b2725;
-    --bordure-nette: #3a3532;
+    --bordure: #242a30;
+    --bordure-nette: #333b43;
 
-    --alerte-fond: #2a2210;
-    --alerte-encre: #edd9a6;
-    --alerte-bordure: #453818;
+    --alerte-fond: #29220f;
+    --alerte-encre: #ecd9a5;
+    --alerte-bordure: #443818;
 
-    --ombre: 0 1px 2px rgba(0, 0, 0, 0.4);
-    --ombre-sombre: 0 12px 32px rgba(0, 0, 0, 0.5);
+    --ombre: none;
+    --ombre-sombre: none;
   }
 }
 
@@ -287,7 +288,7 @@ svg {
   width: 48px;
   height: 48px;
   flex-shrink: 0;
-  border-radius: 13px;
+  border-radius: 8px;
   background: var(--neutre);
   color: var(--accent);
 }
@@ -328,7 +329,7 @@ button {
   min-height: 64px;
   padding: 14px 20px;
   border: none;
-  border-radius: 14px;
+  border-radius: 8px;
   font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: -0.015em;
@@ -377,7 +378,7 @@ button {
   padding: 3px;
   margin-bottom: 4px;
   background: var(--neutre);
-  border-radius: 13px;
+  border-radius: 8px;
 }
 
 .segments button {
@@ -388,7 +389,7 @@ button {
   min-height: 50px;
   padding: 8px 12px;
   border: none;
-  border-radius: 10px;
+  border-radius: 6px;
   background: transparent;
   color: var(--encre-douce);
   font-size: 0.9rem;
@@ -632,7 +633,7 @@ button {
   top: 13px;
   width: 24px;
   height: 24px;
-  border-radius: 7px;
+  border-radius: 5px;
   background: var(--neutre);
   color: var(--encre-douce);
   font-size: 0.78rem;
@@ -679,6 +680,10 @@ button {
     border-color var(--transition);
 }
 
+.ligne-exercice:hover {
+  border-color: var(--bordure-nette);
+}
+
 .ligne-exercice:active {
   transform: scale(0.99);
   border-color: var(--bordure-nette);
@@ -692,7 +697,7 @@ button {
   place-items: center;
   background: var(--neutre);
   color: var(--encre-douce);
-  border-radius: 11px;
+  border-radius: 8px;
 }
 
 .ligne-exercice .infos {
@@ -720,7 +725,7 @@ button {
   width: 28px;
   height: 28px;
   flex-shrink: 0;
-  border-radius: 8px;
+  border-radius: 6px;
   background: var(--aide-clair);
   color: var(--aide);
 }
@@ -759,7 +764,7 @@ button {
   width: 32px;
   height: 32px;
   margin-bottom: 12px;
-  border-radius: 9px;
+  border-radius: 8px;
   background: var(--neutre);
   color: var(--encre-douce);
 }
@@ -790,7 +795,7 @@ button {
   width: 100%;
   aspect-ratio: 1;
   max-width: 36px;
-  border-radius: 10px;
+  border-radius: 6px;
   background: var(--neutre);
   display: grid;
   place-items: center;
@@ -880,7 +885,7 @@ button {
 .choix-ressenti button {
   min-height: 88px;
   border: 1px solid var(--bordure);
-  border-radius: 14px;
+  border-radius: 10px;
   background: var(--carte);
   color: var(--encre-douce);
   display: flex;
