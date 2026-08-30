@@ -40,8 +40,8 @@ struct SeanceGuideeView: View {
                                 .font(.subheadline.weight(.semibold))
                                 .padding(.horizontal, 14)
                                 .padding(.vertical, 6)
-                                .background(Color.vertClair, in: .capsule)
-                                .foregroundStyle(Color.vert)
+                                .background(Color.ardoiseClaire, in: .capsule)
+                                .foregroundStyle(Color.ardoise)
 
                                 if exercice.realisation == .tiercePersonne {
                                     PastilleRealisation(realisation: .tiercePersonne)
@@ -64,7 +64,7 @@ struct SeanceGuideeView: View {
                             ForEach(exercice.etapes, id: \.self) { etape in
                                 HStack(alignment: .top, spacing: 10) {
                                     Text("•")
-                                        .foregroundStyle(Color.vert)
+                                        .foregroundStyle(Color.ardoise)
                                         .font(.title3)
                                     Text(etape)
                                 }
@@ -98,7 +98,7 @@ struct SeanceGuideeView: View {
         HStack(spacing: 6) {
             ForEach(seance.exercices.indices, id: \.self) { i in
                 Capsule()
-                    .fill(i <= indice ? AnyShapeStyle(Color.vert)
+                    .fill(i <= indice ? AnyShapeStyle(Color.ardoise)
                                       : AnyShapeStyle(.quaternary))
                     .frame(height: 4)
             }
@@ -130,7 +130,7 @@ struct MinuteurView: View {
                 Circle()
                     .trim(from: 0, to: proportion)
                     .stroke(
-                        Color.vert,
+                        Color.ardoise,
                         style: StrokeStyle(lineWidth: 9, lineCap: .round)
                     )
                     .rotationEffect(.degrees(-90))
@@ -145,7 +145,7 @@ struct MinuteurView: View {
                 } else {
                     Text("Terminé")
                         .font(.title2.weight(.bold))
-                        .foregroundStyle(Color.vert)
+                        .foregroundStyle(Color.ardoise)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 12)
                 }
@@ -161,7 +161,7 @@ struct MinuteurView: View {
                 } label: {
                     Label(enPause ? "Reprendre" : "Pause", systemImage: enPause ? "play.fill" : "pause.fill")
                 }
-                .buttonStyle(BoutonLargeStyle(degrade: false, couleurTexte: .vert))
+                .buttonStyle(BoutonLargeStyle(degrade: false, couleurTexte: .ardoise))
             }
         }
         .onAppear { restant = dureeSec }
@@ -193,7 +193,7 @@ struct FinDeSeanceView: View {
                 .font(.system(size: 36, weight: .bold))
                 .foregroundStyle(.white)
                 .frame(width: 76, height: 76)
-                .background(Color.vert, in: .circle)
+                .background(Color.ardoise, in: .circle)
             Text("Séance terminée")
                 .font(.largeTitle.bold())
             Text("Chaque séance renforce les nouveaux chemins de votre cerveau. Vous pouvez en être fier.")
@@ -217,7 +217,7 @@ struct FinDeSeanceView: View {
                                 ForEach(1...3, id: \.self) { n in
                                     Capsule()
                                         .fill(n <= choix.niveau
-                                              ? AnyShapeStyle(ressenti == choix ? Color.vert : Color.secondary)
+                                              ? AnyShapeStyle(ressenti == choix ? Color.ardoise : Color.secondary)
                                               : AnyShapeStyle(.quaternary))
                                         .frame(width: 7, height: CGFloat(6 + n * 5))
                                 }
@@ -228,12 +228,12 @@ struct FinDeSeanceView: View {
                         }
                         .frame(maxWidth: .infinity, minHeight: 92)
                         .background(
-                            ressenti == choix ? Color.vertClair : Color(.secondarySystemBackground),
+                            ressenti == choix ? Color.ardoiseClaire : Color(.secondarySystemBackground),
                             in: .rect(cornerRadius: rayonHemiFit)
                         )
                         .overlay(
                             RoundedRectangle(cornerRadius: rayonHemiFit)
-                                .stroke(ressenti == choix ? Color.vert : .clear, lineWidth: 2)
+                                .stroke(ressenti == choix ? Color.ardoise : .clear, lineWidth: 2)
                         )
                         .offset(y: ressenti == choix ? -2 : 0)
                         .animation(.spring(duration: 0.25), value: ressenti)

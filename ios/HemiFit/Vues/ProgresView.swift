@@ -45,7 +45,7 @@ struct ProgresView: View {
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(.secondary)
                 .frame(width: 32, height: 32)
-                .background(Color(.tertiarySystemFill), in: .rect(cornerRadius: 9))
+                .background(Color(.tertiarySystemFill), in: .rect(cornerRadius: 6))
                 .padding(.bottom, 12)
 
             Text(valeur)
@@ -79,8 +79,8 @@ struct ProgresView: View {
             HStack(spacing: 6) {
                 ForEach(Statistiques.derniers7Jours(journal)) { jour in
                     VStack(spacing: 6) {
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(jour.actif ? AnyShapeStyle(Color.vert)
+                        RoundedRectangle(cornerRadius: 6)
+                            .fill(jour.actif ? AnyShapeStyle(Color.ardoise)
                                              : AnyShapeStyle(.quaternary))
                             .aspectRatio(1, contentMode: .fit)
                             .overlay {
