@@ -21,7 +21,8 @@
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
 
-    "baseUrl": ".",
+    // Depuis TypeScript 7, « baseUrl » est supprimé : les chemins de
+    // « paths » sont résolus par rapport à ce fichier tsconfig.json.
     "paths": {
       "@/*": ["./src/*"]
     },
