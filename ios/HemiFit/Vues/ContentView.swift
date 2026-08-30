@@ -34,6 +34,9 @@ extension Color {
     /// Vert plus lumineux, pour les dégradés.
     static let vertVif = Color(red: 0.09, green: 0.64, blue: 0.48)
     static let vertClair = Color(red: 0.09, green: 0.64, blue: 0.48).opacity(0.15)
+    /// Bleu réservé à ce qui requiert une tierce personne.
+    static let aide = Color(red: 0.20, green: 0.34, blue: 0.50)
+    static let aideClair = Color(red: 0.20, green: 0.34, blue: 0.50).opacity(0.12)
 }
 
 extension ShapeStyle where Self == LinearGradient {

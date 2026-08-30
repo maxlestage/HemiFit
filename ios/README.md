@@ -1,4 +1,4 @@
-# HemiFit pour iPhone 📱
+# HemiFit pour iPhone
 
 Application personnelle de rééducation en douceur, écrite en **Swift 6.3 / SwiftUI**, avec :
 

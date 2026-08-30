@@ -32,12 +32,21 @@ struct SeanceGuideeView: View {
                             Text("Exercice \(indice + 1) sur \(seance.exercices.count)")
                                 .foregroundStyle(.secondary)
 
-                            Text("\(exercice.categorie.emoji) \(exercice.categorie.titre) · \(exercice.position.rawValue)")
+                            HStack(spacing: 8) {
+                                Label(
+                                    "\(exercice.categorie.titre) · \(exercice.position.rawValue)",
+                                    systemImage: exercice.categorie.symbole
+                                )
                                 .font(.subheadline.weight(.semibold))
                                 .padding(.horizontal, 14)
                                 .padding(.vertical, 6)
                                 .background(Color.vertClair, in: .capsule)
                                 .foregroundStyle(Color.vert)
+
+                                if exercice.realisation == .tiercePersonne {
+                                    PastilleRealisation(realisation: .tiercePersonne)
+                                }
+                            }
 
                             Text(exercice.nom)
                                 .font(.title.bold())
@@ -64,7 +73,7 @@ struct SeanceGuideeView: View {
                         }
                     }
 
-                    Button(dernier ? "Terminer la séance ✅" : "Exercice suivant →") {
+                    Button(dernier ? "Terminer la séance" : "Exercice suivant") {
                         if dernier {
                             terminee = true
                         } else {
@@ -134,7 +143,7 @@ struct MinuteurView: View {
                         .foregroundStyle(Color.vert)
                         .contentTransition(.numericText())
                 } else {
-                    Text("Bien joué 💚")
+                    Text("Terminé")
                         .font(.title2.weight(.bold))
                         .foregroundStyle(Color.vert)
                         .multilineTextAlignment(.center)
@@ -180,11 +189,14 @@ struct FinDeSeanceView: View {
         VStack(spacing: 16) {
             Spacer()
 
-            Text("🎉")
-                .font(.system(size: 64))
-            Text("Séance terminée !")
+            Image(systemName: "checkmark")
+                .font(.system(size: 42, weight: .bold))
+                .foregroundStyle(Color.vert)
+                .frame(width: 88, height: 88)
+                .background(Color.vertClair, in: .circle)
+            Text("Séance terminée")
                 .font(.largeTitle.bold())
-            Text("Chaque séance renforce les nouveaux chemins de votre cerveau. Soyez fier de vous.")
+            Text("Chaque séance renforce les nouveaux chemins de votre cerveau. Vous pouvez en être fier.")
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
 
@@ -199,8 +211,19 @@ struct FinDeSeanceView: View {
                     Button {
                         ressenti = choix
                     } label: {
-                        VStack(spacing: 6) {
-                            Text(choix.emoji).font(.title)
+                        VStack(spacing: 10) {
+                            // Jauge à trois barres, plus sobre qu'un émoticône.
+                            HStack(alignment: .bottom, spacing: 4) {
+                                ForEach(1...3, id: \.self) { n in
+                                    Capsule()
+                                        .fill(n <= choix.niveau
+                                              ? AnyShapeStyle(ressenti == choix ? Color.vert : Color.secondary)
+                                              : AnyShapeStyle(.quaternary))
+                                        .frame(width: 7, height: CGFloat(6 + n * 5))
+                                }
+                            }
+                            .frame(height: 22)
+
                             Text(choix.libelle).font(.subheadline.weight(.semibold))
                         }
                         .frame(maxWidth: .infinity, minHeight: 92)
@@ -219,7 +242,7 @@ struct FinDeSeanceView: View {
                 }
             }
 
-            Button("Enregistrer ma séance 💾") {
+            Button("Enregistrer la séance") {
                 contexte.insert(JournalSeance(
                     titre: seance.titre,
                     minutes: seance.dureeMinutes,
