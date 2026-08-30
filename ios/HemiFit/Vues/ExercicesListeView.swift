@@ -86,7 +86,7 @@ struct ExercicesListeView: View {
                 .font(.headline)
                 .foregroundStyle(.secondary)
                 .frame(width: 42, height: 42)
-                .background(Color(.tertiarySystemFill), in: .rect(cornerRadius: 11))
+                .background(Color(.tertiarySystemFill), in: .rect(cornerRadius: 8))
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(exercice.nom)
@@ -103,7 +103,7 @@ struct ExercicesListeView: View {
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(Color.aide)
                     .frame(width: 30, height: 30)
-                    .background(Color.aideClair, in: .rect(cornerRadius: 9))
+                    .background(Color.aideClair, in: .rect(cornerRadius: 6))
                     .accessibilityLabel("Avec une tierce personne")
             }
         }
@@ -126,8 +126,8 @@ struct DetailExerciceView: View {
                     .font(.subheadline.weight(.semibold))
                     .padding(.horizontal, 14)
                     .padding(.vertical, 6)
-                    .background(Color.vertClair, in: .capsule)
-                    .foregroundStyle(Color.vert)
+                    .background(Color.ardoiseClaire, in: .capsule)
+                    .foregroundStyle(Color.ardoise)
 
                     PastilleRealisation(realisation: exercice.realisation)
                 }
@@ -141,7 +141,7 @@ struct DetailExerciceView: View {
                 ForEach(exercice.etapes, id: \.self) { etape in
                     HStack(alignment: .top, spacing: 10) {
                         Circle()
-                            .fill(Color.vert)
+                            .fill(Color.ardoise)
                             .frame(width: 7, height: 7)
                             .padding(.top, 9)
                         Text(etape)
