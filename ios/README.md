@@ -1,6 +1,6 @@
 # HemiFit pour iPhone 📱
 
-Application personnelle de rééducation en douceur, écrite en **Swift 6 / SwiftUI**, avec :
+Application personnelle de rééducation en douceur, écrite en **Swift 6.3 / SwiftUI**, avec :
 
 - **SwiftData** pour enregistrer les séances (tout reste sur l'iPhone, rien ne part sur internet) ;
 - **Notifications locales** pour le rappel quotidien (activable dans l'onglet Conseils) ;
@@ -26,8 +26,10 @@ open HemiFit.xcodeproj
 
 ## Configuration requise
 
-- Xcode 16 ou plus récent (Swift 6) — prenez toujours la dernière version disponible.
-- iOS 18 minimum sur l'iPhone (l'app profite des API SwiftUI récentes ; montez la cible de déploiement si votre iOS est plus récent).
+- **Xcode 26.6** ou plus récent (fournit **Swift 6.3** et le SDK iOS 26.5) — prenez toujours la dernière version disponible sur le Mac App Store.
+- **iOS 26** minimum sur l'iPhone.
+
+> ⚠️ **Si votre iPhone tourne sur une version d'iOS plus ancienne**, l'application refusera de s'installer. C'est réglable en une ligne : dans `ios/project.yml`, remplacez `iOS: "26.0"` par votre version (par exemple `iOS: "18.0"`), puis régénérez le projet avec `xcodegen generate`.
 
 ## Organisation du code
 
