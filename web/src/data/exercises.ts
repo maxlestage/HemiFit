@@ -12,7 +12,7 @@
  * Jamais de douleur : on s'arrête dès que ça tire trop.
  */
 
-export type Categorie = "main" | "bras" | "jambe" | "sensoriel";
+export type Categorie = "massage" | "main" | "bras" | "jambe" | "sensoriel";
 
 export interface Exercice {
   id: string;
@@ -31,6 +31,7 @@ export interface Exercice {
 }
 
 export const CATEGORIES: Record<Categorie, { titre: string; emoji: string }> = {
+  massage: { titre: "Massage & détente", emoji: "💆" },
   sensoriel: { titre: "Éveil sensoriel", emoji: "🫱" },
   main: { titre: "Main & doigts", emoji: "✋" },
   bras: { titre: "Bras & épaule", emoji: "💪" },
@@ -38,6 +39,106 @@ export const CATEGORIES: Record<Categorie, { titre: string; emoji: string }> = {
 };
 
 export const EXERCICES: Exercice[] = [
+  // ——— Massage & détente ———
+  // Le massage fait baisser le tonus spastique : c'est la meilleure
+  // préparation avant de chercher à bouger.
+  {
+    id: "massage-avant-bras",
+    nom: "Massage de l'avant-bras",
+    categorie: "massage",
+    objectif:
+      "Détendre les muscles qui ferment la main : ce sont eux qui sont trop contractés.",
+    etapes: [
+      "Posez l'avant-bras droit sur un coussin, paume vers le haut.",
+      "Avec le pouce gauche, massez l'intérieur de l'avant-bras par petits cercles lents, du coude vers le poignet.",
+      "Insistez doucement là où le muscle est dur, sans jamais provoquer de douleur.",
+      "Terminez par de longs passages lisses, du coude vers la main.",
+    ],
+    dosage: "Environ 3 minutes",
+    dureeSec: 180,
+    position: "assis",
+  },
+  {
+    id: "massage-main",
+    nom: "Massage de la main",
+    categorie: "massage",
+    objectif: "Assouplir la paume et réveiller les sensations de la main droite.",
+    etapes: [
+      "Main droite posée sur votre cuisse, paume vers le haut.",
+      "Avec le pouce gauche, massez la paume par cercles lents, du centre vers les bords.",
+      "Retournez la main : massez le dos de la main, entre les tendons.",
+      "Reprenez chaque doigt : massez-le de la base vers le bout, puis étirez-le très doucement.",
+    ],
+    dosage: "Environ 3 minutes",
+    dureeSec: 180,
+    position: "assis",
+  },
+  {
+    id: "massage-pouce",
+    nom: "Ouvrir l'espace du pouce",
+    categorie: "massage",
+    objectif:
+      "Empêcher le pouce de se bloquer dans la paume : c'est lui qui verrouille souvent toute la main.",
+    etapes: [
+      "Prenez la main droite dans la gauche, paume vers le haut.",
+      "Avec le pouce et l'index gauches, pincez doucement la peau entre le pouce et l'index droits.",
+      "Massez cette zone par petits cercles, puis écartez très lentement le pouce de la paume.",
+      "Maintenez le pouce écarté 20 secondes, sans forcer, puis relâchez.",
+    ],
+    dosage: "3 fois, tenir 20 s",
+    dureeSec: 150,
+    position: "assis",
+  },
+  {
+    id: "massage-drainage",
+    nom: "Drainage de la main vers l'épaule",
+    categorie: "massage",
+    objectif:
+      "Faire circuler : une main peu mobile a tendance à gonfler, surtout en fin de journée.",
+    etapes: [
+      "Bras droit posé, si possible légèrement surélevé sur un coussin.",
+      "Avec la paume gauche bien à plat, remontez lentement de la main vers le coude, en pressant doucement.",
+      "Continuez du coude vers l'épaule, toujours dans ce sens (jamais l'inverse).",
+      "Refaites le trajet complet, calmement, comme une vague qui remonte.",
+    ],
+    dosage: "10 remontées lentes",
+    dureeSec: 150,
+    position: "assis",
+  },
+  {
+    id: "massage-epaule",
+    nom: "Massage de l'épaule et de la nuque",
+    categorie: "massage",
+    objectif:
+      "Soulager l'épaule droite, souvent douloureuse quand le bras est peu actif.",
+    etapes: [
+      "Avec la main gauche, massez le haut de l'épaule droite par pressions lentes.",
+      "Remontez vers la nuque, puis redescendez vers l'omoplate.",
+      "Soufflez lentement pendant le massage, en laissant l'épaule redescendre.",
+      "Si l'épaule est douloureuse, restez très léger et parlez-en à votre kiné.",
+    ],
+    dosage: "Environ 2 minutes",
+    dureeSec: 120,
+    position: "assis",
+  },
+  {
+    id: "massage-jambe",
+    nom: "Massage du mollet et du pied",
+    categorie: "massage",
+    objectif:
+      "Détendre le mollet droit et réveiller la plante du pied, essentielle pour marcher.",
+    etapes: [
+      "Assis, remontez si possible le pied droit sur un tabouret ou l'autre genou.",
+      "Massez le mollet à deux mains, de la cheville vers le genou, par pressions lentes.",
+      "Passez à la plante du pied : massez-la avec le pouce gauche, du talon vers les orteils.",
+      "Terminez en mobilisant doucement chaque orteil.",
+      "Si cette position est difficile, faites-le allongé, jambe pliée.",
+    ],
+    dosage: "Environ 3 minutes",
+    dureeSec: 180,
+    position: "assis",
+  },
+
   // ——— Éveil sensoriel ———
   {
     id: "detente-respiration",
@@ -392,27 +493,40 @@ export interface Seance {
 }
 
 /**
- * Séance du jour : chaque jour commence par l'éveil sensoriel,
- * puis alterne les priorités (main, bras, jambe) au fil de la semaine.
- * Le dimanche est une séance plus courte et très douce.
+ * Séance du jour. Chaque séance commence par la détente puis un
+ * massage : sur un membre spastique, c'est la meilleure préparation
+ * avant de chercher à bouger. Le dimanche est consacré au massage.
  */
 export function seanceDuJour(date: Date = new Date()): Seance {
   const jour = date.getDay(); // 0 = dimanche
 
   switch (jour) {
     case 1: // lundi
-    case 4: // jeudi
       return {
-        titre: "Main & doigts",
+        titre: "Main & ouverture",
         description:
-          "Aujourd'hui, on prend soin de la main droite : détente d'abord, la spasticité déteste la lenteur.",
+          "On masse la main, puis on travaille l'ouverture des doigts, tout en lenteur.",
         exercices: parId(
           "detente-respiration",
-          "eveil-paume",
-          "main-poignet-actif",
+          "massage-main",
+          "massage-pouce",
           "main-tenodese",
           "main-ouverture",
           "main-extension-active",
+        ),
+      };
+    case 4: // jeudi
+      return {
+        titre: "Main & poignet",
+        description:
+          "On détend l'avant-bras, puis on réapprend le mouvement du poignet.",
+        exercices: parId(
+          "detente-respiration",
+          "massage-avant-bras",
+          "main-poignet-actif",
+          "main-tenodese",
+          "main-ouverture",
+          "main-appui-paume",
         ),
       };
     case 2: // mardi
@@ -422,8 +536,8 @@ export function seanceDuJour(date: Date = new Date()): Seance {
         description: "Le bras droit bouge en douceur, guidé par le gauche.",
         exercices: parId(
           "detente-respiration",
-          "eveil-avant-bras",
-          "bras-epaules",
+          "massage-avant-bras",
+          "massage-epaule",
           "bras-glisser-table",
           "bras-elevation",
           "main-ouverture",
@@ -436,22 +550,25 @@ export function seanceDuJour(date: Date = new Date()): Seance {
         description: "On prépare la marche, pas à pas, bien assis.",
         exercices: parId(
           "detente-respiration",
+          "massage-jambe",
           "jambe-transfert",
           "jambe-genou",
           "jambe-cheville",
           "jambe-marche-assise",
-          "main-ouverture",
         ),
       };
     default: // dimanche
       return {
-        titre: "Douceur du dimanche",
-        description: "Séance courte et relaxante, pour garder le rythme.",
+        titre: "Massage & détente",
+        description:
+          "Journée douce : on masse tout le côté droit, sans rien forcer.",
         exercices: parId(
           "detente-respiration",
+          "massage-main",
+          "massage-avant-bras",
+          "massage-drainage",
+          "massage-epaule",
           "main-miroir",
-          "main-imagerie",
-          "bras-epaules",
         ),
       };
   }

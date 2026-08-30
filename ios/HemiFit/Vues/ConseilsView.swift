@@ -34,6 +34,14 @@ struct ConseilsView: View {
                     carteRappel
 
                     conseil(
+                        titre: "⏳ Il n'est jamais trop tard pour progresser",
+                        texte: "On a longtemps cru que tout se jouait dans les six premiers mois. Cette idée a été largement remise en cause : le cerveau reste capable de créer de nouveaux chemins pendant des années, et des progrès ont été observés très longtemps après la lésion, chez des personnes qui continuaient à s'entraîner régulièrement. Cela demande de la patience, et les progrès sont souvent lents et partiels — mais ce qui compte n'est pas le temps écoulé depuis la lésion : c'est ce que vous faites à partir d'aujourd'hui."
+                    )
+                    conseil(
+                        titre: "💆 Pourquoi masser avant de bouger",
+                        texte: "Le massage fait baisser le tonus des muscles spastiques, réchauffe les tissus et réveille les sensations. Un membre massé s'étire beaucoup mieux : c'est pour cela que chaque séance commence par là. Vous pouvez masser autant de fois par jour que vous le souhaitez, il n'y a aucun risque à en faire trop, tant que c'est doux."
+                    )
+                    conseil(
                         titre: "👐 Fermer facile, ouvrir difficile : c'est classique",
                         texte: "Après une lésion cérébrale, les muscles qui ferment la main restent forts (et spastiques), tandis que ceux qui l'ouvrent sont affaiblis. L'ouverture se rééduque donc avec de l'aide : le poignet plié vers l'avant desserre naturellement les doigts, la main gauche termine le mouvement, et chaque intention d'ouvrir — même sans mouvement visible — entraîne le cerveau."
                     )

@@ -10,6 +10,8 @@ import {
 } from "./data/exercises";
 import {
   chargerHistorique,
+  joursDepuisDerniereSeance,
+  meilleureSerie,
   minutesTotales,
   seanceFaiteAujourdhui,
   seancesSur7Jours,
@@ -120,6 +122,8 @@ function Accueil(props: {
   const faiteAujourdhui = seanceFaiteAujourdhui(props.historique);
   const serie = serieEnCours(props.historique);
   const minutes = dureeTotaleMin(props.seance);
+  const absence = joursDepuisDerniereSeance(props.historique);
+  const retourApresPause = absence !== null && absence >= 7;
 
   const salutation =
     new Date().getHours() < 12
@@ -134,6 +138,23 @@ function Accueil(props: {
         <h1>{salutation} 👋</h1>
         <p>Chaque petit mouvement compte. On y va en douceur.</p>
       </header>
+
+      {retourApresPause && (
+        <div className="carte">
+          <h2>Content de vous revoir 💚</h2>
+          <p>
+            {absence >= 60
+              ? "Cela fait un moment, et ce n'est pas grave du tout."
+              : "Quelques jours sans séance, et alors ?"}{" "}
+            Une pause n'efface rien de ce que vous avez déjà construit — votre
+            meilleure série reste inscrite dans vos progrès.
+          </p>
+          <p>
+            On reprend tranquillement, là où vous en êtes aujourd'hui. C'est le
+            seul endroit d'où on peut repartir.
+          </p>
+        </div>
+      )}
 
       {serie > 0 && (
         <div className="carte">
@@ -183,7 +204,7 @@ function Accueil(props: {
 function Exercices(props: { onSeanceLibre: (s: Seance) => void }) {
   const [ouvert, setOuvert] = useState<string | null>(null);
 
-  const ordre: Categorie[] = ["sensoriel", "main", "bras", "jambe"];
+  const ordre: Categorie[] = ["massage", "sensoriel", "main", "bras", "jambe"];
 
   return (
     <>
@@ -285,8 +306,8 @@ function Progres(props: { historique: SeanceTerminee[] }) {
           <p>jours de suite</p>
         </div>
         <div className="carte">
-          <span className="grand-chiffre">{seancesSur7Jours(h)}</span>
-          <p>séances sur 7 jours</p>
+          <span className="grand-chiffre">⭐ {meilleureSerie(h)}</span>
+          <p>meilleure série (jamais perdue)</p>
         </div>
         <div className="carte">
           <span className="grand-chiffre">{h.length}</span>
@@ -296,6 +317,21 @@ function Progres(props: { historique: SeanceTerminee[] }) {
           <span className="grand-chiffre">{minutesTotales(h)}</span>
           <p>minutes de rééducation</p>
         </div>
+      </div>
+
+      <div className="carte">
+        <h3>🌱 Rien de tout cela ne se perd</h3>
+        <p>
+          Ces minutes sont du travail réel fait par votre cerveau. Une pause,
+          même de plusieurs mois, ne les efface pas : vous reprendrez là où vous
+          en êtes, jamais à zéro.
+        </p>
+        {seancesSur7Jours(h) > 0 && (
+          <p>
+            Sur les 7 derniers jours : {seancesSur7Jours(h)}{" "}
+            {seancesSur7Jours(h) === 1 ? "séance" : "séances"}.
+          </p>
+        )}
       </div>
 
       <div className="carte">
@@ -342,6 +378,33 @@ function Conseils() {
         <h1>Conseils</h1>
         <p>Quelques repères pour une rééducation sereine.</p>
       </header>
+
+      <div className="carte">
+        <h3>⏳ Il n'est jamais trop tard pour progresser</h3>
+        <p>
+          On a longtemps cru que tout se jouait dans les six premiers mois.
+          Cette idée a été largement remise en cause : le cerveau reste capable
+          de créer de nouveaux chemins pendant des années, et des progrès ont
+          été observés très longtemps après la lésion, chez des personnes qui
+          continuaient à s'entraîner régulièrement.
+        </p>
+        <p>
+          Cela demande de la patience, et les progrès sont souvent lents et
+          partiels — mais ce qui compte n'est pas le temps écoulé depuis la
+          lésion : c'est ce que vous faites à partir d'aujourd'hui.
+        </p>
+      </div>
+
+      <div className="carte">
+        <h3>💆 Pourquoi masser avant de bouger</h3>
+        <p>
+          Le massage fait baisser le tonus des muscles spastiques, réchauffe les
+          tissus et réveille les sensations. Un membre massé s'étire beaucoup
+          mieux : c'est pour cela que chaque séance commence par là. Vous pouvez
+          masser autant de fois par jour que vous le souhaitez, il n'y a aucun
+          risque à en faire trop, tant que c'est doux.
+        </p>
+      </div>
 
       <div className="carte">
         <h3>👐 Fermer facile, ouvrir difficile : c'est classique</h3>

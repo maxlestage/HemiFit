@@ -18,6 +18,8 @@ struct ProgresView: View {
 
                     grilleStatistiques
 
+                    carteRienNeSePerd
+
                     dernieresSeances
                 }
                 .padding()
@@ -29,7 +31,7 @@ struct ProgresView: View {
     private var grilleStatistiques: some View {
         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
             tuile(valeur: "\(Statistiques.serieEnCours(journal))", legende: "jours de suite")
-            tuile(valeur: "\(Statistiques.seancesSur7Jours(journal))", legende: "séances sur 7 jours")
+            tuile(valeur: "⭐ \(Statistiques.meilleureSerie(journal))", legende: "meilleure série (jamais perdue)")
             tuile(valeur: "\(journal.count)", legende: "séances au total")
             tuile(valeur: "\(Statistiques.minutesTotales(journal))", legende: "minutes de rééducation")
         }
@@ -47,6 +49,21 @@ struct ProgresView: View {
         }
         .frame(maxWidth: .infinity, minHeight: 100)
         .background(.background.secondary, in: .rect(cornerRadius: 20))
+    }
+
+    private var carteRienNeSePerd: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text("🌱 Rien de tout cela ne se perd")
+                .font(.headline)
+            Text("Ces minutes sont du travail réel fait par votre cerveau. Une pause, même de plusieurs mois, ne les efface pas : vous reprendrez là où vous en êtes, jamais à zéro.")
+                .foregroundStyle(.secondary)
+            if Statistiques.seancesSur7Jours(journal) > 0 {
+                let n = Statistiques.seancesSur7Jours(journal)
+                Text("Sur les 7 derniers jours : \(n) \(n == 1 ? "séance" : "séances").")
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .carteHemiFit()
     }
 
     private var dernieresSeances: some View {
