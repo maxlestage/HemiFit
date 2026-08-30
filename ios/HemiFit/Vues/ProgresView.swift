@@ -32,15 +32,22 @@ struct ProgresView: View {
 
     private var grilleStatistiques: some View {
         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
-            tuile(valeur: "\(Statistiques.serieEnCours(journal))", legende: "jours de suite")
-            tuile(valeur: "⭐ \(Statistiques.meilleureSerie(journal))", legende: "meilleure série (jamais perdue)")
-            tuile(valeur: "\(journal.count)", legende: "séances au total")
-            tuile(valeur: "\(Statistiques.minutesTotales(journal))", legende: "minutes de rééducation")
+            tuile(symbole: "flame.fill", valeur: "\(Statistiques.serieEnCours(journal))", legende: "jours de suite")
+            tuile(symbole: "star.fill", valeur: "\(Statistiques.meilleureSerie(journal))", legende: "meilleure série, jamais perdue")
+            tuile(symbole: "checkmark.circle", valeur: "\(journal.count)", legende: "séances au total")
+            tuile(symbole: "clock", valeur: "\(Statistiques.minutesTotales(journal))", legende: "minutes de rééducation")
         }
     }
 
-    private func tuile(valeur: String, legende: String) -> some View {
+    private func tuile(symbole: String, valeur: String, legende: String) -> some View {
         VStack(spacing: 6) {
+            Image(systemName: symbole)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(Color.vert)
+                .frame(width: 36, height: 36)
+                .background(Color.vertClair, in: .rect(cornerRadius: 11))
+                .padding(.bottom, 2)
+
             Text(valeur)
                 .font(.system(size: 38, weight: .bold, design: .rounded))
                 .foregroundStyle(Color.vert)
@@ -66,7 +73,7 @@ struct ProgresView: View {
                 .font(.headline)
             Text(n > 0
                  ? "\(n) \(n == 1 ? "séance" : "séances") sur les 7 derniers jours."
-                 : "Aucune séance ces 7 derniers jours — la prochaine vous attend, tranquillement.")
+                 : "Aucune séance ces 7 derniers jours. La prochaine vous attend, tranquillement.")
                 .foregroundStyle(.secondary)
 
             HStack(spacing: 6) {
@@ -95,15 +102,10 @@ struct ProgresView: View {
 
     private var carteRienNeSePerd: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text("🌱 Rien de tout cela ne se perd")
+            Text("Rien de tout cela ne se perd")
                 .font(.headline)
-            Text("Ces minutes sont du travail réel fait par votre cerveau. Une pause, même de plusieurs mois, ne les efface pas : vous reprendrez là où vous en êtes, jamais à zéro.")
+            Text("Ces minutes sont du travail réel accompli par votre cerveau. Une pause, même de plusieurs mois, ne les efface pas : vous reprendrez là où vous en êtes, jamais à zéro.")
                 .foregroundStyle(.secondary)
-            if Statistiques.seancesSur7Jours(journal) > 0 {
-                let n = Statistiques.seancesSur7Jours(journal)
-                Text("Sur les 7 derniers jours : \(n) \(n == 1 ? "séance" : "séances").")
-                    .foregroundStyle(.secondary)
-            }
         }
         .carteHemiFit()
     }
@@ -114,7 +116,7 @@ struct ProgresView: View {
                 .font(.title3.bold())
 
             if journal.isEmpty {
-                Text("Aucune séance pour l'instant. La première est la plus importante — elle vous attend sur l'accueil. 💚")
+                Text("Aucune séance pour l'instant. La première est la plus importante, et elle vous attend sur l'accueil.")
                     .foregroundStyle(.secondary)
             }
 
@@ -128,7 +130,9 @@ struct ProgresView: View {
                             .foregroundStyle(.secondary)
                     }
                     Spacer()
-                    Text("\(seance.minutes) min \(seance.ressenti?.emoji ?? "")")
+                    Text("\(seance.minutes) min")
+                        .foregroundStyle(.secondary)
+                        .monospacedDigit()
                 }
                 .padding(.vertical, 6)
                 Divider()

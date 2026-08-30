@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { CATEGORIES, type Seance } from "./data/exercises";
+import { CATEGORIES, REALISATIONS, type Seance } from "./data/exercises";
 import {
   dateISO,
   enregistrerSeance,
   type SeanceTerminee,
 } from "./lib/progression";
+import { Icone } from "./Icones";
 
 interface Props {
   seance: Seance;
@@ -32,12 +33,7 @@ export function LecteurSeance({ seance, onQuitter, onTerminee }: Props) {
   }
 
   if (phase === "fin") {
-    return (
-      <FinDeSeance
-        seance={seance}
-        onTerminee={onTerminee}
-      />
-    );
+    return <FinDeSeance seance={seance} onTerminee={onTerminee} />;
   }
 
   return (
@@ -48,25 +44,28 @@ export function LecteurSeance({ seance, onQuitter, onTerminee }: Props) {
         ))}
       </div>
 
-      <p style={{ margin: "0 0 4px", color: "var(--encre-douce)" }}>
+      <p className="compteur-exercice">
         Exercice {indice + 1} sur {seance.exercices.length}
       </p>
 
-      <span className="badge">
-        {CATEGORIES[exercice.categorie].emoji}{" "}
-        {CATEGORIES[exercice.categorie].titre} · {exercice.position}
-      </span>
+      <div className="entete-carte">
+        <span className="badge">
+          <Icone nom={CATEGORIES[exercice.categorie].icone} taille={16} />
+          {CATEGORIES[exercice.categorie].titre} · {exercice.position}
+        </span>
+        {exercice.realisation === "tierce-personne" && (
+          <span className="pastille-mode pastille-aide">
+            <Icone nom="aide" taille={15} epaisseur={2} />
+            {REALISATIONS["tierce-personne"].court}
+          </span>
+        )}
+      </div>
 
-      <h1 style={{ margin: "0 0 6px", fontSize: "1.5rem" }}>{exercice.nom}</h1>
-      <p style={{ margin: "0 0 8px", color: "var(--encre-douce)" }}>
-        {exercice.objectif}
-      </p>
-      <p style={{ margin: "0 0 4px", fontWeight: 650 }}>{exercice.dosage}</p>
+      <h1 className="titre-exercice">{exercice.nom}</h1>
+      <p className="objectif">{exercice.objectif}</p>
+      <p className="dosage">{exercice.dosage}</p>
 
-      <Minuteur
-        cle={`${indice}-${exercice.id}`}
-        dureeSec={exercice.dureeSec}
-      />
+      <Minuteur cle={`${indice}-${exercice.id}`} dureeSec={exercice.dureeSec} />
 
       <ul className="etapes">
         {exercice.etapes.map((etape, i) => (
@@ -76,7 +75,17 @@ export function LecteurSeance({ seance, onQuitter, onTerminee }: Props) {
 
       <div className="zone-boutons-bas">
         <button className="btn btn-principal" onClick={suivant}>
-          {dernierExercice ? "Terminer la séance ✅" : "Exercice suivant →"}
+          {dernierExercice ? (
+            <>
+              <Icone nom="valide" taille={20} epaisseur={2.4} />
+              Terminer la séance
+            </>
+          ) : (
+            <>
+              <Icone nom="lecture" taille={19} plein />
+              Exercice suivant
+            </>
+          )}
         </button>
         <button className="btn btn-discret" onClick={onQuitter}>
           Arrêter la séance
@@ -113,7 +122,7 @@ function Minuteur({ cle, dureeSec }: { cle: string; dureeSec: number }) {
   const proportion = dureeSec > 0 ? restant / dureeSec : 0;
 
   return (
-    <div style={{ textAlign: "center" }}>
+    <div className="bloc-minuteur">
       <div className="minuteur-anneau">
         <svg viewBox="0 0 208 208" aria-hidden="true">
           <defs>
@@ -138,23 +147,30 @@ function Minuteur({ cle, dureeSec }: { cle: string; dureeSec: number }) {
           </span>
         ) : (
           <span className="minuteur-fini" aria-live="polite">
-            Bien joué 💚
+            <Icone nom="valide" taille={40} epaisseur={2.2} />
+            Terminé
           </span>
         )}
       </div>
 
       {restant > 0 && (
         <button
-          className="btn btn-secondaire"
+          className="btn btn-secondaire btn-pause"
           onClick={() => setEnPause(p => !p)}
-          style={{ minHeight: 56 }}
         >
-          {enPause ? "Reprendre ▶" : "Pause ⏸"}
+          <Icone nom={enPause ? "lecture" : "pause"} taille={18} plein={enPause} />
+          {enPause ? "Reprendre" : "Pause"}
         </button>
       )}
     </div>
   );
 }
+
+const RESSENTIS = [
+  { valeur: 1 as const, libelle: "Difficile" },
+  { valeur: 2 as const, libelle: "Correct" },
+  { valeur: 3 as const, libelle: "Bien" },
+];
 
 /** Écran de fin : ressenti puis enregistrement de la séance. */
 function FinDeSeance({
@@ -184,65 +200,41 @@ function FinDeSeance({
   return (
     <div className="seance-plein-ecran">
       <div className="felicitations">
-        <span className="emoji" aria-hidden="true">
-          🎉
+        <span className="sceau-fin">
+          <Icone nom="valide" taille={44} epaisseur={2.2} />
         </span>
-        <h1 style={{ margin: "0 0 8px" }}>Séance terminée !</h1>
-        <p style={{ color: "var(--encre-douce)" }}>
-          Chaque séance renforce les nouveaux chemins de votre cerveau. Soyez
-          fier de vous.
+        <h1>Séance terminée</h1>
+        <p>
+          Chaque séance renforce les nouveaux chemins de votre cerveau. Vous
+          pouvez en être fier.
         </p>
       </div>
 
-      <h2 style={{ fontSize: "1.15rem", margin: "0 0 4px" }}>
-        Comment vous sentez-vous ?
-      </h2>
+      <h2 className="question-ressenti">Comment vous sentez-vous ?</h2>
       <div className="choix-ressenti">
-        <BoutonRessenti
-          emoji="😮‍💨"
-          libelle="Difficile"
-          choisi={ressenti === 1}
-          onClick={() => setRessenti(1)}
-        />
-        <BoutonRessenti
-          emoji="🙂"
-          libelle="Correct"
-          choisi={ressenti === 2}
-          onClick={() => setRessenti(2)}
-        />
-        <BoutonRessenti
-          emoji="😊"
-          libelle="Bien"
-          choisi={ressenti === 3}
-          onClick={() => setRessenti(3)}
-        />
+        {RESSENTIS.map(r => (
+          <button
+            key={r.valeur}
+            className={ressenti === r.valeur ? "choisi" : ""}
+            onClick={() => setRessenti(r.valeur)}
+            aria-pressed={ressenti === r.valeur}
+          >
+            <span className="jauge-ressenti" aria-hidden="true">
+              {[1, 2, 3].map(n => (
+                <i key={n} className={n <= r.valeur ? "remplie" : ""} />
+              ))}
+            </span>
+            {r.libelle}
+          </button>
+        ))}
       </div>
 
       <div className="zone-boutons-bas">
         <button className="btn btn-principal" onClick={enregistrer}>
-          Enregistrer ma séance 💾
+          <Icone nom="valide" taille={20} epaisseur={2.4} />
+          Enregistrer la séance
         </button>
       </div>
     </div>
-  );
-}
-
-function BoutonRessenti(props: {
-  emoji: string;
-  libelle: string;
-  choisi: boolean;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      className={props.choisi ? "choisi" : ""}
-      onClick={props.onClick}
-      aria-pressed={props.choisi}
-    >
-      <span className="emoji" aria-hidden="true">
-        {props.emoji}
-      </span>
-      {props.libelle}
-    </button>
   );
 }
