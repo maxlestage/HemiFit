@@ -26,6 +26,10 @@ struct AccueilView: View {
                     Text("Chaque petit mouvement compte. On y va en douceur.")
                         .foregroundStyle(.secondary)
 
+                    if let absence = Statistiques.joursDepuisDerniereSeance(journal), absence >= 7 {
+                        carteRetour(absence)
+                    }
+
                     let serie = Statistiques.serieEnCours(journal)
                     if serie > 0 {
                         carteSerie(serie)
@@ -46,6 +50,18 @@ struct AccueilView: View {
                 SeanceGuideeView(seance: seance)
             }
         }
+    }
+
+    private func carteRetour(_ absence: Int) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Content de vous revoir 💚")
+                .font(.title3.bold())
+            Text("\(absence >= 60 ? "Cela fait un moment, et ce n'est pas grave du tout." : "Quelques jours sans séance, et alors ?") Une pause n'efface rien de ce que vous avez déjà construit — votre meilleure série reste inscrite dans vos progrès.")
+                .foregroundStyle(.secondary)
+            Text("On reprend tranquillement, là où vous en êtes aujourd'hui. C'est le seul endroit d'où on peut repartir.")
+                .foregroundStyle(.secondary)
+        }
+        .carteHemiFit()
     }
 
     private func carteSerie(_ serie: Int) -> some View {
