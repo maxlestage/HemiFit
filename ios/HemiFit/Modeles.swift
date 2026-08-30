@@ -75,6 +75,41 @@ enum Statistiques {
         return serie
     }
 
+    /// Meilleure série jamais atteinte. Elle n'est jamais perdue : une
+    /// interruption, même longue, n'efface pas ce qui a été accompli.
+    static func meilleureSerie(_ journal: [JournalSeance]) -> Int {
+        let calendrier = Calendar.current
+        let jours = Set(journal.map { calendrier.startOfDay(for: $0.date) }).sorted()
+        var meilleure = 0
+        var courante = 0
+        var precedent: Date?
+
+        for jour in jours {
+            if let veille = precedent,
+               calendrier.date(byAdding: .day, value: 1, to: veille) == jour {
+                courante += 1
+            } else {
+                courante = 1
+            }
+            meilleure = max(meilleure, courante)
+            precedent = jour
+        }
+        return meilleure
+    }
+
+    /// Nombre de jours depuis la dernière séance ; `nil` si aucune séance
+    /// n'a jamais été faite.
+    static func joursDepuisDerniereSeance(_ journal: [JournalSeance]) -> Int? {
+        let calendrier = Calendar.current
+        guard let derniere = journal.map({ $0.date }).max() else { return nil }
+        let jours = calendrier.dateComponents(
+            [.day],
+            from: calendrier.startOfDay(for: derniere),
+            to: calendrier.startOfDay(for: .now)
+        ).day
+        return max(0, jours ?? 0)
+    }
+
     static func seancesSur7Jours(_ journal: [JournalSeance]) -> Int {
         let limite = Calendar.current.date(byAdding: .day, value: -6, to: Calendar.current.startOfDay(for: .now))!
         return journal.count(where: { $0.date >= limite })

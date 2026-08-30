@@ -62,6 +62,53 @@ export function serieEnCours(historique: SeanceTerminee[]): number {
   return serie;
 }
 
+/**
+ * Meilleure série jamais atteinte. Elle n'est jamais perdue : une
+ * interruption, même longue, n'efface pas ce qui a été accompli.
+ */
+export function meilleureSerie(historique: SeanceTerminee[]): number {
+  const jours = [...new Set(historique.map(s => s.date))].sort();
+  let meilleure = 0;
+  let courante = 0;
+  let precedent: string | null = null;
+
+  for (const jour of jours) {
+    if (precedent && estLeLendemain(precedent, jour)) {
+      courante += 1;
+    } else {
+      courante = 1;
+    }
+    meilleure = Math.max(meilleure, courante);
+    precedent = jour;
+  }
+  return meilleure;
+}
+
+function estLeLendemain(veille: string, jour: string): boolean {
+  const d = new Date(`${veille}T12:00:00`);
+  d.setDate(d.getDate() + 1);
+  return dateISO(d) === jour;
+}
+
+/**
+ * Nombre de jours depuis la dernière séance ; `null` si aucune séance
+ * n'a jamais été faite.
+ */
+export function joursDepuisDerniereSeance(
+  historique: SeanceTerminee[],
+): number | null {
+  if (historique.length === 0) return null;
+  const derniere = historique
+    .map(s => s.date)
+    .sort()
+    .at(-1)!;
+  const d = new Date(`${derniere}T12:00:00`);
+  const aujourdhui = new Date();
+  aujourdhui.setHours(12, 0, 0, 0);
+  const ms = aujourdhui.getTime() - d.getTime();
+  return Math.max(0, Math.round(ms / 86_400_000));
+}
+
 export function seancesSur7Jours(historique: SeanceTerminee[]): number {
   const jours = new Set<string>();
   const curseur = new Date();
