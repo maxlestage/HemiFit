@@ -2,7 +2,7 @@
 
 ## Contexte utilisateur (important)
 
-Le propriétaire du dépôt travaille **uniquement depuis un téléphone**, sans ordinateur, et vit avec une **hémiparésie droite avec forte spasticité** après une lésion cérébrale. Toute manipulation manuelle a un coût réel pour lui.
+Le propriétaire du dépôt travaille **uniquement depuis un téléphone**, sans ordinateur. Il vit avec une **hémiparésie droite avec forte spasticité** après une lésion cérébrale, **se déplace en fauteuil roulant** et a un **équilibre très altéré**. Toute manipulation manuelle a un coût réel pour lui.
 
 En conséquence :
 
@@ -49,13 +49,21 @@ Deux règles de jugement :
 
 Les exercices visent une **hémiparésie droite spastique**, avec ces principes non négociables :
 
-- tout se fait **assis ou allongé** (la marche n'est pas acquise) ;
+- tout se fait **assis avec le dos soutenu, ou allongé** : jamais debout, jamais de transfert non sécurisé, l'équilibre étant très altéré ;
+- ne jamais présenter la marche comme l'objectif : parler de confort, d'autonomie, de transferts et de prévention des complications ;
 - la **main gauche (saine) assiste** le côté droit ;
 - **jamais de mouvement rapide ni forcé** : cela déclenche le réflexe spastique ;
 - privilégier les **étirements lents et prolongés** (15–30 s) et la détente préalable ;
 - entraîner le **relâchement et l'ouverture** de la main, jamais le serrage (les fléchisseurs sont déjà trop forts, les extenseurs affaiblis) ;
 - l'**intention de mouvement compte**, même sans mouvement visible ;
-- **masser avant de mobiliser** : le massage abaisse le tonus, chaque séance commence donc par la détente puis un massage.
+- **masser avant de mobiliser** : le massage abaisse le tonus, chaque séance commence donc par la détente puis un massage ;
+- **prévenir les complications du fauteuil** : soulagement des appuis (escarres), mobilité de cheville (pied en pointe), drainage (gonflement).
+
+Chaque exercice porte un champ `realisation` : `autonome` (réalisable seul) ou `tierce-personne` (mobilisations passives faites le soir par un accompagnant, dont les consignes s'adressent à cette personne). L'interface doit toujours distinguer les deux clairement.
+
+## Interface
+
+**Aucun emoji dans l'interface ni dans le contenu** : le propriétaire les trouve peu professionnels. On utilise un jeu d'icônes vectorielles homogène (`web/src/Icones.tsx`) côté web et des symboles SF côté iOS. Les emoji restent proscrits dans les titres, les libellés et les textes de conseils.
 
 ## Ton de l'application
 
