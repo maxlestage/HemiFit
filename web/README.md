@@ -2,9 +2,11 @@
 
 Site **mobile-first** de rééducation en douceur, construit avec :
 
-- **Bun** (serveur fullstack natif avec rechargement à chaud — aucun autre bundler nécessaire) ;
-- **React 19** ;
-- **TypeScript** (mode strict).
+- **Bun 1.4** (serveur fullstack natif avec rechargement à chaud — aucun autre bundler nécessaire) ;
+- **React 19.2** ;
+- **TypeScript 7** (mode strict).
+
+> ℹ️ TypeScript 7 a supprimé l'option `baseUrl` : les alias de `paths` (dans `tsconfig.json`) sont désormais résolus par rapport au fichier `tsconfig.json` lui-même.
 
 Toutes les données (séances, progrès) restent dans le navigateur (`localStorage`) : rien ne part sur internet.
 

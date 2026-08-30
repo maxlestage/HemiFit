@@ -6,11 +6,13 @@ name: HemiFit
 options:
   bundleIdPrefix: com.maxlestage
   deploymentTarget:
-    iOS: "18.0"
-  xcodeVersion: "16.0"
+    # iOS 26 : si votre iPhone tourne sur une version plus ancienne,
+    # abaissez ce nombre (par exemple "18.0") et régénérez le projet.
+    iOS: "26.0"
+  xcodeVersion: "26.6"
 settings:
   base:
-    SWIFT_VERSION: "6.0"
+    SWIFT_VERSION: "6.3"
     GENERATE_INFOPLIST_FILE: YES
     INFOPLIST_KEY_CFBundleDisplayName: HemiFit
     INFOPLIST_KEY_UILaunchScreen_Generation: YES
