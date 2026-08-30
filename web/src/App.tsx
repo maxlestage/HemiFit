@@ -344,10 +344,33 @@ function Conseils() {
       </header>
 
       <div className="carte">
-        <h3>🐢 La lenteur est votre alliée</h3>
+        <h3>🌊 Comprendre la spasticité</h3>
         <p>
-          Un mouvement lent et contrôlé fait plus travailler le cerveau qu'un
-          mouvement rapide. Prenez votre temps, respirez.
+          Vos muscles droits sont trop « toniques » : ils se contractent tout
+          seuls et résistent, surtout quand on les étire vite. Ce n'est pas de
+          la mauvaise volonté de votre main — c'est un réflexe. La bonne
+          nouvelle : la lenteur, le calme et les étirements prolongés la font
+          baisser.
+        </p>
+      </div>
+
+      <div className="carte">
+        <h3>🐢 Lent, toujours plus lent</h3>
+        <p>
+          Un mouvement rapide ou forcé déclenche le réflexe spastique : la
+          main se referme encore plus. Étirez très lentement, arrêtez-vous dès
+          que ça résiste, respirez… et attendez que ça lâche tout seul. Ça
+          vient toujours.
+        </p>
+      </div>
+
+      <div className="carte">
+        <h3>🛁 La chaleur détend</h3>
+        <p>
+          La spasticité diminue avec la chaleur : faites les exercices de la
+          main après une douche chaude, ou passez la main droite quelques
+          minutes sous l'eau chaude (testez la température avec la main
+          gauche). Le froid, le stress et la fatigue, eux, l'augmentent.
         </p>
       </div>
 
@@ -376,6 +399,16 @@ function Conseils() {
           Même si le mouvement ne vient pas, le fait d'essayer, d'imaginer et
           de vouloir bouger active les bonnes zones du cerveau. Aucun essai
           n'est perdu.
+        </p>
+      </div>
+
+      <div className="carte">
+        <h3>💬 Parlez de votre spasticité à vos soignants</h3>
+        <p>
+          Il existe des traitements spécifiques de la spasticité
+          (kinésithérapie, médicaments, injections ciblées, attelles) qui
+          complètent très bien ces exercices. Si la spasticité vous gêne
+          beaucoup, c'est une vraie question à poser à votre médecin.
         </p>
       </div>
 

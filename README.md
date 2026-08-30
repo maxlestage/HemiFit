@@ -2,7 +2,9 @@
 
 **Ma rééducation en douceur, un petit mouvement à la fois.**
 
-HemiFit est une application personnelle de rééducation après une lésion cérébrale, pensée pour une **hémiparésie droite** : le côté gauche est sain et vient assister le côté droit. Tous les exercices se font **assis ou allongé**, en sécurité, sans jamais forcer.
+HemiFit est une application personnelle de rééducation après une lésion cérébrale, pensée pour une **hémiparésie droite avec forte spasticité** : le côté gauche est sain et vient assister le côté droit. Tous les exercices se font **assis ou allongé**, en sécurité, sans jamais forcer.
+
+Face à la spasticité, l'application applique les bons réflexes : **jamais de mouvement rapide ni forcé** (ça déclenche le réflexe spastique), des **étirements lents et prolongés** (30 s), de la **détente et de la respiration avant chaque séance**, de l'**appui sur la paume ouverte**, et l'entraînement du **relâchement** plutôt que du serrage.
 
 ## Ce que fait HemiFit
 
