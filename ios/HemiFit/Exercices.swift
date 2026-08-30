@@ -194,6 +194,40 @@ enum Catalogue {
             position: .assis
         ),
         Exercice(
+            id: "massage-mollet",
+            nom: "Massage du mollet et du tendon d'Achille",
+            categorie: .massage,
+            realisation: .autonome,
+            objectif: "Détendre le mollet, le muscle qui tire le pied en pointe et entretient l'équin.",
+            etapes: [
+                "Freins bloqués, remontez le pied droit sur un tabouret bas ou sur le genou gauche, seulement si vous le faites sans vous déséquilibrer.",
+                "Réchauffez d'abord : après la douche, ou avec une serviette chaude posée quelques minutes sur le mollet.",
+                "Avec la main gauche, massez le mollet par pressions lentes, toujours de la cheville vers le genou.",
+                "Insistez doucement là où le muscle est dur, sans jamais chercher la douleur.",
+                "Terminez en pinçant le tendon d'Achille entre le pouce et l'index, de bas en haut.",
+            ],
+            dosage: "Environ 4 minutes",
+            dureeSec: 240,
+            position: .assis
+        ),
+        Exercice(
+            id: "massage-tibial-posterieur",
+            nom: "Massage du bord interne de la jambe",
+            categorie: .massage,
+            realisation: .autonome,
+            objectif: "Détendre le muscle qui tire le pied vers l'intérieur : c'est lui le principal responsable du varus.",
+            etapes: [
+                "Repérez l'arête de l'os de la jambe, le tibia, sur le devant.",
+                "Glissez le pouce gauche juste derrière son bord interne : le muscle recherché se trouve là, en profondeur.",
+                "Massez par petits cercles lents le long de ce bord, de la cheville vers le genou.",
+                "Ce muscle étant profond, augmentez la pression progressivement, sans jamais aller jusqu'à la douleur.",
+                "Terminez par la plante du pied, du talon vers les orteils.",
+            ],
+            dosage: "Environ 3 minutes",
+            dureeSec: 180,
+            position: .assis
+        ),
+        Exercice(
             id: "massage-epaule",
             nom: "Massage de l'épaule et de la nuque",
             categorie: .massage,
@@ -558,6 +592,57 @@ enum Catalogue {
             position: .assis
         ),
         Exercice(
+            id: "cheville-eversion",
+            nom: "Réveil du bord externe du pied",
+            categorie: .jambe,
+            realisation: .autonome,
+            objectif: "Solliciter les muscles qui tournent le pied vers l'extérieur : ce sont eux qui manquent quand le pied part en varus.",
+            etapes: [
+                "Pied droit posé à plat, ou soutenu par la main gauche.",
+                "Frottez vivement le bord externe de la jambe, sous le genou, une dizaine de secondes : cela réveille les muscles endormis.",
+                "Essayez ensuite de tourner la plante du pied vers l'extérieur, comme pour en montrer le bord externe.",
+                "Même sans mouvement visible, l'intention compte : ce sont précisément ces muscles-là qu'il faut réapprendre à commander.",
+                "Accompagnez le mouvement avec la main gauche et tenez la position 10 secondes.",
+            ],
+            dosage: "8 essais, tenir 10 s",
+            dureeSec: 150,
+            position: .assis
+        ),
+        Exercice(
+            id: "cheville-attelle",
+            nom: "Préparer le pied avant l'attelle de nuit",
+            categorie: .jambe,
+            realisation: .autonome,
+            objectif: "Une attelle se supporte beaucoup mieux sur un pied réchauffé, massé et déjà étiré.",
+            etapes: [
+                "Massez le mollet puis le bord interne de la jambe pendant quelques minutes.",
+                "Faites étirer la cheville avant d'enfiler l'attelle, ou étirez-la vous-même avec une sangle passée sous l'avant du pied.",
+                "Vérifiez qu'aucun pli de chaussette ni couture ne reste sous le talon ou contre les malléoles.",
+                "Ne forcez jamais le pied dans l'attelle : s'il ne rentre pas, c'est qu'il faut étirer davantage avant.",
+                "Les premiers soirs, ne la gardez qu'une heure ou deux, puis augmentez progressivement sur une à deux semaines.",
+            ],
+            dosage: "Environ 4 minutes, chaque soir",
+            dureeSec: 240,
+            position: .assis
+        ),
+        Exercice(
+            id: "cheville-peau",
+            nom: "Contrôle de la peau après l'attelle",
+            categorie: .jambe,
+            realisation: .autonome,
+            objectif: "Repérer tôt un point de compression : c'est la précaution la plus importante avec une attelle.",
+            etapes: [
+                "Au retrait de l'attelle, regardez le talon, les deux malléoles et tout le bord externe du pied.",
+                "Servez-vous d'un miroir ou de l'appareil photo du téléphone pour les zones difficiles à voir.",
+                "Une rougeur qui s'efface en quelques minutes est normale.",
+                "Une rougeur qui persiste plus de vingt à trente minutes, une cloque ou une zone chaude : arrêtez l'attelle et signalez-le sans attendre.",
+                "Regardez aussi, dans la journée, le bord du pied qui repose sur le repose-pied.",
+            ],
+            dosage: "Chaque matin, moins d'une minute",
+            dureeSec: 60,
+            position: .assis
+        ),
+        Exercice(
             id: "jambe-pont",
             nom: "Pont tout doux",
             categorie: .jambe,
@@ -667,19 +752,21 @@ enum Catalogue {
         ),
         Exercice(
             id: "aide-cheville-mollet",
-            nom: "Étirement du mollet et de la cheville",
+            nom: "Étirement du pied en varus équin",
             categorie: .jambe,
             realisation: .tiercePersonne,
-            objectif: "Empêcher le pied de se figer en pointe : c'est l'un des enraidissements les plus gênants en fauteuil.",
+            objectif: "Étirer l'équin ET le varus : remonter le pied ne suffit pas, il faut aussi tourner la plante vers l'extérieur.",
             etapes: [
-                "Allongé, jambe tendue et soutenue.",
-                "Personne aidante : posez une main à plat sous la plante du pied, l'autre au-dessus du genou.",
-                "Poussez très lentement le pied vers le tibia, jusqu'à sentir l'étirement du mollet.",
-                "Maintenez 30 secondes en respirant, sans jamais forcer par à-coups.",
-                "Répétez trois fois, puis faites quelques cercles doux avec la cheville.",
+                "Allongé, jambe soutenue. Massez d'abord le mollet et le bord interne de la jambe deux à trois minutes : un muscle réchauffé s'étire bien mieux.",
+                "Personne aidante : une main tient le talon par en dessous, l'autre se pose à plat sous l'avant du pied.",
+                "Tirez d'abord le talon vers le bas, dans l'axe de la jambe. C'est ce geste qui décoince l'équin, avant même de remonter le pied.",
+                "Puis remontez lentement l'avant du pied vers le tibia en tournant légèrement la plante vers l'extérieur. Sans cette rotation, on n'étire que la moitié du problème.",
+                "Maintenez 60 secondes, genou tendu, en respirant calmement.",
+                "Recommencez genou plié : les deux positions étirent des muscles différents du mollet, les deux sont nécessaires.",
+                "Jamais d'à-coup, jamais de douleur. Si ça résiste, gardez la position et attendez que ça cède.",
             ],
-            dosage: "3 étirements de 30 s par pied",
-            dureeSec: 300,
+            dosage: "3 fois genou tendu, 3 fois genou plié, 60 s",
+            dureeSec: 420,
             position: .allonge
         ),
 
@@ -764,7 +851,7 @@ enum Catalogue {
             return Seance(
                 titre: "Tronc et jambes",
                 description: "Posture, appuis et souplesse des jambes, entièrement en sécurité dans le fauteuil.",
-                exercices: ["detente-respiration", "tronc-appuis", "tronc-bascule", "tronc-grandir", "jambe-cheville", "jambe-genou"].map(exercice),
+                exercices: ["detente-respiration", "tronc-appuis", "tronc-bascule", "massage-mollet", "jambe-cheville", "cheville-eversion"].map(exercice),
                 realisation: .autonome
             )
         default: // dimanche

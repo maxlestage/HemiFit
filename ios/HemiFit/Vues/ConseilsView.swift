@@ -42,6 +42,26 @@ struct ConseilsView: View {
                         texte: "Votre équilibre étant très altéré, aucun exercice de cette application ne se fait debout. Tout est prévu assis avec le dos soutenu, ou allongé. Bloquez toujours les freins du fauteuil avant de commencer, gardez une amplitude modérée, et ne tentez jamais un transfert ou un redressement seul si vous n'en êtes pas certain."
                     )
                     conseil(
+                        titre: "Le pied en varus équin : ce qui se passe",
+                        texte: "Deux choses s'additionnent. L'équin vient du mollet, devenu court et spastique, qui tire le pied en pointe. Le varus vient d'un muscle profond du bord interne de la jambe, le tibial postérieur, qui fait tourner la plante vers l'intérieur. En face, les muscles du bord externe du pied, ceux qui devraient le ramener à plat, sont affaiblis. D'où la règle : on détend et on étire le mollet et le bord interne, on réveille et on sollicite le bord externe. Massez avant d'étirer, étirez longtemps, et n'oubliez jamais la rotation vers l'extérieur — remonter le pied sans le tourner ne corrige que la moitié du problème."
+                    )
+                    conseil(
+                        titre: "Vos attelles : les règles d'or",
+                        texte: "Préparez toujours le pied avant de mettre l'attelle de nuit : massage puis étirement. Une attelle posée sur un pied froid et raide se supporte mal et se retire au bout d'une heure. Augmentez le temps de port progressivement, une à deux heures les premiers soirs, puis davantage sur une à deux semaines. Ne forcez jamais le pied dedans : s'il ne rentre pas, c'est qu'il faut étirer plus longtemps avant. Et surtout, contrôlez la peau à chaque retrait — talon, malléoles, bord externe du pied. Une rougeur qui persiste plus de vingt à trente minutes n'est pas normale : on arrête et on le signale."
+                    )
+                    conseil(
+                        titre: "Attelle de jour : à faire préciser par vos soignants",
+                        texte: "Une attelle qui exige d'être pieds nus et un releveur dynamique fixé sur la chaussure ne font pas le même travail. Le releveur dynamique a été conçu pour empêcher le pied de traîner pendant la marche ; en fauteuil, son intérêt tient surtout au maintien du pied en bonne position sur le repose-pied, et sa correction du varus reste limitée. Demandez à votre médecin de rééducation ou à votre orthoprothésiste laquelle des deux convient le mieux à vos journées assises, et combien d'heures la porter. C'est une vraie question, et vous avez le droit d'y avoir une réponse claire."
+                    )
+                    conseil(
+                        titre: "Ce qui existe aussi contre le varus équin",
+                        texte: "Au-delà des étirements et des attelles, il existe des traitements qui agissent sur la cause. Les injections de toxine botulique dans le mollet et le tibial postérieur relâchent précisément les muscles fautifs pendant plusieurs mois, ce qui rend ensuite les étirements et l'attelle bien plus efficaces. Les plâtres ou attelles de posture successifs permettent parfois de regagner de l'amplitude par étapes. Ce sont des options courantes et bien codifiées : parlez-en à votre médecin de médecine physique et de réadaptation."
+                    )
+                    conseil(
+                        titre: "Le pied sur le repose-pied",
+                        texte: "En varus, le pied ne repose pas à plat : il porte sur son bord externe, souvent sur la même petite zone toute la journée. Vérifiez la hauteur du repose-pied pour que la cheville soit le plus près possible de l'angle droit, et que l'appui se répartisse sur toute la plante. Un rembourrage souple sur le repose-pied aide. Regardez régulièrement ce bord externe : c'est un endroit où les rougeurs passent facilement inaperçues."
+                    )
+                    conseil(
                         titre: "Pourquoi masser avant de bouger",
                         texte: "Le massage fait baisser le tonus des muscles spastiques, réchauffe les tissus et réveille les sensations. Un membre massé s'étire beaucoup mieux : c'est pour cela que chaque séance commence par là. Vous pouvez masser autant de fois par jour que vous le souhaitez, il n'y a aucun risque à en faire trop, tant que c'est doux."
                     )
