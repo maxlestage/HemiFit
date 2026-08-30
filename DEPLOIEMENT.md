@@ -4,12 +4,11 @@
 
 > 💰 **À savoir avant de commencer** : Heroku n'a plus d'offre gratuite. Le plus petit forfait (« Eco ») coûte **5 $/mois** et suffit largement pour HemiFit. Il faudra une carte bancaire lors de l'inscription.
 
-## Étape 1 — Fusionner la pull request (2 minutes)
+## Étape 1 — Fusionner la pull request ✅ (déjà fait)
 
-1. Ouvrez la pull request : **https://github.com/maxlestage/HemiFit/pull/1**
-2. Descendez en bas de la page et touchez le bouton vert **« Merge pull request »**, puis **« Confirm merge »**.
+Le code (site + fichiers Heroku) est déjà sur la branche principale **`master`**. Il n'y a rien à faire pour cette étape.
 
-Le code (site + fichiers Heroku) est maintenant sur la branche principale `master`.
+> ⚠️ **Important** : dans Heroku, déployez toujours la branche **`master`**. C'est elle qui contient `package.json`, `Procfile` et `server.js`.
 
 ## Étape 2 — Créer le compte Heroku (5 minutes)
 
@@ -45,3 +44,19 @@ HemiFit apparaît sur votre écran d'accueil et s'ouvre en plein écran, comme u
 - **Mises à jour automatiques** : grâce aux *Automatic deploys*, chaque amélioration fusionnée sur `master` est mise en ligne toute seule, sans rien faire.
 - **Comment ça marche** : le site est déjà construit dans `web/dist` (versionné exprès) ; Heroku le sert avec `server.js` (Node, zéro dépendance) via le buildpack standard `heroku/nodejs`. Fiable et sans surprise.
 - **En cas de souci** : dans le dashboard Heroku, onglet **Activity** pour voir les déploiements, **More → View logs** pour les journaux.
+
+## Si le déploiement échoue
+
+### « No default language could be detected for this app »
+
+Heroku n'a pas trouvé de `package.json` à la racine : c'est qu'il déploie **la mauvaise branche**.
+
+Dans l'onglet **Deploy** de l'app, vérifiez que la branche choisie est bien **`master`** — à la fois dans *Automatic deploys* et dans *Manual deploy* — puis relancez **Deploy Branch**.
+
+### « Application error » à l'ouverture du site
+
+Le site est déployé mais le serveur ne démarre pas. Touchez **More → View logs** en haut à droite du dashboard et regardez les dernières lignes. Vous devriez y voir `💚 HemiFit en écoute sur le port …` si tout va bien.
+
+### Le site s'ouvre mais reste blanc
+
+Le dossier `web/dist` (le site construit) manque. Vérifiez sur GitHub que le dossier **web/dist** existe bien sur la branche `master` : https://github.com/maxlestage/HemiFit/tree/master/web/dist
