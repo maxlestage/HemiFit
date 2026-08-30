@@ -1,81 +1,94 @@
 /* ————————————————————————————————————————————————
    HemiFit — interface mobile-first, utilisable d'une seule main.
 
-   Parti pris : sobriété. Aucun emoji, un jeu d'icônes vectorielles
-   homogène, des aplats francs et des contrastes élevés. Les cibles
-   tactiles restent larges (64 px) et le texte grand.
+   Parti pris visuel : sobriété clinique.
+   - fond neutre chaud plutôt qu'un lavis vert pâle ;
+   - une seule zone sombre par écran, qui porte l'action du jour ;
+   - hiérarchie typographique franche, chiffres très lisibles ;
+   - aucun emoji, un jeu d'icônes vectorielles homogène.
+
+   Contraintes d'accessibilité conservées : cibles tactiles de 64 px,
+   texte large, contrastes élevés, navigation au pouce gauche.
    ———————————————————————————————————————————————— */
 
 :root {
   color-scheme: light dark;
 
-  --fond: #f2f5f4;
-  --fond-halo: #e3edea;
+  /* Neutres chauds : plus habités qu'un gris pur, moins fades
+     qu'un vert délavé. */
+  --fond: #faf9f7;
   --carte: #ffffff;
-  --carte-douce: #f7faf9;
+  --neutre: #f4f2ef;
+  --neutre-fort: #e9e5e0;
 
-  --encre: #101a17;
-  --encre-douce: #4c5b55;
-  --encre-tenue: #64736c;
+  --encre: #1a1715;
+  --encre-douce: #56504b;
+  --encre-tenue: #6d665f;
 
-  --accent: #0f6b52;
+  /* Vert profond, réservé aux actions et aux indicateurs. */
+  --accent: #0e6b50;
   --accent-vif: #12916d;
-  --accent-fonce: #0a5340;
-  --accent-clair: #e3f1ec;
+  --accent-clair: #e7f1ed;
   --accent-contraste: #ffffff;
 
-  --aide: #34567f;
-  --aide-clair: #e6edf6;
+  /* Zone sombre : la séance du jour. */
+  --sombre-1: #0e3d2f;
+  --sombre-2: #072019;
+  --sur-sombre: #f2f7f5;
+  --sur-sombre-douce: #a9c4ba;
 
-  --bordure: #e3e9e6;
-  --bordure-nette: #ccd8d3;
+  /* Bleu : tout ce qui requiert une tierce personne. */
+  --aide: #2f5580;
+  --aide-clair: #e8eef6;
 
-  --alerte-fond: #fbf5e8;
-  --alerte-encre: #6d5417;
-  --alerte-bordure: #ecdec0;
+  --bordure: #e8e4df;
+  --bordure-nette: #d6d0c9;
 
-  --rayon: 20px;
-  --rayon-petit: 14px;
+  --alerte-fond: #fdf8ee;
+  --alerte-encre: #6b5313;
+  --alerte-bordure: #ecdfc2;
 
-  --ombre-1: 0 1px 2px rgba(16, 26, 23, 0.05),
-    0 6px 18px rgba(16, 26, 23, 0.045);
-  --ombre-2: 0 2px 4px rgba(16, 26, 23, 0.06),
-    0 14px 34px rgba(16, 26, 23, 0.09);
-  --ombre-accent: 0 6px 18px rgba(15, 107, 82, 0.26);
+  --rayon: 18px;
+  --rayon-petit: 12px;
 
-  --transition: 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  --ombre: 0 1px 2px rgba(26, 23, 21, 0.04);
+  --ombre-sombre: 0 12px 32px rgba(7, 32, 25, 0.28);
+
+  --transition: 180ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --fond: #0c1310;
-    --fond-halo: #14231d;
-    --carte: #161f1b;
-    --carte-douce: #1b2621;
+    --fond: #0d0c0b;
+    --carte: #1a1817;
+    --neutre: #242120;
+    --neutre-fort: #302c2a;
 
-    --encre: #edf3f0;
-    --encre-douce: #aebcb6;
-    --encre-tenue: #96a49e;
+    --encre: #f7f5f3;
+    --encre-douce: #b0a9a3;
+    --encre-tenue: #948c85;
 
-    --accent: #3cbd92;
-    --accent-vif: #4ed3a6;
-    --accent-fonce: #2b9673;
-    --accent-clair: #1a332a;
-    --accent-contraste: #06231a;
+    --accent: #3ec295;
+    --accent-vif: #4ed8a8;
+    --accent-clair: #17322a;
 
-    --aide: #8fb3de;
-    --aide-clair: #1c2a3a;
+    --sombre-1: #12523e;
+    --sombre-2: #0a2e23;
+    --sur-sombre: #f2f7f5;
+    --sur-sombre-douce: #a9c4ba;
 
-    --bordure: #24312c;
-    --bordure-nette: #33443d;
+    --aide: #8fb4e0;
+    --aide-clair: #1b2735;
+
+    --bordure: #2b2725;
+    --bordure-nette: #3a3532;
 
     --alerte-fond: #2a2210;
-    --alerte-encre: #efdcaa;
-    --alerte-bordure: #443716;
+    --alerte-encre: #edd9a6;
+    --alerte-bordure: #453818;
 
-    --ombre-1: 0 1px 2px rgba(0, 0, 0, 0.32), 0 6px 18px rgba(0, 0, 0, 0.3);
-    --ombre-2: 0 2px 4px rgba(0, 0, 0, 0.36), 0 14px 34px rgba(0, 0, 0, 0.44);
-    --ombre-accent: 0 6px 18px rgba(60, 189, 146, 0.2);
+    --ombre: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --ombre-sombre: 0 12px 32px rgba(0, 0, 0, 0.5);
   }
 }
 
@@ -95,25 +108,12 @@ body {
   font-family:
     -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
-  font-size: 18px;
-  line-height: 1.55;
-  letter-spacing: -0.005em;
+  font-size: 17px;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0 0 auto 0;
-  height: 260px;
-  background: linear-gradient(180deg, var(--fond-halo) 0%, transparent 100%);
-  pointer-events: none;
-  z-index: 0;
-}
-
 #root {
-  position: relative;
-  z-index: 1;
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
@@ -130,26 +130,26 @@ svg {
 
 .contenu {
   flex: 1;
-  padding: 8px 16px 130px;
-  padding-top: calc(12px + env(safe-area-inset-top));
+  padding: 4px 18px 132px;
+  padding-top: calc(10px + env(safe-area-inset-top));
 }
 
 .entete {
-  margin: 14px 0 20px;
+  margin: 18px 0 22px;
 }
 
 .entete h1 {
-  font-size: clamp(1.7rem, 6.6vw, 2rem);
+  font-size: clamp(2rem, 8.5vw, 2.5rem);
   font-weight: 800;
-  margin: 0 0 6px;
-  letter-spacing: -0.03em;
-  line-height: 1.15;
+  margin: 0 0 4px;
+  letter-spacing: -0.038em;
+  line-height: 1.08;
 }
 
 .entete p {
   margin: 0;
-  color: var(--encre-douce);
-  font-size: 1rem;
+  color: var(--encre-tenue);
+  font-size: 1.02rem;
 }
 
 /* ——— Cartes ——— */
@@ -158,24 +158,24 @@ svg {
   background: var(--carte);
   border: 1px solid var(--bordure);
   border-radius: var(--rayon);
-  box-shadow: var(--ombre-1);
+  box-shadow: var(--ombre);
   padding: 20px;
-  margin-bottom: 14px;
-  animation: apparition 380ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  margin-bottom: 12px;
 }
 
 .carte h2 {
   margin: 0 0 8px;
-  font-size: 1.3rem;
+  font-size: 1.32rem;
   font-weight: 750;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.026em;
+  line-height: 1.2;
 }
 
 .carte h3 {
-  margin: 0 0 6px;
+  margin: 0 0 7px;
   font-size: 1.06rem;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.016em;
 }
 
 .carte p {
@@ -187,41 +187,67 @@ svg {
   margin-bottom: 0;
 }
 
+/* La séance du jour : seule zone sombre de l'écran, elle porte
+   l'action principale et structure toute la page. */
 .carte-vedette {
-  background: linear-gradient(168deg, var(--carte) 0%, var(--carte-douce) 100%);
-  border-color: var(--bordure-nette);
-  box-shadow: var(--ombre-2);
+  background: linear-gradient(158deg, var(--sombre-1), var(--sombre-2));
+  border: none;
+  box-shadow: var(--ombre-sombre);
+  color: var(--sur-sombre);
+  padding: 24px 22px;
+  margin-bottom: 12px;
 }
 
-@keyframes apparition {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
+.carte-vedette h2 {
+  color: var(--sur-sombre);
+  font-size: 1.72rem;
+  letter-spacing: -0.03em;
+  margin-bottom: 10px;
 }
 
-/* En-tête de carte : surtitre à gauche, pastille de mode à droite. */
+.carte-vedette p {
+  color: var(--sur-sombre-douce);
+}
+
+.carte-vedette .surtitre {
+  color: var(--sur-sombre-douce);
+}
+
+.carte-vedette .pastille-mode {
+  background: rgba(255, 255, 255, 0.13);
+  color: var(--sur-sombre);
+}
+
+/* Bouton clair sur fond sombre : contraste maximal. */
+.carte-vedette .btn-principal {
+  background: var(--sur-sombre);
+  color: var(--sombre-2);
+  box-shadow: none;
+}
+
+.carte-vedette .btn-principal:active {
+  background: #dfeae6;
+}
+
+/* ——— En-tête de carte ——— */
+
 .entete-carte {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .surtitre {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  font-size: 0.86rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  color: var(--accent);
+  font-size: 0.76rem;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  color: var(--encre-tenue);
   text-transform: uppercase;
 }
 
@@ -229,16 +255,15 @@ svg {
   font-size: 0.95rem;
 }
 
-/* Pastille « Seul » / « Avec de l'aide » */
 .pastille-mode {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 5px 11px;
-  border-radius: 999px;
-  background: var(--accent-clair);
-  color: var(--accent);
-  font-size: 0.82rem;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: var(--neutre);
+  color: var(--encre-douce);
+  font-size: 0.78rem;
   font-weight: 700;
   white-space: nowrap;
 }
@@ -248,7 +273,8 @@ svg {
   color: var(--aide);
 }
 
-/* Carte de série */
+/* ——— Série ——— */
+
 .carte-serie {
   display: flex;
   align-items: center;
@@ -258,28 +284,28 @@ svg {
 .icone-serie {
   display: grid;
   place-items: center;
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   flex-shrink: 0;
-  border-radius: 16px;
-  background: var(--accent-clair);
+  border-radius: 13px;
+  background: var(--neutre);
   color: var(--accent);
 }
 
 .grand-chiffre {
   display: block;
-  font-size: 2.4rem;
+  font-size: 2.5rem;
   font-weight: 800;
-  color: var(--accent);
-  line-height: 1.05;
-  letter-spacing: -0.03em;
+  color: var(--encre);
+  line-height: 1;
+  letter-spacing: -0.04em;
   font-variant-numeric: tabular-nums;
 }
 
 .carte-faite {
   display: flex;
   align-items: flex-start;
-  gap: 14px;
+  gap: 13px;
   color: var(--accent);
 }
 
@@ -302,65 +328,56 @@ button {
   min-height: 64px;
   padding: 14px 20px;
   border: none;
-  border-radius: var(--rayon);
-  font-size: 1.12rem;
+  border-radius: 14px;
+  font-size: 1.1rem;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   cursor: pointer;
   touch-action: manipulation;
   transition:
     transform var(--transition),
-    box-shadow var(--transition);
+    background var(--transition);
 }
 
 .btn-principal {
-  background: linear-gradient(
-    135deg,
-    var(--accent-vif) 0%,
-    var(--accent) 60%,
-    var(--accent-fonce) 100%
-  );
+  background: var(--accent);
   color: var(--accent-contraste);
-  box-shadow: var(--ombre-accent);
 }
 
 .btn-principal:active {
-  transform: scale(0.975);
-  box-shadow: 0 2px 8px rgba(15, 107, 82, 0.22);
+  transform: scale(0.98);
 }
 
 .btn-secondaire {
-  background: var(--accent-clair);
-  color: var(--accent);
+  background: var(--neutre);
+  color: var(--encre);
 }
 
 .btn-secondaire:active {
-  transform: scale(0.975);
+  transform: scale(0.98);
 }
 
 .btn-discret {
   background: transparent;
-  color: var(--encre-douce);
-  min-height: 56px;
+  color: var(--encre-tenue);
+  min-height: 54px;
   font-weight: 600;
 }
 
 .btn + .btn {
-  margin-top: 12px;
+  margin-top: 10px;
 }
 
-/* ——— Contrôle segmenté (filtre autonomie / aide) ——— */
+/* ——— Contrôle segmenté ——— */
 
 .segments {
   display: grid;
-  grid-template-columns: auto 1fr 1.35fr;
-  gap: 4px;
-  padding: 4px;
-  margin-bottom: 6px;
-  background: var(--carte);
-  border: 1px solid var(--bordure);
-  border-radius: var(--rayon-petit);
-  box-shadow: var(--ombre-1);
+  grid-template-columns: auto 1fr 1.3fr;
+  gap: 3px;
+  padding: 3px;
+  margin-bottom: 4px;
+  background: var(--neutre);
+  border-radius: 13px;
 }
 
 .segments button {
@@ -368,13 +385,13 @@ button {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  min-height: 52px;
-  padding: 8px 10px;
+  min-height: 50px;
+  padding: 8px 12px;
   border: none;
-  border-radius: 11px;
+  border-radius: 10px;
   background: transparent;
   color: var(--encre-douce);
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   font-weight: 650;
   cursor: pointer;
   touch-action: manipulation;
@@ -384,8 +401,9 @@ button {
 }
 
 .segments button.actif {
-  background: var(--accent);
-  color: var(--accent-contraste);
+  background: var(--carte);
+  color: var(--encre);
+  box-shadow: 0 1px 3px rgba(26, 23, 21, 0.1);
 }
 
 /* ——— Bandeau de sécurité ——— */
@@ -399,12 +417,12 @@ button {
   border: 1px solid var(--alerte-bordure);
   border-radius: var(--rayon);
   padding: 16px 18px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .bandeau-securite p {
   margin: 0;
-  font-size: 0.94rem;
+  font-size: 0.92rem;
   line-height: 1.5;
 }
 
@@ -419,12 +437,9 @@ button {
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 4px;
-  padding: 8px 8px 0;
-  padding-bottom: max(8px, env(safe-area-inset-bottom));
   background: var(--carte);
   border-top: 1px solid var(--bordure);
-  box-shadow: 0 -8px 24px rgba(16, 26, 23, 0.05);
+  padding-bottom: max(6px, env(safe-area-inset-bottom));
   z-index: 5;
 }
 
@@ -433,25 +448,26 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  min-height: 62px;
-  padding: 8px 4px;
+  gap: 5px;
+  min-height: 64px;
+  padding: 10px 4px 8px;
   background: none;
   border: none;
-  border-radius: var(--rayon-petit);
   color: var(--encre-tenue);
-  font-size: 0.76rem;
+  font-size: 0.72rem;
   font-weight: 650;
+  letter-spacing: 0.01em;
   cursor: pointer;
   touch-action: manipulation;
-  transition:
-    color var(--transition),
-    background var(--transition);
+  transition: color var(--transition);
 }
 
 .nav-basse button.actif {
+  color: var(--encre);
+}
+
+.nav-basse button.actif svg {
   color: var(--accent);
-  background: var(--accent-clair);
 }
 
 /* ——— Séance guidée ——— */
@@ -465,46 +481,48 @@ button {
   flex-direction: column;
   max-width: 560px;
   margin: 0 auto;
-  padding: calc(16px + env(safe-area-inset-top)) 16px
-    calc(16px + env(safe-area-inset-bottom));
+  padding: calc(16px + env(safe-area-inset-top)) 18px
+    calc(14px + env(safe-area-inset-bottom));
   overflow-y: auto;
 }
 
 .seance-progression {
   display: flex;
-  gap: 5px;
-  margin-bottom: 16px;
+  gap: 4px;
+  margin-bottom: 18px;
 }
 
 .seance-progression span {
   flex: 1;
-  height: 6px;
+  height: 4px;
   border-radius: 99px;
-  background: var(--bordure-nette);
+  background: var(--neutre-fort);
   transition: background var(--transition);
 }
 
 .seance-progression span.fait {
-  background: linear-gradient(90deg, var(--accent-vif), var(--accent));
+  background: var(--accent);
 }
 
 .compteur-exercice {
-  margin: 0 0 10px;
+  margin: 0 0 12px;
   color: var(--encre-tenue);
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 0.78rem;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .titre-exercice {
-  margin: 4px 0 6px;
-  font-size: 1.5rem;
-  font-weight: 780;
-  letter-spacing: -0.025em;
-  line-height: 1.2;
+  margin: 6px 0 8px;
+  font-size: 1.68rem;
+  font-weight: 800;
+  letter-spacing: -0.032em;
+  line-height: 1.15;
 }
 
 .objectif {
-  margin: 0 0 10px;
+  margin: 0 0 12px;
   color: var(--encre-douce);
 }
 
@@ -518,11 +536,11 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  background: var(--accent-clair);
-  color: var(--accent);
-  border-radius: 999px;
-  padding: 6px 14px;
-  font-size: 0.86rem;
+  background: var(--neutre);
+  color: var(--encre-douce);
+  border-radius: 8px;
+  padding: 6px 11px;
+  font-size: 0.8rem;
   font-weight: 700;
 }
 
@@ -535,9 +553,9 @@ button {
 
 .minuteur-anneau {
   position: relative;
-  width: 208px;
-  height: 208px;
-  margin: 18px auto 16px;
+  width: 212px;
+  height: 212px;
+  margin: 24px auto 18px;
   display: grid;
   place-items: center;
 }
@@ -550,25 +568,25 @@ button {
 
 .minuteur-anneau .piste {
   fill: none;
-  stroke: var(--bordure-nette);
-  stroke-width: 11;
+  stroke: var(--neutre-fort);
+  stroke-width: 9;
 }
 
 .minuteur-anneau .jauge {
   fill: none;
-  stroke: url(#degradeMinuteur);
-  stroke-width: 11;
+  stroke: var(--accent);
+  stroke-width: 9;
   stroke-linecap: round;
   transition: stroke-dashoffset 980ms linear;
 }
 
 .minuteur-texte {
   position: relative;
-  font-size: 3rem;
+  font-size: 3.3rem;
   font-weight: 800;
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.03em;
-  color: var(--accent);
+  letter-spacing: -0.045em;
+  color: var(--encre);
   line-height: 1;
 }
 
@@ -578,41 +596,49 @@ button {
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 750;
   color: var(--accent);
 }
 
 .btn-pause {
-  min-height: 56px;
-  max-width: 260px;
+  min-height: 54px;
+  max-width: 220px;
 }
 
 .etapes {
   padding-left: 0;
   list-style: none;
-  margin: 18px 0 12px;
+  margin: 22px 0 12px;
+  counter-reset: etape;
 }
 
 .etapes li {
   position: relative;
-  padding: 11px 0 11px 28px;
-  border-bottom: 1px solid var(--bordure);
+  padding: 12px 0 12px 38px;
+  border-top: 1px solid var(--bordure);
+  counter-increment: etape;
 }
 
 .etapes li:last-child {
-  border-bottom: none;
+  border-bottom: 1px solid var(--bordure);
 }
 
+/* Étapes numérotées : on suit plus facilement une consigne après l'autre. */
 .etapes li::before {
-  content: "";
+  content: counter(etape);
   position: absolute;
-  left: 8px;
-  top: 21px;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
+  left: 0;
+  top: 13px;
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: var(--neutre);
+  color: var(--encre-douce);
+  font-size: 0.78rem;
+  font-weight: 750;
+  display: grid;
+  place-items: center;
 }
 
 .zone-boutons-bas {
@@ -623,33 +649,30 @@ button {
 /* ——— Liste d'exercices ——— */
 
 .titre-section {
-  margin: 24px 0 12px;
-  font-size: 1.12rem;
+  margin: 26px 0 10px;
+  font-size: 0.78rem;
   font-weight: 750;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
   display: flex;
   align-items: center;
-  gap: 10px;
-  color: var(--encre);
-}
-
-.titre-section svg {
-  color: var(--accent);
+  gap: 9px;
+  color: var(--encre-tenue);
 }
 
 .ligne-exercice {
   display: flex;
   align-items: center;
-  gap: 13px;
+  gap: 14px;
   width: 100%;
   text-align: left;
   background: var(--carte);
   border: 1px solid var(--bordure);
   border-radius: var(--rayon);
-  box-shadow: var(--ombre-1);
-  padding: 15px 16px;
-  margin-bottom: 10px;
-  min-height: 74px;
+  box-shadow: var(--ombre);
+  padding: 14px 15px;
+  margin-bottom: 8px;
+  min-height: 72px;
   cursor: pointer;
   transition:
     transform var(--transition),
@@ -662,14 +685,14 @@ button {
 }
 
 .vignette {
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   flex-shrink: 0;
   display: grid;
   place-items: center;
-  background: var(--accent-clair);
-  color: var(--accent);
-  border-radius: 13px;
+  background: var(--neutre);
+  color: var(--encre-douce);
+  border-radius: 11px;
 }
 
 .ligne-exercice .infos {
@@ -681,22 +704,23 @@ button {
   display: block;
   font-size: 1.02rem;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.016em;
   color: var(--encre);
+  line-height: 1.3;
 }
 
 .ligne-exercice .infos span {
-  color: var(--encre-douce);
-  font-size: 0.88rem;
+  color: var(--encre-tenue);
+  font-size: 0.86rem;
 }
 
 .marque-aide {
   display: grid;
   place-items: center;
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   flex-shrink: 0;
-  border-radius: 9px;
+  border-radius: 8px;
   background: var(--aide-clair);
   color: var(--aide);
 }
@@ -716,43 +740,42 @@ button {
 .grille-stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 14px;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
 .tuile {
   margin-bottom: 0;
-  text-align: center;
-  padding: 18px 12px;
+  padding: 18px 16px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
+  align-items: flex-start;
+  gap: 0;
 }
 
 .tuile-icone {
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
-  margin-bottom: 6px;
-  border-radius: 11px;
-  background: var(--accent-clair);
-  color: var(--accent);
+  width: 32px;
+  height: 32px;
+  margin-bottom: 12px;
+  border-radius: 9px;
+  background: var(--neutre);
+  color: var(--encre-douce);
 }
 
 .tuile p {
-  margin: 4px 0 0;
-  font-size: 0.86rem;
+  margin: 6px 0 0;
+  font-size: 0.84rem;
   line-height: 1.35;
+  color: var(--encre-tenue);
 }
 
 .semaine {
   display: flex;
   justify-content: space-between;
   gap: 6px;
-  margin-top: 14px;
+  margin-top: 16px;
 }
 
 .semaine .jour {
@@ -760,29 +783,29 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
 }
 
 .semaine .pastille {
   width: 100%;
   aspect-ratio: 1;
-  max-width: 38px;
-  border-radius: 11px;
-  background: var(--bordure);
+  max-width: 36px;
+  border-radius: 10px;
+  background: var(--neutre);
   display: grid;
   place-items: center;
   color: var(--accent-contraste);
 }
 
 .semaine .pastille.actif {
-  background: linear-gradient(145deg, var(--accent-vif), var(--accent));
+  background: var(--accent);
 }
 
 .semaine .etiquette {
-  font-size: 0.72rem;
-  font-weight: 650;
+  font-size: 0.7rem;
+  font-weight: 700;
   color: var(--encre-tenue);
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
 }
 
 .historique-ligne {
@@ -796,16 +819,17 @@ button {
 
 .historique-ligne:last-child {
   border-bottom: none;
+  padding-bottom: 0;
 }
 
 .historique-ligne .date {
-  color: var(--encre-douce);
-  font-size: 0.86rem;
+  color: var(--encre-tenue);
+  font-size: 0.84rem;
 }
 
 .historique-ligne .minutes {
   white-space: nowrap;
-  font-weight: 650;
+  font-weight: 700;
   font-variant-numeric: tabular-nums;
   color: var(--encre-douce);
 }
@@ -814,14 +838,14 @@ button {
 
 .felicitations {
   text-align: center;
-  padding: 26px 8px 10px;
+  padding: 30px 8px 12px;
 }
 
 .felicitations h1 {
-  margin: 0 0 8px;
-  font-size: 1.7rem;
+  margin: 0 0 10px;
+  font-size: 1.85rem;
   font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
 }
 
 .felicitations p {
@@ -832,43 +856,31 @@ button {
 .sceau-fin {
   display: grid;
   place-items: center;
-  width: 84px;
-  height: 84px;
-  margin: 0 auto 16px;
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 18px;
   border-radius: 50%;
-  background: var(--accent-clair);
-  color: var(--accent);
-  animation: sceau 520ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
-}
-
-@keyframes sceau {
-  from {
-    opacity: 0;
-    transform: scale(0.7);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
+  background: var(--accent);
+  color: var(--accent-contraste);
 }
 
 .question-ressenti {
-  margin: 22px 0 0;
-  font-size: 1.1rem;
+  margin: 24px 0 0;
+  font-size: 1.05rem;
   font-weight: 700;
 }
 
 .choix-ressenti {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: 10px;
   margin: 14px 0;
 }
 
 .choix-ressenti button {
-  min-height: 92px;
-  border: 2px solid var(--bordure-nette);
-  border-radius: var(--rayon);
+  min-height: 88px;
+  border: 1px solid var(--bordure);
+  border-radius: 14px;
   background: var(--carte);
   color: var(--encre-douce);
   display: flex;
@@ -876,11 +888,10 @@ button {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 650;
   cursor: pointer;
   transition:
-    transform var(--transition),
     border-color var(--transition),
     background var(--transition),
     color var(--transition);
@@ -890,31 +901,29 @@ button {
   border-color: var(--accent);
   background: var(--accent-clair);
   color: var(--accent);
-  transform: translateY(-2px);
 }
 
-/* Petite jauge à trois barres, plus sobre qu'un émoticône. */
 .jauge-ressenti {
   display: flex;
   align-items: flex-end;
   gap: 4px;
-  height: 22px;
+  height: 20px;
 }
 
 .jauge-ressenti i {
-  width: 7px;
+  width: 6px;
   border-radius: 2px;
-  background: var(--bordure-nette);
+  background: var(--neutre-fort);
 }
 
 .jauge-ressenti i:nth-child(1) {
-  height: 10px;
+  height: 9px;
 }
 .jauge-ressenti i:nth-child(2) {
-  height: 16px;
+  height: 14px;
 }
 .jauge-ressenti i:nth-child(3) {
-  height: 22px;
+  height: 20px;
 }
 
 .jauge-ressenti i.remplie {

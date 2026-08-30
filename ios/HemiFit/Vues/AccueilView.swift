@@ -115,7 +115,7 @@ struct AccueilView: View {
                     systemImage: symbole
                 )
                 .font(.caption.weight(.bold))
-                .foregroundStyle(Color.vert)
+                .foregroundStyle(vedette ? Color.surSombreDouce : Color.secondary)
 
                 Spacer()
 
@@ -123,24 +123,29 @@ struct AccueilView: View {
             }
 
             Text(laSeance.titre)
-                .font(.title2.bold())
+                .font(.title.bold())
+                .foregroundStyle(vedette ? Color.surSombre : Color.primary)
 
             Text(laSeance.description)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(vedette ? Color.surSombreDouce : Color.secondary)
 
             Text(laSeance.realisation == .autonome
                  ? "\(laSeance.exercices.count) exercices, réalisables seul, assis ou allongé."
                  : "\(laSeance.exercices.count) exercices, réalisés par la personne qui vous accompagne.")
                 .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(vedette ? Color.surSombreDouce : Color.secondary)
 
             Button {
                 seanceEnCours = laSeance
             } label: {
                 Label(libelleBouton, systemImage: "play.fill")
             }
-            .buttonStyle(BoutonLargeStyle())
-            .padding(.top, 4)
+            .buttonStyle(BoutonLargeStyle(
+                degrade: !vedette,
+                couleurFond: .surSombre,
+                couleurTexte: .sombreBas
+            ))
+            .padding(.top, 6)
         }
         .carteHemiFit(vedette: vedette)
     }
@@ -195,19 +200,23 @@ extension View {
     func carteHemiFit(vedette: Bool = false) -> some View {
         self
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(22)
+            .padding(vedette ? 24 : 20)
             .background {
-                RoundedRectangle(cornerRadius: rayonHemiFit)
-                    .fill(.background.secondary)
-                    .shadow(
-                        color: .black.opacity(vedette ? 0.10 : 0.05),
-                        radius: vedette ? 20 : 10,
-                        y: vedette ? 8 : 4
-                    )
+                if vedette {
+                    RoundedRectangle(cornerRadius: rayonHemiFit)
+                        .fill(.degradeSombre)
+                        .shadow(color: .sombreBas.opacity(0.28), radius: 24, y: 10)
+                } else {
+                    RoundedRectangle(cornerRadius: rayonHemiFit)
+                        .fill(.background.secondary)
+                        .shadow(color: .black.opacity(0.04), radius: 6, y: 2)
+                }
             }
             .overlay {
-                RoundedRectangle(cornerRadius: rayonHemiFit)
-                    .strokeBorder(.separator.opacity(0.5), lineWidth: 0.5)
+                if !vedette {
+                    RoundedRectangle(cornerRadius: rayonHemiFit)
+                        .strokeBorder(.separator.opacity(0.4), lineWidth: 0.5)
+                }
             }
     }
 }
