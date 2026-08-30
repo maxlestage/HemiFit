@@ -10,6 +10,7 @@ import {
 } from "./data/exercises";
 import {
   chargerHistorique,
+  derniers7Jours,
   joursDepuisDerniereSeance,
   meilleureSerie,
   minutesTotales,
@@ -167,7 +168,7 @@ function Accueil(props: {
         </div>
       )}
 
-      <div className="carte">
+      <div className="carte carte-vedette">
         <span className="badge">Séance du jour · {minutes} min environ</span>
         <h2>{props.seance.titre}</h2>
         <p>{props.seance.description}</p>
@@ -218,8 +219,9 @@ function Exercices(props: { onSeanceLibre: (s: Seance) => void }) {
 
       {ordre.map(cat => (
         <section key={cat}>
-          <h2 style={{ margin: "20px 0 12px", fontSize: "1.2rem" }}>
-            {CATEGORIES[cat].emoji} {CATEGORIES[cat].titre}
+          <h2 className="titre-section">
+            <span aria-hidden="true">{CATEGORIES[cat].emoji}</span>
+            {CATEGORIES[cat].titre}
           </h2>
           {EXERCICES.filter(e => e.categorie === cat).map(ex => (
             <CarteExercice
@@ -265,7 +267,12 @@ function CarteExercice(props: {
             {ex.dosage} · {ex.position}
           </span>
         </span>
-        <span aria-hidden="true">{props.ouvert ? "▴" : "▾"}</span>
+        <span
+          className={props.ouvert ? "chevron ouvert" : "chevron"}
+          aria-hidden="true"
+        >
+          ▼
+        </span>
       </button>
 
       {props.ouvert && (
@@ -320,18 +327,34 @@ function Progres(props: { historique: SeanceTerminee[] }) {
       </div>
 
       <div className="carte">
+        <h3>Cette semaine</h3>
+        <p>
+          {seancesSur7Jours(h) > 0
+            ? `${seancesSur7Jours(h)} ${seancesSur7Jours(h) === 1 ? "séance" : "séances"} sur les 7 derniers jours.`
+            : "Aucune séance ces 7 derniers jours — la prochaine vous attend, tranquillement."}
+        </p>
+        <div className="semaine">
+          {derniers7Jours(h).map(jour => (
+            <div className="jour" key={jour.date}>
+              <div
+                className={jour.actif ? "pastille actif" : "pastille"}
+                title={jour.date}
+              >
+                ✓
+              </div>
+              <span className="etiquette">{jour.etiquette}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="carte">
         <h3>🌱 Rien de tout cela ne se perd</h3>
         <p>
           Ces minutes sont du travail réel fait par votre cerveau. Une pause,
           même de plusieurs mois, ne les efface pas : vous reprendrez là où vous
           en êtes, jamais à zéro.
         </p>
-        {seancesSur7Jours(h) > 0 && (
-          <p>
-            Sur les 7 derniers jours : {seancesSur7Jours(h)}{" "}
-            {seancesSur7Jours(h) === 1 ? "séance" : "séances"}.
-          </p>
-        )}
       </div>
 
       <div className="carte">

@@ -18,6 +18,8 @@ struct ProgresView: View {
 
                     grilleStatistiques
 
+                    carteSemaine
+
                     carteRienNeSePerd
 
                     dernieresSeances
@@ -38,17 +40,57 @@ struct ProgresView: View {
     }
 
     private func tuile(valeur: String, legende: String) -> some View {
-        VStack(spacing: 4) {
+        VStack(spacing: 6) {
             Text(valeur)
-                .font(.system(size: 36, weight: .bold, design: .rounded))
+                .font(.system(size: 38, weight: .bold, design: .rounded))
                 .foregroundStyle(Color.vert)
+                .contentTransition(.numericText())
             Text(legende)
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
         }
-        .frame(maxWidth: .infinity, minHeight: 100)
-        .background(.background.secondary, in: .rect(cornerRadius: 20))
+        .frame(maxWidth: .infinity, minHeight: 108)
+        .padding(.horizontal, 8)
+        .background {
+            RoundedRectangle(cornerRadius: rayonHemiFit)
+                .fill(.background.secondary)
+                .shadow(color: .black.opacity(0.05), radius: 10, y: 4)
+        }
+    }
+
+    private var carteSemaine: some View {
+        let n = Statistiques.seancesSur7Jours(journal)
+        return VStack(alignment: .leading, spacing: 12) {
+            Text("Cette semaine")
+                .font(.headline)
+            Text(n > 0
+                 ? "\(n) \(n == 1 ? "séance" : "séances") sur les 7 derniers jours."
+                 : "Aucune séance ces 7 derniers jours — la prochaine vous attend, tranquillement.")
+                .foregroundStyle(.secondary)
+
+            HStack(spacing: 6) {
+                ForEach(Statistiques.derniers7Jours(journal)) { jour in
+                    VStack(spacing: 6) {
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(jour.actif ? AnyShapeStyle(.degradeAccent)
+                                             : AnyShapeStyle(.quaternary))
+                            .aspectRatio(1, contentMode: .fit)
+                            .overlay {
+                                if jour.actif {
+                                    Image(systemName: "checkmark")
+                                        .font(.subheadline.weight(.bold))
+                                        .foregroundStyle(.white)
+                                }
+                            }
+                        Text(jour.etiquette)
+                            .font(.caption2.weight(.semibold))
+                            .foregroundStyle(.secondary)
+                    }
+                }
+            }
+        }
+        .carteHemiFit()
     }
 
     private var carteRienNeSePerd: some View {
