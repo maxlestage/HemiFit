@@ -1,0 +1,130 @@
+//
+//  ConseilsView.swift
+//  HemiFit
+//
+
+import SwiftUI
+
+struct ConseilsView: View {
+    @AppStorage("rappelActif") private var rappelActif = false
+    @AppStorage("rappelHeure") private var rappelHeure = 10
+    @AppStorage("rappelMinute") private var rappelMinute = 0
+
+    @State private var rappels = Rappels()
+
+    private var heureRappel: Binding<Date> {
+        Binding {
+            Calendar.current.date(
+                bySettingHour: rappelHeure, minute: rappelMinute, second: 0, of: .now
+            ) ?? .now
+        } set: { nouvelle in
+            let composants = Calendar.current.dateComponents([.hour, .minute], from: nouvelle)
+            rappelHeure = composants.hour ?? 10
+            rappelMinute = composants.minute ?? 0
+            if rappelActif {
+                Task { await rappels.programmer(heure: rappelHeure, minute: rappelMinute) }
+            }
+        }
+    }
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
+                    carteRappel
+
+                    conseil(
+                        titre: "👐 Fermer facile, ouvrir difficile : c'est classique",
+                        texte: "Après une lésion cérébrale, les muscles qui ferment la main restent forts (et spastiques), tandis que ceux qui l'ouvrent sont affaiblis. L'ouverture se rééduque donc avec de l'aide : le poignet plié vers l'avant desserre naturellement les doigts, la main gauche termine le mouvement, et chaque intention d'ouvrir — même sans mouvement visible — entraîne le cerveau."
+                    )
+                    conseil(
+                        titre: "🌊 Comprendre la spasticité",
+                        texte: "Vos muscles droits sont trop « toniques » : ils se contractent tout seuls et résistent, surtout quand on les étire vite. Ce n'est pas de la mauvaise volonté de votre main — c'est un réflexe. La bonne nouvelle : la lenteur, le calme et les étirements prolongés la font baisser."
+                    )
+                    conseil(
+                        titre: "🐢 Lent, toujours plus lent",
+                        texte: "Un mouvement rapide ou forcé déclenche le réflexe spastique : la main se referme encore plus. Étirez très lentement, arrêtez-vous dès que ça résiste, respirez… et attendez que ça lâche tout seul. Ça vient toujours."
+                    )
+                    conseil(
+                        titre: "🛁 La chaleur détend",
+                        texte: "La spasticité diminue avec la chaleur : faites les exercices de la main après une douche chaude, ou passez la main droite quelques minutes sous l'eau chaude (testez la température avec la main gauche). Le froid, le stress et la fatigue, eux, l'augmentent."
+                    )
+                    conseil(
+                        titre: "🧠 Le cerveau apprend par la répétition",
+                        texte: "Après une lésion cérébrale, le cerveau peut créer de nouveaux chemins : c'est la neuroplasticité. Elle se nourrit de répétitions courtes et fréquentes — 15 minutes par jour valent mieux qu'une heure une fois par semaine."
+                    )
+                    conseil(
+                        titre: "👀 Regardez votre côté droit",
+                        texte: "Pendant les exercices, regardez votre main ou votre jambe droite bouger, même quand c'est la main gauche qui aide. Voir le mouvement aide le cerveau à le réapprendre."
+                    )
+                    conseil(
+                        titre: "✋ L'intention compte déjà",
+                        texte: "Même si le mouvement ne vient pas, le fait d'essayer, d'imaginer et de vouloir bouger active les bonnes zones du cerveau. Aucun essai n'est perdu."
+                    )
+                    conseil(
+                        titre: "💬 Parlez de votre spasticité à vos soignants",
+                        texte: "Il existe des traitements spécifiques de la spasticité (kinésithérapie, médicaments, injections ciblées, attelles) qui complètent très bien ces exercices. Si la spasticité vous gêne beaucoup, c'est une vraie question à poser à votre médecin."
+                    )
+                    conseil(
+                        titre: "🛑 Les signaux pour s'arrêter",
+                        texte: "Douleur vive, vertige, essoufflement inhabituel, fatigue soudaine : on s'arrête, on se repose, et on en parle à son médecin si ça se répète."
+                    )
+
+                    Text("⚕️ Ces exercices sont doux et classiques en rééducation, mais chaque situation est unique : faites-les valider par votre kinésithérapeute ou votre médecin, et signalez-leur toute douleur ou changement.")
+                        .font(.subheadline)
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(.yellow.opacity(0.15), in: .rect(cornerRadius: 20))
+                }
+                .padding()
+            }
+            .navigationTitle("Conseils")
+        }
+    }
+
+    private var carteRappel: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Toggle(isOn: $rappelActif) {
+                Label("Rappel quotidien", systemImage: "bell.fill")
+                    .font(.headline)
+            }
+            .tint(.vert)
+            .onChange(of: rappelActif) { _, actif in
+                Task {
+                    if actif {
+                        await rappels.demanderAutorisation()
+                        await rappels.programmer(heure: rappelHeure, minute: rappelMinute)
+                    } else {
+                        rappels.annuler()
+                    }
+                }
+            }
+
+            if rappelActif {
+                DatePicker(
+                    "Heure du rappel",
+                    selection: heureRappel,
+                    displayedComponents: .hourAndMinute
+                )
+                Text("Une petite notification chaque jour pour garder le rythme, en douceur.")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .carteHemiFit()
+    }
+
+    private func conseil(titre: String, texte: String) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(titre)
+                .font(.headline)
+            Text(texte)
+                .foregroundStyle(.secondary)
+        }
+        .carteHemiFit()
+    }
+}
+
+#Preview {
+    ConseilsView()
+}
