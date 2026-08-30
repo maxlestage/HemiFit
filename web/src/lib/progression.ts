@@ -122,3 +122,29 @@ export function seancesSur7Jours(historique: SeanceTerminee[]): number {
 export function minutesTotales(historique: SeanceTerminee[]): number {
   return historique.reduce((t, s) => t + s.minutes, 0);
 }
+
+export interface JourActivite {
+  date: string;
+  /** Initiale du jour, ex. « L » pour lundi. */
+  etiquette: string;
+  actif: boolean;
+}
+
+/** Les 7 derniers jours, du plus ancien à aujourd'hui, pour la bande d'activité. */
+export function derniers7Jours(historique: SeanceTerminee[]): JourActivite[] {
+  const faits = new Set(historique.map(s => s.date));
+  const initiales = ["D", "L", "M", "M", "J", "V", "S"];
+  const jours: JourActivite[] = [];
+
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const iso = dateISO(d);
+    jours.push({
+      date: iso,
+      etiquette: initiales[d.getDay()]!,
+      actif: faits.has(iso),
+    });
+  }
+  return jours;
+}

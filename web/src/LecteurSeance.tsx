@@ -86,7 +86,11 @@ export function LecteurSeance({ seance, onQuitter, onTerminee }: Props) {
   );
 }
 
-/** Minuteur avec pause, remis à zéro à chaque exercice via `cle`. */
+/** Rayon et circonférence de l'anneau du minuteur. */
+const RAYON = 94;
+const CIRCONFERENCE = 2 * Math.PI * RAYON;
+
+/** Minuteur circulaire avec pause, remis à zéro à chaque exercice via `cle`. */
 function Minuteur({ cle, dureeSec }: { cle: string; dureeSec: number }) {
   const [restant, setRestant] = useState(dureeSec);
   const [enPause, setEnPause] = useState(false);
@@ -106,12 +110,39 @@ function Minuteur({ cle, dureeSec }: { cle: string; dureeSec: number }) {
 
   const min = Math.floor(restant / 60);
   const sec = String(restant % 60).padStart(2, "0");
+  const proportion = dureeSec > 0 ? restant / dureeSec : 0;
 
   return (
     <div style={{ textAlign: "center" }}>
-      <div className="minuteur" aria-live="polite">
-        {restant > 0 ? `${min}:${sec}` : "Bien joué 💚"}
+      <div className="minuteur-anneau">
+        <svg viewBox="0 0 208 208" aria-hidden="true">
+          <defs>
+            <linearGradient id="degradeMinuteur" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="var(--accent-vif)" />
+              <stop offset="100%" stopColor="var(--accent)" />
+            </linearGradient>
+          </defs>
+          <circle className="piste" cx="104" cy="104" r={RAYON} />
+          <circle
+            className="jauge"
+            cx="104"
+            cy="104"
+            r={RAYON}
+            strokeDasharray={CIRCONFERENCE}
+            strokeDashoffset={CIRCONFERENCE * (1 - proportion)}
+          />
+        </svg>
+        {restant > 0 ? (
+          <span className="minuteur-texte" aria-live="polite">
+            {min}:{sec}
+          </span>
+        ) : (
+          <span className="minuteur-fini" aria-live="polite">
+            Bien joué 💚
+          </span>
+        )}
       </div>
+
       {restant > 0 && (
         <button
           className="btn btn-secondaire"
