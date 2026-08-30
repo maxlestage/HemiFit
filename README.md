@@ -25,6 +25,14 @@ L'interface est conçue pour être utilisée **d'une seule main (la gauche)** : 
 
 Les deux partagent le même catalogue d'exercices et le même programme hebdomadaire. Les données restent sur l'appareil : rien ne part sur internet.
 
+## Mettre en ligne (depuis un téléphone 📱)
+
+Le site se déploie sur **Heroku** sans ordinateur ni ligne de commande : tout se fait dans le navigateur du téléphone. Suivez le guide pas à pas : **[DEPLOIEMENT.md](DEPLOIEMENT.md)**.
+
+En résumé : le site déjà construit (`web/dist`, versionné exprès) est servi par `server.js` (Node, zéro dépendance) — Heroku se connecte au dépôt GitHub et se redéploie automatiquement à chaque mise à jour de `master`.
+
+[![Déployer sur Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/maxlestage/HemiFit)
+
 ## Démarrage rapide
 
 ```bash

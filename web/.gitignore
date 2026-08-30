@@ -3,8 +3,9 @@ node_modules
 
 # output
 out
-dist
 *.tgz
+# NB : dist/ est volontairement versionné — Heroku sert ce dossier
+# tel quel via server.js, sans étape de build côté serveur.
 
 # code coverage
 coverage
