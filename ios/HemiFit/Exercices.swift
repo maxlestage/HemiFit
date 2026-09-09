@@ -20,7 +20,7 @@
 import Foundation
 
 enum CategorieExercice: String, CaseIterable, Identifiable {
-    case massage, sensoriel, main, bras, tronc, jambe
+    case massage, sensoriel, main, bras, tronc, jambe, electrodes
 
     var id: String { rawValue }
 
@@ -32,6 +32,7 @@ enum CategorieExercice: String, CaseIterable, Identifiable {
         case .bras: "Bras et épaule"
         case .tronc: "Tronc et posture"
         case .jambe: "Jambes et bassin"
+        case .electrodes: "Électrodes"
         }
     }
 
@@ -44,6 +45,7 @@ enum CategorieExercice: String, CaseIterable, Identifiable {
         case .bras: "figure.arms.open"
         case .tronc: "figure.seated.side"
         case .jambe: "figure.flexibility"
+        case .electrodes: "bolt"
         }
     }
 }
@@ -657,6 +659,99 @@ enum Catalogue {
             dosage: "5 répétitions douces",
             dureeSec: 120,
             position: .allonge
+        ),
+
+        // ——— Électrodes ———
+        Exercice(
+            id: "electrodes-main-pose",
+            nom: "Main : poser les électrodes",
+            categorie: .electrodes,
+            realisation: .autonome,
+            objectif: "Placer les électrodes sur les muscles qui ouvrent la main, à l'arrière de l'avant-bras.",
+            etapes: [
+                "Appareil éteint. Peau propre et sèche, sans crème ni huile.",
+                "Posez l'avant-bras droit sur une table, paume vers le bas, bien soutenu.",
+                "Première électrode : à environ 5 cm sous le pli du coude, sur le DESSUS de l'avant-bras, côté externe.",
+                "Deuxième électrode : 8 à 10 cm plus bas, dans le même axe, toujours sur le dessus de l'avant-bras.",
+                "Appuyez sur toute la surface de chaque électrode pour qu'elle adhère bien à plat.",
+                "Jamais du côté de la paume : ce sont les muscles qui ferment la main, on ne les stimule pas.",
+            ],
+            dosage: "Environ 3 minutes",
+            dureeSec: 180,
+            position: .assis
+        ),
+        Exercice(
+            id: "electrodes-main-seance",
+            nom: "Main : séance d'électrostimulation",
+            categorie: .electrodes,
+            realisation: .autonome,
+            objectif: "Faire travailler les extenseurs pour ouvrir la main, en accompagnant chaque contraction de votre propre intention.",
+            etapes: [
+                "Montez l'intensité très progressivement, en partant de zéro.",
+                "Le bon repère : le poignet et les doigts se relèvent et la main s'ouvre. Si les doigts se referment au contraire, les électrodes sont du mauvais côté : éteignez et repositionnez-les.",
+                "L'intensité juste est celle qui donne une contraction visible et confortable. Jamais douloureuse.",
+                "À chaque fois que le courant monte, essayez d'ouvrir la main vous-même, en même temps.",
+                "C'est cette association du courant et de votre intention qui fait progresser : la stimulation seule, passive, apporte beaucoup moins.",
+                "Entre deux contractions, laissez la main se reposer complètement.",
+            ],
+            dosage: "15 minutes, une à deux fois par jour",
+            dureeSec: 900,
+            position: .assis
+        ),
+        Exercice(
+            id: "electrodes-pied-pose",
+            nom: "Pied : poser les électrodes",
+            categorie: .electrodes,
+            realisation: .autonome,
+            objectif: "Placer les électrodes sur les muscles qui relèvent le pied et le tournent vers l'extérieur.",
+            etapes: [
+                "Appareil éteint, jambe droite soutenue, peau propre et sèche.",
+                "Repérez l'arête de l'os de la jambe, le tibia, sur le devant.",
+                "Première électrode : 4 à 5 cm sous le genou, juste à l'EXTÉRIEUR de cette arête, sur le muscle.",
+                "Deuxième électrode : 10 à 12 cm plus bas, toujours à l'extérieur de l'arête.",
+                "Contre le varus, décalez la deuxième électrode un peu plus vers le côté externe de la jambe : le pied doit se relever en tournant légèrement vers l'extérieur, pas vers l'intérieur.",
+                "Jamais sur le mollet : c'est le muscle qui tire le pied en pointe, on ne le stimule pas.",
+                "Si vous n'atteignez pas confortablement votre jambe, faites poser les électrodes par la personne qui vous accompagne.",
+            ],
+            dosage: "Environ 3 minutes",
+            dureeSec: 180,
+            position: .assis
+        ),
+        Exercice(
+            id: "electrodes-pied-seance",
+            nom: "Pied : séance d'électrostimulation",
+            categorie: .electrodes,
+            realisation: .autonome,
+            objectif: "Entretenir les releveurs du pied et lutter contre l'installation du varus équin.",
+            etapes: [
+                "Montez l'intensité très progressivement, en partant de zéro.",
+                "Le bon repère : la pointe du pied se relève vers le tibia. Idéalement, le bord externe monte aussi.",
+                "Si le pied se relève en partant vers l'intérieur, éteignez et décalez les électrodes plus vers l'extérieur de la jambe.",
+                "Accompagnez chaque montée du courant en essayant vous-même de relever le pied.",
+                "Intensité confortable, contraction visible, jamais de douleur.",
+                "Si une crampe s'installe dans le mollet, arrêtez la séance et massez avant de reprendre plus tard.",
+            ],
+            dosage: "15 minutes, une à deux fois par jour",
+            dureeSec: 900,
+            position: .assis
+        ),
+        Exercice(
+            id: "electrodes-apres",
+            nom: "Après la séance : peau et électrodes",
+            categorie: .electrodes,
+            realisation: .autonome,
+            objectif: "Éviter les brûlures et faire durer les électrodes : deux minutes qui évitent bien des ennuis.",
+            etapes: [
+                "Éteignez toujours l'appareil AVANT de décoller les électrodes.",
+                "Regardez la peau sous chaque électrode. Une rougeur légère qui s'efface en quelques minutes est normale.",
+                "Une rougeur qui persiste, une cloque, une sensation de brûlure : on arrête et on le signale.",
+                "Remettez les électrodes sur leur film plastique et conservez-les au frais.",
+                "Remplacez-les dès qu'elles n'adhèrent plus partout : une électrode qui décolle concentre le courant sur un point et peut brûler.",
+                "Ces électrodes sont personnelles et ne se partagent pas.",
+            ],
+            dosage: "Après chaque séance, environ 2 minutes",
+            dureeSec: 120,
+            position: .assis
         ),
 
         // ——— Massage et détente ———

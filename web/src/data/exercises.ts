@@ -20,7 +20,8 @@ export type Categorie =
   | "main"
   | "bras"
   | "tronc"
-  | "jambe";
+  | "jambe"
+  | "electrodes";
 
 /** Qui réalise l'exercice. */
 export type Realisation = "autonome" | "tierce-personne";
@@ -51,6 +52,7 @@ export const CATEGORIES: Record<
   bras: { titre: "Bras et épaule", icone: "bras" },
   tronc: { titre: "Tronc et posture", icone: "tronc" },
   jambe: { titre: "Jambes et bassin", icone: "jambe" },
+  electrodes: { titre: "Électrodes", icone: "electrodes" },
 };
 
 export const REALISATIONS: Record<
@@ -639,6 +641,108 @@ export const EXERCICES: Exercice[] = [
     dosage: "5 répétitions douces",
     dureeSec: 120,
     position: "allongé",
+  },
+
+  // ————————————————— Électrodes —————————————————
+  // Principe : on stimule les muscles AFFAIBLIS (ceux qui ouvrent la
+  // main, ceux qui relèvent le pied), jamais les muscles spastiques.
+  // Stimuler l'antagoniste renforce le muscle faible et fait baisser
+  // en retour le tonus du muscle trop contracté.
+  {
+    id: "electrodes-main-pose",
+    nom: "Main : poser les électrodes",
+    categorie: "electrodes",
+    realisation: "autonome",
+    objectif:
+      "Placer les électrodes sur les muscles qui ouvrent la main, à l'arrière de l'avant-bras.",
+    etapes: [
+      "Appareil éteint. Peau propre et sèche, sans crème ni huile.",
+      "Posez l'avant-bras droit sur une table, paume vers le bas, bien soutenu.",
+      "Première électrode : à environ 5 cm sous le pli du coude, sur le DESSUS de l'avant-bras, côté externe.",
+      "Deuxième électrode : 8 à 10 cm plus bas, dans le même axe, toujours sur le dessus de l'avant-bras.",
+      "Appuyez sur toute la surface de chaque électrode pour qu'elle adhère bien à plat.",
+      "Jamais du côté de la paume : ce sont les muscles qui ferment la main, on ne les stimule pas.",
+    ],
+    dosage: "Environ 3 minutes",
+    dureeSec: 180,
+    position: "assis",
+  },
+  {
+    id: "electrodes-main-seance",
+    nom: "Main : séance d'électrostimulation",
+    categorie: "electrodes",
+    realisation: "autonome",
+    objectif:
+      "Faire travailler les extenseurs pour ouvrir la main, en accompagnant chaque contraction de votre propre intention.",
+    etapes: [
+      "Montez l'intensité très progressivement, en partant de zéro.",
+      "Le bon repère : le poignet et les doigts se relèvent et la main s'ouvre. Si les doigts se referment au contraire, les électrodes sont du mauvais côté : éteignez et repositionnez-les.",
+      "L'intensité juste est celle qui donne une contraction visible et confortable. Jamais douloureuse.",
+      "À chaque fois que le courant monte, essayez d'ouvrir la main vous-même, en même temps.",
+      "C'est cette association du courant et de votre intention qui fait progresser : la stimulation seule, passive, apporte beaucoup moins.",
+      "Entre deux contractions, laissez la main se reposer complètement.",
+    ],
+    dosage: "15 minutes, une à deux fois par jour",
+    dureeSec: 900,
+    position: "assis",
+  },
+  {
+    id: "electrodes-pied-pose",
+    nom: "Pied : poser les électrodes",
+    categorie: "electrodes",
+    realisation: "autonome",
+    objectif:
+      "Placer les électrodes sur les muscles qui relèvent le pied et le tournent vers l'extérieur.",
+    etapes: [
+      "Appareil éteint, jambe droite soutenue, peau propre et sèche.",
+      "Repérez l'arête de l'os de la jambe, le tibia, sur le devant.",
+      "Première électrode : 4 à 5 cm sous le genou, juste à l'EXTÉRIEUR de cette arête, sur le muscle.",
+      "Deuxième électrode : 10 à 12 cm plus bas, toujours à l'extérieur de l'arête.",
+      "Contre le varus, décalez la deuxième électrode un peu plus vers le côté externe de la jambe : le pied doit se relever en tournant légèrement vers l'extérieur, pas vers l'intérieur.",
+      "Jamais sur le mollet : c'est le muscle qui tire le pied en pointe, on ne le stimule pas.",
+      "Si vous n'atteignez pas confortablement votre jambe, faites poser les électrodes par la personne qui vous accompagne.",
+    ],
+    dosage: "Environ 3 minutes",
+    dureeSec: 180,
+    position: "assis",
+  },
+  {
+    id: "electrodes-pied-seance",
+    nom: "Pied : séance d'électrostimulation",
+    categorie: "electrodes",
+    realisation: "autonome",
+    objectif:
+      "Entretenir les releveurs du pied et lutter contre l'installation du varus équin.",
+    etapes: [
+      "Montez l'intensité très progressivement, en partant de zéro.",
+      "Le bon repère : la pointe du pied se relève vers le tibia. Idéalement, le bord externe monte aussi.",
+      "Si le pied se relève en partant vers l'intérieur, éteignez et décalez les électrodes plus vers l'extérieur de la jambe.",
+      "Accompagnez chaque montée du courant en essayant vous-même de relever le pied.",
+      "Intensité confortable, contraction visible, jamais de douleur.",
+      "Si une crampe s'installe dans le mollet, arrêtez la séance et massez avant de reprendre plus tard.",
+    ],
+    dosage: "15 minutes, une à deux fois par jour",
+    dureeSec: 900,
+    position: "assis",
+  },
+  {
+    id: "electrodes-apres",
+    nom: "Après la séance : peau et électrodes",
+    categorie: "electrodes",
+    realisation: "autonome",
+    objectif:
+      "Éviter les brûlures et faire durer les électrodes : deux minutes qui évitent bien des ennuis.",
+    etapes: [
+      "Éteignez toujours l'appareil AVANT de décoller les électrodes.",
+      "Regardez la peau sous chaque électrode. Une rougeur légère qui s'efface en quelques minutes est normale.",
+      "Une rougeur qui persiste, une cloque, une sensation de brûlure : on arrête et on le signale.",
+      "Remettez les électrodes sur leur film plastique et conservez-les au frais.",
+      "Remplacez-les dès qu'elles n'adhèrent plus partout : une électrode qui décolle concentre le courant sur un point et peut brûler.",
+      "Ces électrodes sont personnelles et ne se partagent pas.",
+    ],
+    dosage: "Après chaque séance, environ 2 minutes",
+    dureeSec: 120,
+    position: "assis",
   },
 
   // ————————————————— Avec une tierce personne (le soir) —————————————————
