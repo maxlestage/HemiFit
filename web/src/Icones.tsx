@@ -18,6 +18,7 @@ export type NomIcone =
   | "bras"
   | "tronc"
   | "jambe"
+  | "electrodes"
   | "soir"
   | "autonome"
   | "aide"
@@ -114,6 +115,11 @@ const TRACES: Record<NomIcone, React.ReactNode> = {
       <path d="M17.6 10.5v6.4" />
       <path d="M15.6 17.4h4.6" />
     </>
+  ),
+
+  // Éclair : l'électrostimulation.
+  electrodes: (
+    <path d="M13.2 2.6 6.4 13.1h4.2l-.2 8.3 7.2-10.5h-4.2z" />
   ),
 
   // ——— Modes de réalisation ———

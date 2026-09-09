@@ -282,6 +282,7 @@ function Exercices(props: { onSeanceLibre: (s: Seance) => void }) {
     "bras",
     "tronc",
     "jambe",
+    "electrodes",
   ];
 
   const visibles = EXERCICES.filter(
@@ -549,6 +550,21 @@ const CONSEILS: { titre: string; texte: string }[] = [
     titre: "Le pied sur le repose-pied",
     texte:
       "En varus, le pied ne repose pas à plat : il porte sur son bord externe, souvent sur la même petite zone toute la journée. Vérifiez la hauteur du repose-pied pour que la cheville soit le plus près possible de l'angle droit, et que l'appui se répartisse sur toute la plante. Un rembourrage souple sur le repose-pied aide. Regardez régulièrement ce bord externe : c'est un endroit où les rougeurs passent facilement inaperçues.",
+  },
+  {
+    titre: "Électrodes : quels muscles stimuler",
+    texte:
+      "La règle est simple et elle est contre-intuitive : on ne stimule jamais le muscle trop contracté, mais celui qui lui fait face et qui manque de force. Pour la main, on place donc les électrodes sur le DESSUS de l'avant-bras, sur les muscles qui ouvrent les doigts — jamais côté paume. Pour le pied, on les place sur le devant de la jambe, à l'extérieur de l'arête du tibia, sur les muscles qui relèvent le pied — jamais sur le mollet. Stimuler ces muscles affaiblis les renforce, et fait baisser en retour le tonus du muscle spastique d'en face. Le bon repère est visuel : la main doit s'ouvrir, le pied doit se relever. Si c'est l'inverse, les électrodes sont du mauvais côté.",
+  },
+  {
+    titre: "Électrodes : le geste qui change tout",
+    texte:
+      "Au moment où le courant monte, essayez d'ouvrir la main, ou de relever le pied, par vous-même, en même temps. C'est l'association de la stimulation et de votre propre intention qui fait progresser la commande motrice. La stimulation subie passivement entretient le muscle, ce qui est déjà utile, mais elle réapprend beaucoup moins au cerveau à commander le mouvement. Faites les séances après le massage : un muscle réchauffé et détendu répond mieux.",
+  },
+  {
+    titre: "Électrodes : les précautions à connaître",
+    texte:
+      "Trois situations imposent un avis médical avant toute utilisation : un stimulateur cardiaque ou un défibrillateur implanté, un antécédent de crise d'épilepsie — question qui se pose après une lésion cérébrale — et une peau dont la sensibilité est diminuée, car on ne sent alors pas venir la brûlure. Ne montez jamais l'intensité simplement pour « sentir quelque chose ». Jamais d'électrodes sur une peau abîmée, irritée ou blessée, ni sur l'avant du cou. Éteignez toujours l'appareil avant de décoller les électrodes, et remplacez-les dès qu'elles n'adhèrent plus partout. Enfin, les réglages de l'appareil — fréquence, largeur d'impulsion, temps de montée, durée de contraction et de repos — doivent être fixés par votre kinésithérapeute ou votre médecin, pas réglés au hasard.",
   },
   {
     titre: "Pourquoi masser avant de bouger",
