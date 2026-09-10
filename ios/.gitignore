@@ -1,5 +1,7 @@
-HemiFit.xcodeproj/
+# Le projet Xcode est versionné : il s'ouvre directement, sans XcodeGen.
+# Seuls les réglages personnels et les produits de compilation sont exclus.
 xcuserdata/
+*.xcuserdatad
 .DS_Store
 build/
 DerivedData/
