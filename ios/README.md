@@ -8,28 +8,18 @@ Application personnelle de rééducation en douceur, écrite en **Swift 6.3 / Sw
 
 ## Ouvrir le projet dans Xcode
 
-Le plus simple est de générer le projet avec [XcodeGen](https://github.com/yonaskolb/XcodeGen) :
+Le projet est versionné : **ouvrez simplement `ios/HemiFit.xcodeproj`**. Rien à installer, aucune commande à lancer.
 
-```bash
-brew install xcodegen
-cd ios
-xcodegen generate
-open HemiFit.xcodeproj
-```
+Le projet utilise un *groupe synchronisé* sur le dossier `HemiFit/` : Xcode y détecte les fichiers tout seul. Ajouter un fichier Swift ne demande donc jamais de modifier le projet, et deux personnes qui ajoutent des fichiers en parallèle ne créent pas de conflit.
 
-### Sans XcodeGen
-
-1. Dans Xcode : **File → New → Project → iOS → App**.
-2. Nom : `HemiFit`, interface **SwiftUI**, langage **Swift**.
-3. Supprimez les fichiers générés (`ContentView.swift`, etc.) et glissez le dossier `HemiFit/` de ce dépôt dans le projet.
-4. Lancez sur votre iPhone (⌘R).
+Un schéma partagé `HemiFit` est également versionné, ce qui permet de compiler depuis un service d'intégration continue sans configuration supplémentaire.
 
 ## Configuration requise
 
 - **Xcode 26.6** ou plus récent (fournit **Swift 6.3** et le SDK iOS 26.5) — prenez toujours la dernière version disponible sur le Mac App Store.
 - **iOS 26** minimum sur l'iPhone.
 
-> ⚠️ **Si votre iPhone tourne sur une version d'iOS plus ancienne**, l'application refusera de s'installer. C'est réglable en une ligne : dans `ios/project.yml`, remplacez `iOS: "26.0"` par votre version (par exemple `iOS: "18.0"`), puis régénérez le projet avec `xcodegen generate`.
+> ⚠️ **Si votre iPhone tourne sur une version d'iOS plus ancienne**, l'application refusera de s'installer. C'est réglable dans Xcode, sans toucher au code : sélectionnez le projet **HemiFit**, onglet **General**, puis abaissez **Minimum Deployments** (par exemple à iOS 18).
 
 ## Organisation du code
 
@@ -46,8 +36,14 @@ open HemiFit.xcodeproj
 | `Vues/ProgresView.swift` | Statistiques et historique |
 | `Vues/ConseilsView.swift` | Conseils de rééducation + réglage du rappel |
 
+## Le fichier `project.yml`
+
+Il est conservé comme mémo lisible des réglages, mais **le projet Xcode fait foi**. Lancer `xcodegen generate` écraserait le projet versionné : à ne faire qu'en connaissance de cause.
+
 ## Adapter le programme
 
-Le programme de la semaine se règle dans `Exercices.swift` (`Catalogue.seanceDuJour`) : lundi/jeudi la main, mardi/vendredi le bras, mercredi/samedi la jambe, dimanche une séance courte. Les exercices eux-mêmes (consignes, durées) sont dans le même fichier — n'hésitez pas à les ajuster avec votre kinésithérapeute.
+Le programme de la semaine se règle dans `Exercices.swift` (`Catalogue.seanceDuJour`) : lundi la main et l'ouverture, mardi/vendredi le bras et l'épaule, mercredi/samedi le tronc et les jambes, jeudi la main et le poignet, dimanche massage et détente. La séance du soir avec une tierce personne est définie juste en dessous (`Catalogue.seanceDuSoir`). Les exercices eux-mêmes (consignes, durées) sont dans le même fichier — n'hésitez pas à les ajuster avec votre kinésithérapeute.
+
+> Ce catalogue est le miroir de `web/src/data/exercises.ts` : toute modification de l'un doit être reportée à l'identique dans l'autre.
 
 > ⚕️ HemiFit accompagne la rééducation mais ne remplace ni kinésithérapeute ni médecin. Montrez-leur les exercices et arrêtez tout mouvement douloureux.
