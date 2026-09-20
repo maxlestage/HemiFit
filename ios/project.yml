@@ -17,7 +17,9 @@ settings:
     # compilateur : Xcode 26.6 fournit Swift 6.3 et compile en mode 6.
     SWIFT_VERSION: "6.0"
     GENERATE_INFOPLIST_FILE: YES
-    INFOPLIST_KEY_CFBundleDisplayName: HemiFit
+    # Nom affiché sous l'icône. Les identifiants techniques (nom de
+    # cible, PRODUCT_NAME, bundle identifier) restent « HemiFit ».
+    INFOPLIST_KEY_CFBundleDisplayName: "HemiFit ‣"
     INFOPLIST_KEY_UILaunchScreen_Generation: YES
     INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
     CURRENT_PROJECT_VERSION: 1
