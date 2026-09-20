@@ -8,26 +8,31 @@ Application personnelle de rééducation en douceur, écrite en **Swift 6.3 / Sw
 
 ## Ouvrir le projet dans Xcode
 
-Le projet est versionné : **ouvrez simplement `ios/HemiFit.xcodeproj`**. Rien à installer, aucune commande à lancer.
+Le projet est versionné : **ouvrez simplement `ios/HemiFit ‣.xcodeproj`**. Rien à installer, aucune commande à lancer.
 
 Le projet utilise un *groupe synchronisé* sur le dossier `HemiFit/` : Xcode y détecte les fichiers tout seul. Ajouter un fichier Swift ne demande donc jamais de modifier le projet, et deux personnes qui ajoutent des fichiers en parallèle ne créent pas de conflit.
 
-Un schéma partagé `HemiFit` est également versionné, ce qui permet de compiler depuis un service d'intégration continue sans configuration supplémentaire.
+Un schéma partagé `HemiFit ‣` est également versionné, ce qui permet de compiler depuis un service d'intégration continue sans configuration supplémentaire.
 
 ## Nom de l'application
 
-Le nom affiché sous l'icône de l'iPhone est **« HemiFit ‣ »** (réglage `INFOPLIST_KEY_CFBundleDisplayName`).
+Le projet iPhone s'appelle **« HemiFit ‣ »** : c'est le nom du fichier `.xcodeproj`, celui de la cible, celui du schéma, et le nom affiché sous l'icône (`INFOPLIST_KEY_CFBundleDisplayName`).
 
-Les identifiants techniques, eux, restent « HemiFit » : nom de la cible, `PRODUCT_NAME` et identifiant `com.maxlestage.hemifit`. C'est volontaire — changer l'identifiant ferait passer l'app pour une autre application aux yeux d'iOS, avec perte des données déjà enregistrées.
+Deux choses gardent volontairement un nom ASCII :
 
-Le site web garde le nom « HemiFit ».
+| Élément | Valeur | Pourquoi |
+|---|---|---|
+| `PRODUCT_NAME` | `HemiFit` | Le binaire et le bundle s'appellent donc `HemiFit.app`. Un exécutable dont le nom contient « ‣ » expose à des ennuis de signature et de scripts de build. |
+| `PRODUCT_BUNDLE_IDENTIFIER` | `com.maxlestage.hemifit` | Un identifiant de bundle n'accepte de toute façon ni espace ni symbole ; le changer ferait par ailleurs passer l'app pour une autre aux yeux d'iOS, avec perte des séances enregistrées. |
+
+Le dossier des sources reste `HemiFit/`, et le site web garde le nom « HemiFit ».
 
 ## Configuration requise
 
 - **Xcode 26.6** ou plus récent (fournit **Swift 6.3** et le SDK iOS 26.5) — prenez toujours la dernière version disponible sur le Mac App Store.
 - **iOS 26** minimum sur l'iPhone.
 
-> ⚠️ **Si votre iPhone tourne sur une version d'iOS plus ancienne**, l'application refusera de s'installer. C'est réglable dans Xcode, sans toucher au code : sélectionnez le projet **HemiFit**, onglet **General**, puis abaissez **Minimum Deployments** (par exemple à iOS 18).
+> ⚠️ **Si votre iPhone tourne sur une version d'iOS plus ancienne**, l'application refusera de s'installer. C'est réglable dans Xcode, sans toucher au code : sélectionnez le projet **HemiFit ‣**, onglet **General**, puis abaissez **Minimum Deployments** (par exemple à iOS 18).
 
 ## Organisation du code
 

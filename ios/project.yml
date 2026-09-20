@@ -1,14 +1,14 @@
-# ⚠️ Le projet HemiFit.xcodeproj est versionné et fait foi : il s'ouvre
+# ⚠️ Le projet « HemiFit ‣.xcodeproj » est versionné et fait foi : il s'ouvre
 # directement dans Xcode, sans rien installer. Ce fichier n'est conservé
 # que comme mémo lisible des réglages. Lancer « xcodegen generate »
 # écraserait le projet existant — ne le faire qu'en connaissance de cause,
 # et reporter ensuite les réglages ci-dessous s'ils ont divergé.
-name: HemiFit
+name: "HemiFit ‣"
 options:
   bundleIdPrefix: com.maxlestage
   deploymentTarget:
     # iOS 26. Pour abaisser la cible, passez plutôt par Xcode :
-    # projet HemiFit, onglet General, Minimum Deployments.
+    # projet « HemiFit ‣ », onglet General, Minimum Deployments.
     iOS: "26.0"
   xcodeVersion: "26.6"
 settings:
@@ -17,21 +17,23 @@ settings:
     # compilateur : Xcode 26.6 fournit Swift 6.3 et compile en mode 6.
     SWIFT_VERSION: "6.0"
     GENERATE_INFOPLIST_FILE: YES
-    # Nom affiché sous l'icône. Les identifiants techniques (nom de
-    # cible, PRODUCT_NAME, bundle identifier) restent « HemiFit ».
+    # Nom affiché sous l'icône, identique au nom du projet.
     INFOPLIST_KEY_CFBundleDisplayName: "HemiFit ‣"
     INFOPLIST_KEY_UILaunchScreen_Generation: YES
     INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
     CURRENT_PROJECT_VERSION: 1
     MARKETING_VERSION: 1.0.0
 targets:
-  HemiFit:
+  "HemiFit ‣":
     type: application
     platform: iOS
     sources:
       - HemiFit
     settings:
       base:
+        # Le binaire garde un nom ASCII : un exécutable nommé
+        # « HemiFit ‣ » expose à des ennuis de signature et de scripts.
+        PRODUCT_NAME: HemiFit
         PRODUCT_BUNDLE_IDENTIFIER: com.maxlestage.hemifit
         TARGETED_DEVICE_FAMILY: "1"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
