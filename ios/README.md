@@ -14,6 +14,14 @@ Le projet utilise un *groupe synchronisé* sur le dossier `HemiFit/` : Xcode y d
 
 Un schéma partagé `HemiFit` est également versionné, ce qui permet de compiler depuis un service d'intégration continue sans configuration supplémentaire.
 
+## Nom de l'application
+
+Le nom affiché sous l'icône de l'iPhone est **« HemiFit ‣ »** (réglage `INFOPLIST_KEY_CFBundleDisplayName`).
+
+Les identifiants techniques, eux, restent « HemiFit » : nom de la cible, `PRODUCT_NAME` et identifiant `com.maxlestage.hemifit`. C'est volontaire — changer l'identifiant ferait passer l'app pour une autre application aux yeux d'iOS, avec perte des données déjà enregistrées.
+
+Le site web garde le nom « HemiFit ».
+
 ## Configuration requise
 
 - **Xcode 26.6** ou plus récent (fournit **Swift 6.3** et le SDK iOS 26.5) — prenez toujours la dernière version disponible sur le Mac App Store.
