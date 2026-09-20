@@ -44,9 +44,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A1B2C3D40000000000000002 /* HemiFit */ = {
+		A1B2C3D40000000000000002 /* HemiFit ‣ */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A1B2C3D4000000000000000B /* Build configuration list for PBXNativeTarget "HemiFit" */;
+			buildConfigurationList = A1B2C3D4000000000000000B /* Build configuration list for PBXNativeTarget "HemiFit ‣" */;
 			buildPhases = (
 				A1B2C3D40000000000000007 /* Sources */,
 				A1B2C3D40000000000000008 /* Frameworks */,
@@ -59,10 +59,10 @@
 			fileSystemSynchronizedGroups = (
 				A1B2C3D40000000000000004 /* HemiFit */,
 			);
-			name = HemiFit;
+			name = "HemiFit ‣";
 			packageProductDependencies = (
 			);
-			productName = HemiFit;
+			productName = "HemiFit ‣";
 			productReference = A1B2C3D40000000000000003 /* HemiFit.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -81,7 +81,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A1B2C3D4000000000000000A /* Build configuration list for PBXProject "HemiFit" */;
+			buildConfigurationList = A1B2C3D4000000000000000A /* Build configuration list for PBXProject "HemiFit ‣" */;
 			developmentRegion = fr;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -95,7 +95,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A1B2C3D40000000000000002 /* HemiFit */,
+				A1B2C3D40000000000000002 /* HemiFit ‣ */,
 			);
 		};
 /* End PBXProject section */
@@ -257,7 +257,7 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxlestage.hemifit;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HemiFit;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -283,7 +283,7 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxlestage.hemifit;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HemiFit;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -293,7 +293,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A1B2C3D4000000000000000A /* Build configuration list for PBXProject "HemiFit" */ = {
+		A1B2C3D4000000000000000A /* Build configuration list for PBXProject "HemiFit ‣" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A1B2C3D4000000000000000C /* Debug */,
@@ -302,7 +302,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A1B2C3D4000000000000000B /* Build configuration list for PBXNativeTarget "HemiFit" */ = {
+		A1B2C3D4000000000000000B /* Build configuration list for PBXNativeTarget "HemiFit ‣" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A1B2C3D4000000000000000E /* Debug */,
