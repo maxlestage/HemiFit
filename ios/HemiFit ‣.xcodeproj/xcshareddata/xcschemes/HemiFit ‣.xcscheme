@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A1B2C3D40000000000000002"
                BuildableName = "HemiFit.app"
-               BlueprintName = "HemiFit"
-               ReferencedContainer = "container:HemiFit.xcodeproj">
+               BlueprintName = "HemiFit ‣"
+               ReferencedContainer = "container:HemiFit ‣.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,8 +45,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A1B2C3D40000000000000002"
             BuildableName = "HemiFit.app"
-            BlueprintName = "HemiFit"
-            ReferencedContainer = "container:HemiFit.xcodeproj">
+            BlueprintName = "HemiFit ‣"
+            ReferencedContainer = "container:HemiFit ‣.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,8 +62,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A1B2C3D40000000000000002"
             BuildableName = "HemiFit.app"
-            BlueprintName = "HemiFit"
-            ReferencedContainer = "container:HemiFit.xcodeproj">
+            BlueprintName = "HemiFit ‣"
+            ReferencedContainer = "container:HemiFit ‣.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

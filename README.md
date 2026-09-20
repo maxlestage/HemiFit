@@ -54,7 +54,7 @@ En résumé : le site déjà construit (`web/dist`, versionné exprès) est serv
 cd web && bun install && bun dev
 
 # Application iPhone
-cd ios && xcodegen generate && open HemiFit.xcodeproj
+open "ios/HemiFit ‣.xcodeproj"   # projet versionné, rien à installer
 ```
 
 ## Important
