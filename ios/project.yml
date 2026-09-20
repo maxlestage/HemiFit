@@ -31,9 +31,10 @@ targets:
       - HemiFit
     settings:
       base:
-        # Le binaire garde un nom ASCII : un exécutable nommé
-        # « HemiFit ‣ » expose à des ennuis de signature et de scripts.
-        PRODUCT_NAME: HemiFit
+        # Le symbole figure aussi dans le nom du produit : le bundle
+        # s'appelle « HemiFit ‣.app ». Pensez à encadrer ce chemin de
+        # guillemets dans tout script, à cause de l'espace.
+        PRODUCT_NAME: "HemiFit ‣"
         PRODUCT_BUNDLE_IDENTIFIER: com.maxlestage.hemifit
         TARGETED_DEVICE_FAMILY: "1"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
