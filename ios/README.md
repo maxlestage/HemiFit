@@ -18,14 +18,17 @@ Un schéma partagé `HemiFit ‣` est également versionné, ce qui permet de co
 
 Le projet iPhone s'appelle **« HemiFit ‣ »** : c'est le nom du fichier `.xcodeproj`, celui de la cible, celui du schéma, et le nom affiché sous l'icône (`INFOPLIST_KEY_CFBundleDisplayName`).
 
-Deux choses gardent volontairement un nom ASCII :
+Le symbole figure partout où c'est techniquement possible, **y compris dans le nom du produit** : le bundle construit s'appelle `HemiFit ‣.app`, et l'exécutable qu'il contient porte le même nom.
+
+> ⚠️ Ce nom contient une espace. Dans tout script ou toute configuration d'intégration continue, encadrez le chemin de guillemets : `"HemiFit ‣.app"`.
+
+Une seule exception, et c'est une contrainte d'Apple et non un choix :
 
 | Élément | Valeur | Pourquoi |
 |---|---|---|
-| `PRODUCT_NAME` | `HemiFit` | Le binaire et le bundle s'appellent donc `HemiFit.app`. Un exécutable dont le nom contient « ‣ » expose à des ennuis de signature et de scripts de build. |
-| `PRODUCT_BUNDLE_IDENTIFIER` | `com.maxlestage.hemifit` | Un identifiant de bundle n'accepte de toute façon ni espace ni symbole ; le changer ferait par ailleurs passer l'app pour une autre aux yeux d'iOS, avec perte des séances enregistrées. |
+| `PRODUCT_BUNDLE_IDENTIFIER` | `com.maxlestage.hemifit` | Un identifiant de bundle n'accepte que lettres, chiffres, tiret et point. Une espace ou un symbole y serait refusé par Xcode. |
 
-Le dossier des sources reste `HemiFit/`, et le site web garde le nom « HemiFit ».
+Le dossier des sources reste `HemiFit/` — c'est le chemin du groupe synchronisé, indépendant du nom du projet — et le site web garde le nom « HemiFit ».
 
 ## Configuration requise
 
