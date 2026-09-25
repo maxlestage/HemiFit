@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import {
   CATEGORIES,
   EXERCICES,
+  ORDRE_CATEGORIES,
   REALISATIONS,
   dureeTotaleMin,
   seanceDuJour,
@@ -271,24 +272,22 @@ function CarteSeance(props: {
 
 type Filtre = "tous" | Realisation;
 
+/** Famille d'exercices mise en avant, ou toutes. */
+type Famille = "toutes" | Categorie;
+
 function Exercices(props: { onSeanceLibre: (s: Seance) => void }) {
   const [ouvert, setOuvert] = useState<string | null>(null);
   const [filtre, setFiltre] = useState<Filtre>("tous");
+  const [famille, setFamille] = useState<Famille>("toutes");
 
-  const ordre: Categorie[] = [
-    "massage",
-    "sensoriel",
-    "main",
-    "bras",
-    "tronc",
-    "jambe",
-    "force",
-    "electrodes",
-  ];
+  const ordre = famille === "toutes" ? ORDRE_CATEGORIES : [famille];
 
   const visibles = EXERCICES.filter(
     e => filtre === "tous" || e.realisation === filtre,
   );
+  const nombreAffiche = visibles.filter(
+    e => famille === "toutes" || e.categorie === famille,
+  ).length;
 
   return (
     <>
@@ -299,6 +298,27 @@ function Exercices(props: { onSeanceLibre: (s: Seance) => void }) {
           vous en avez envie.
         </p>
       </header>
+
+      <div className="familles" role="group" aria-label="Choisir une famille">
+        <button
+          className={famille === "toutes" ? "actif" : ""}
+          aria-pressed={famille === "toutes"}
+          onClick={() => setFamille("toutes")}
+        >
+          Toutes
+        </button>
+        {ORDRE_CATEGORIES.map(cat => (
+          <button
+            key={cat}
+            className={famille === cat ? "actif" : ""}
+            aria-pressed={famille === cat}
+            onClick={() => setFamille(famille === cat ? "toutes" : cat)}
+          >
+            <Icone nom={CATEGORIES[cat].icone} taille={17} epaisseur={2} />
+            {CATEGORIES[cat].court}
+          </button>
+        ))}
+      </div>
 
       <div className="segments" role="group" aria-label="Filtrer les exercices">
         <button
@@ -351,6 +371,18 @@ function Exercices(props: { onSeanceLibre: (s: Seance) => void }) {
           </section>
         );
       })}
+
+      {nombreAffiche === 0 && (
+        <p className="liste-vide">
+          Aucun exercice de cette famille ne se fait{" "}
+          {filtre === "tous"
+            ? "ainsi"
+            : filtre === "autonome"
+              ? "en autonomie"
+              : "avec une tierce personne"}
+          . Touchez « Toutes » pour revoir l'ensemble du catalogue.
+        </p>
+      )}
     </>
   );
 }
