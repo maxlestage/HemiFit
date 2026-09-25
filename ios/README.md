@@ -48,7 +48,7 @@ Le dossier des sources reste `HemiFit/` — c'est le chemin du groupe synchronis
 | `Vues/ContentView.swift` | Navigation par onglets + styles communs |
 | `Vues/AccueilView.swift` | Séance du jour, série en cours |
 | `Vues/SeanceGuideeView.swift` | Séance guidée : minuteur, étapes, ressenti |
-| `Vues/ExercicesListeView.swift` | Catalogue complet, exercice à la carte |
+| `Vues/ExercicesListeView.swift` | Catalogue complet, pastilles de familles, exercice à la carte |
 | `Vues/ProgresView.swift` | Statistiques et historique |
 | `Vues/ConseilsView.swift` | Conseils de rééducation + réglage du rappel |
 

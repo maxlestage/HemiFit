@@ -20,7 +20,10 @@
 import Foundation
 
 enum CategorieExercice: String, CaseIterable, Identifiable {
-    case massage, sensoriel, main, bras, tronc, jambe, electrodes, force
+    /// L'ordre des cas est l'ordre d'affichage : on commence par la
+    /// détente, qui fait baisser le tonus, et on termine par les
+    /// électrodes, qui demandent du matériel.
+    case massage, sensoriel, main, bras, tronc, jambe, force, electrodes
 
     var id: String { rawValue }
 
@@ -34,6 +37,20 @@ enum CategorieExercice: String, CaseIterable, Identifiable {
         case .jambe: "Jambes et bassin"
         case .electrodes: "Électrodes"
         case .force: "Renforcement musculaire"
+        }
+    }
+
+    /// Libellé court, pour les pastilles de filtrage.
+    var court: String {
+        switch self {
+        case .massage: "Massage"
+        case .sensoriel: "Sensoriel"
+        case .main: "Main"
+        case .bras: "Bras"
+        case .tronc: "Tronc"
+        case .jambe: "Jambes"
+        case .electrodes: "Électrodes"
+        case .force: "Muscles"
         }
     }
 

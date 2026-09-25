@@ -45,17 +45,33 @@ export interface Exercice {
 
 export const CATEGORIES: Record<
   Categorie,
-  { titre: string; icone: NomIcone }
+  { titre: string; court: string; icone: NomIcone }
 > = {
-  massage: { titre: "Massage et détente", icone: "massage" },
-  sensoriel: { titre: "Éveil sensoriel", icone: "sensoriel" },
-  main: { titre: "Main et doigts", icone: "main" },
-  bras: { titre: "Bras et épaule", icone: "bras" },
-  tronc: { titre: "Tronc et posture", icone: "tronc" },
-  jambe: { titre: "Jambes et bassin", icone: "jambe" },
-  electrodes: { titre: "Électrodes", icone: "electrodes" },
-  force: { titre: "Renforcement musculaire", icone: "force" },
+  massage: { titre: "Massage et détente", court: "Massage", icone: "massage" },
+  sensoriel: { titre: "Éveil sensoriel", court: "Sensoriel", icone: "sensoriel" },
+  main: { titre: "Main et doigts", court: "Main", icone: "main" },
+  bras: { titre: "Bras et épaule", court: "Bras", icone: "bras" },
+  tronc: { titre: "Tronc et posture", court: "Tronc", icone: "tronc" },
+  jambe: { titre: "Jambes et bassin", court: "Jambes", icone: "jambe" },
+  electrodes: { titre: "Électrodes", court: "Électrodes", icone: "electrodes" },
+  force: { titre: "Renforcement musculaire", court: "Muscles", icone: "force" },
 };
+
+/**
+ * Ordre d'affichage des familles : on commence par la détente, qui
+ * fait baisser le tonus, et on termine par les électrodes, qui
+ * demandent du matériel.
+ */
+export const ORDRE_CATEGORIES: Categorie[] = [
+  "massage",
+  "sensoriel",
+  "main",
+  "bras",
+  "tronc",
+  "jambe",
+  "force",
+  "electrodes",
+];
 
 export const REALISATIONS: Record<
   Realisation,

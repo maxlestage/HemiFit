@@ -14,6 +14,7 @@ Face à la spasticité, l'application applique les bons réflexes : **jamais de 
 - **Des exercices adaptés au fauteuil** : soulagement des appuis (prévention des escarres), bascule du bassin, redressement du buste, mobilité de cheville et drainage.
 - **Une section renforcement musculaire**, pour reconstruire après une longue immobilité : le côté gauche qui porte tout, le tronc qui sécurise les transferts, les cuisses en isométrie, l'endurance — et la protection de l'épaule gauche, trop souvent oubliée.
 - **Une section électrodes** : pose et séances d'électrostimulation pour la main et le pied.
+- **Un catalogue filtrable** : une pastille par famille (massage, sensoriel, main, bras, tronc, jambes, muscles, électrodes) et un filtre « seul / avec de l'aide ». Le catalogue est long : on atteint n'importe quelle famille d'un seul appui, sans faire défiler.
 - **Un lecteur de séance** : un exercice à la fois, un grand minuteur, des consignes pas à pas.
 - **Un suivi motivant et jamais punitif** : série de jours consécutifs, **meilleure série (jamais perdue)**, minutes cumulées, ressenti après chaque séance. Après une longue interruption, l'application accueille le retour plutôt que de sanctionner l'absence — on reprend là où on en est, jamais à zéro.
 - **Un rappel quotidien** (application iPhone) pour garder la régularité.

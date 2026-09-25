@@ -407,6 +407,56 @@ button {
   box-shadow: 0 1px 3px rgba(26, 23, 21, 0.1);
 }
 
+/* ——— Familles d'exercices ———
+   Une pastille par famille, toutes visibles d'un coup d'œil : le
+   catalogue est long, et faire défiler coûte cher quand on n'a
+   qu'une main. Les pastilles passent à la ligne plutôt que de
+   défiler horizontalement, pour qu'aucune ne se cache hors écran. */
+
+.familles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.familles button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 50px;
+  padding: 8px 13px;
+  border: 1px solid var(--bordure-nette);
+  border-radius: 999px;
+  background: var(--carte);
+  color: var(--encre-douce);
+  font-size: 0.9rem;
+  font-weight: 650;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    background var(--transition),
+    border-color var(--transition),
+    color var(--transition);
+}
+
+.familles button.actif {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contraste);
+}
+
+.liste-vide {
+  margin: 4px 0 0;
+  padding: 20px 18px;
+  border: 1px dashed var(--bordure-nette);
+  border-radius: var(--rayon);
+  color: var(--encre-douce);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  text-align: center;
+}
+
 /* ——— Bandeau de sécurité ——— */
 
 .bandeau-securite {
