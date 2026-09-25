@@ -8,6 +8,8 @@ import SwiftUI
 struct ExercicesListeView: View {
     @State private var seanceLibre: Seance?
     @State private var filtre: Filtre = .tous
+    /// Famille mise en avant ; `nil` affiche tout le catalogue.
+    @State private var famille: CategorieExercice?
 
     /// Filtre sur qui réalise l'exercice.
     enum Filtre: Hashable {
@@ -31,10 +33,25 @@ struct ExercicesListeView: View {
         }
     }
 
+    /// Familles affichées : une seule si l'on en a choisi une, sinon toutes.
+    private var famillesAffichees: [CategorieExercice] {
+        if let famille { [famille] } else { CategorieExercice.allCases }
+    }
+
+    private var listeVide: Bool {
+        famillesAffichees.allSatisfy { exercices($0).isEmpty }
+    }
+
     var body: some View {
         NavigationStack {
             List {
                 Section {
+                    pastillesFamilles
+                        .listRowBackground(Color.clear)
+                        .listRowInsets(
+                            .init(top: 4, leading: 0, bottom: 4, trailing: 0)
+                        )
+
                     Picker("Filtrer les exercices", selection: $filtre) {
                         Text("Tous").tag(Filtre.tous)
                         Text(Realisation.autonome.court)
@@ -47,7 +64,7 @@ struct ExercicesListeView: View {
                     .listRowInsets(.init(top: 4, leading: 0, bottom: 8, trailing: 0))
                 }
 
-                ForEach(CategorieExercice.allCases) { categorie in
+                ForEach(famillesAffichees) { categorie in
                     let liste = exercices(categorie)
                     if !liste.isEmpty {
                         Section {
@@ -60,6 +77,17 @@ struct ExercicesListeView: View {
                             Label(categorie.titre, systemImage: categorie.symbole)
                                 .font(.subheadline.weight(.semibold))
                         }
+                    }
+                }
+
+                if listeVide {
+                    Section {
+                        Text(messageListeVide)
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 12)
                     }
                 }
             }
@@ -77,6 +105,81 @@ struct ExercicesListeView: View {
             .fullScreenCover(item: $seanceLibre) { seance in
                 SeanceGuideeView(seance: seance)
             }
+        }
+    }
+
+    /// Une pastille par famille, toutes visibles d'un coup d'œil : le
+    /// catalogue est long, et faire défiler coûte cher quand on n'a
+    /// qu'une main. Les pastilles passent à la ligne plutôt que de
+    /// défiler, pour qu'aucune ne se cache hors écran.
+    private var pastillesFamilles: some View {
+        LazyVGrid(
+            columns: [GridItem(.adaptive(minimum: 108), spacing: 6)],
+            spacing: 6
+        ) {
+            pastille(titre: "Toutes", symbole: nil, choisie: famille == nil) {
+                famille = nil
+            }
+            ForEach(CategorieExercice.allCases) { categorie in
+                pastille(
+                    titre: categorie.court,
+                    symbole: categorie.symbole,
+                    choisie: famille == categorie
+                ) {
+                    famille = famille == categorie ? nil : categorie
+                }
+            }
+        }
+    }
+
+    private func pastille(
+        titre: String,
+        symbole: String?,
+        choisie: Bool,
+        action: @escaping () -> Void
+    ) -> some View {
+        Button(action: action) {
+            HStack(spacing: 6) {
+                if let symbole {
+                    Image(systemName: symbole)
+                        .font(.footnote.weight(.semibold))
+                }
+                Text(titre)
+                    .font(.subheadline.weight(.semibold))
+                    .lineLimit(1)
+            }
+            .frame(maxWidth: .infinity, minHeight: 50)
+            .padding(.horizontal, 10)
+            .background(
+                choisie ? Color.ardoise : Color(.secondarySystemGroupedBackground),
+                in: .capsule
+            )
+            .foregroundStyle(choisie ? Color.white : Color.secondary)
+            .overlay(
+                Capsule().stroke(
+                    choisie ? Color.clear : Color(.separator),
+                    lineWidth: 1
+                )
+            )
+        }
+        .buttonStyle(.plain)
+        .accessibilityAddTraits(choisie ? [.isSelected] : [])
+    }
+
+    private var messageListeVide: String {
+        switch filtre {
+        case .tous:
+            "Aucun exercice dans cette famille."
+        case .mode(.autonome):
+            """
+            Aucun exercice de cette famille ne se fait en autonomie. \
+            Touchez « Toutes » pour revoir l'ensemble du catalogue.
+            """
+        case .mode(.tiercePersonne):
+            """
+            Aucun exercice de cette famille ne se fait avec une tierce \
+            personne. Touchez « Toutes » pour revoir l'ensemble du catalogue.
+            """
         }
     }
 
