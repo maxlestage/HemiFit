@@ -57,7 +57,10 @@ Les exercices visent une **hémiparésie droite spastique**, avec ces principes 
 - entraîner le **relâchement et l'ouverture** de la main, jamais le serrage (les fléchisseurs sont déjà trop forts, les extenseurs affaiblis) ;
 - l'**intention de mouvement compte**, même sans mouvement visible ;
 - **masser avant de mobiliser** : le massage abaisse le tonus, chaque séance commence donc par la détente puis un massage ;
-- **prévenir les complications du fauteuil** : soulagement des appuis (escarres), mobilité de cheville (pied en pointe), drainage (gonflement).
+- **prévenir les complications du fauteuil** : soulagement des appuis (escarres), mobilité de cheville (pied en pointe), drainage (gonflement) ;
+- **renforcer aussi le côté gauche** : il n'est pas épargné, il se désentraîne en fauteuil alors qu'il assure les transferts. Son épaule est la première à s'user : toute séance de renforcement du haut du corps doit inclure le travail des rotateurs ;
+- **à droite, entretenir sans forcer** : contractions isométriques et mouvements guidés, jamais d'effort qui réveille la spasticité ;
+- **respiration jamais bloquée** pendant un effort, et **quarante-huit heures de repos** entre deux séances sollicitant les mêmes muscles.
 
 Chaque exercice porte un champ `realisation` : `autonome` (réalisable seul) ou `tierce-personne` (mobilisations passives faites le soir par un accompagnant, dont les consignes s'adressent à cette personne). L'interface doit toujours distinguer les deux clairement.
 

@@ -19,6 +19,7 @@ export type NomIcone =
   | "tronc"
   | "jambe"
   | "electrodes"
+  | "force"
   | "soir"
   | "autonome"
   | "aide"
@@ -114,6 +115,17 @@ const TRACES: Record<NomIcone, React.ReactNode> = {
       <circle cx="17.6" cy="8.2" r="2.3" />
       <path d="M17.6 10.5v6.4" />
       <path d="M15.6 17.4h4.6" />
+    </>
+  ),
+
+  // Haltère : le renforcement musculaire.
+  force: (
+    <>
+      <path d="M3.4 9.6v4.8" />
+      <path d="M7 6.2v11.6" />
+      <path d="M7 12h10" />
+      <path d="M17 6.2v11.6" />
+      <path d="M20.6 9.6v4.8" />
     </>
   ),
 
