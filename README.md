@@ -8,10 +8,12 @@ Face à la spasticité, l'application applique les bons réflexes : **jamais de 
 
 ## Ce que fait HemiFit
 
-- **Une séance guidée chaque jour** (~15 minutes), réalisable seul : chaque séance commence par la détente et un **massage** (qui fait baisser le tonus spastique), puis le programme alterne main & ouverture, main & poignet, bras & épaule, tronc & jambes au fil de la semaine. Le dimanche est entièrement consacré au massage.
+- **Une séance guidée chaque jour** (~15 à 20 minutes), réalisable seul : chaque séance commence par la détente (qui fait baisser le tonus spastique), puis le programme alterne au fil de la semaine — main et ouverture, renforcement du haut du corps, tronc et jambes, main et poignet, bras et épaule, renforcement du tronc et des jambes. Le dimanche est entièrement consacré au massage.
 - **Une séance du soir avec une tierce personne** (~30 minutes) : massages et mobilisations passives impossibles à faire seul — épaule, coude, doigts, hanche, cheville, drainage des jambes, puis installation pour la nuit. Les consignes s'adressent directement à la personne qui accompagne.
 - **Une section massage complète**, réalisable d'une seule main : avant-bras, main, espace du pouce, drainage vers l'épaule et nuque.
 - **Des exercices adaptés au fauteuil** : soulagement des appuis (prévention des escarres), bascule du bassin, redressement du buste, mobilité de cheville et drainage.
+- **Une section renforcement musculaire**, pour reconstruire après une longue immobilité : le côté gauche qui porte tout, le tronc qui sécurise les transferts, les cuisses en isométrie, l'endurance — et la protection de l'épaule gauche, trop souvent oubliée.
+- **Une section électrodes** : pose et séances d'électrostimulation pour la main et le pied.
 - **Un lecteur de séance** : un exercice à la fois, un grand minuteur, des consignes pas à pas.
 - **Un suivi motivant et jamais punitif** : série de jours consécutifs, **meilleure série (jamais perdue)**, minutes cumulées, ressenti après chaque séance. Après une longue interruption, l'application accueille le retour plutôt que de sanctionner l'absence — on reprend là où on en est, jamais à zéro.
 - **Un rappel quotidien** (application iPhone) pour garder la régularité.

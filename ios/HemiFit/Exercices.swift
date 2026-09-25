@@ -20,7 +20,7 @@
 import Foundation
 
 enum CategorieExercice: String, CaseIterable, Identifiable {
-    case massage, sensoriel, main, bras, tronc, jambe, electrodes
+    case massage, sensoriel, main, bras, tronc, jambe, electrodes, force
 
     var id: String { rawValue }
 
@@ -33,6 +33,7 @@ enum CategorieExercice: String, CaseIterable, Identifiable {
         case .tronc: "Tronc et posture"
         case .jambe: "Jambes et bassin"
         case .electrodes: "Électrodes"
+        case .force: "Renforcement musculaire"
         }
     }
 
@@ -46,6 +47,7 @@ enum CategorieExercice: String, CaseIterable, Identifiable {
         case .tronc: "figure.seated.side"
         case .jambe: "figure.flexibility"
         case .electrodes: "bolt"
+        case .force: "dumbbell"
         }
     }
 }
@@ -754,6 +756,228 @@ enum Catalogue {
             position: .assis
         ),
 
+        // ——— Renforcement musculaire ———
+        Exercice(
+            id: "force-gauche-poussees",
+            nom: "Poussées sur les accoudoirs",
+            categorie: .force,
+            realisation: .autonome,
+            objectif: "Renforcer le bras gauche, celui qui assure tous vos transferts.",
+            etapes: [
+                "Freins bloqués, dos bien calé, main gauche à plat sur l'accoudoir.",
+                "Poussez sur le bras gauche pour vous soulever de quelques centimètres seulement, ou simplement pour décharger l'appui.",
+                "Soufflez pendant l'effort : ne bloquez jamais votre respiration.",
+                "Tenez 3 secondes, puis reposez-vous complètement 10 secondes.",
+                "Arrêtez la série quand le mouvement devient difficile à contrôler, pas quand vous n'en pouvez plus.",
+            ],
+            dosage: "3 séries de 6 poussées",
+            dureeSec: 240,
+            position: .assis
+        ),
+        Exercice(
+            id: "force-gauche-tirage",
+            nom: "Tirage à l'élastique",
+            categorie: .force,
+            realisation: .autonome,
+            objectif: "Renforcer le dos et contrer l'enroulement des épaules, inévitable en fauteuil.",
+            etapes: [
+                "Fixez un élastique à une poignée de porte, ou passez-le autour d'un montant solide, à hauteur de poitrine.",
+                "Tenez-le dans la main gauche, bras tendu devant vous.",
+                "Tirez le coude vers l'arrière en serrant l'omoplate, sans hausser l'épaule.",
+                "Revenez lentement : c'est le retour freiné qui muscle le plus.",
+                "Soufflez pendant que vous tirez.",
+            ],
+            dosage: "3 séries de 10 tirages",
+            dureeSec: 240,
+            position: .assis
+        ),
+        Exercice(
+            id: "force-gauche-rotateurs",
+            nom: "Rotateurs de l'épaule gauche",
+            categorie: .force,
+            realisation: .autonome,
+            objectif: "Protéger l'épaule gauche, très sollicitée en fauteuil et exposée à l'usure.",
+            etapes: [
+                "Coude gauche collé au corps, plié à angle droit, avant-bras horizontal.",
+                "Tenez un élastique léger, son autre extrémité fixée à votre droite.",
+                "Sans décoller le coude du corps, tournez l'avant-bras vers l'extérieur, lentement.",
+                "Revenez encore plus lentement.",
+                "Amplitude modérée et résistance légère : ces muscles sont petits, ils s'entraînent en finesse, jamais en force.",
+            ],
+            dosage: "3 séries de 12, résistance légère",
+            dureeSec: 240,
+            position: .assis
+        ),
+        Exercice(
+            id: "force-gauche-coude",
+            nom: "Flexion du coude gauche",
+            categorie: .force,
+            realisation: .autonome,
+            objectif: "Renforcer le bras gauche pour tout ce qu'il porte au quotidien.",
+            etapes: [
+                "Assis, dos soutenu, bras gauche le long du corps.",
+                "Tenez une charge : petit haltère, bouteille d'eau, ou simplement le poids de votre bras au début.",
+                "Pliez le coude en comptant jusqu'à 2, puis redescendez en comptant jusqu'à 4.",
+                "La descente freinée est ce qui construit le muscle : ne laissez jamais retomber la charge.",
+                "Soufflez pendant la montée.",
+            ],
+            dosage: "3 séries de 10",
+            dureeSec: 240,
+            position: .assis
+        ),
+        Exercice(
+            id: "force-gauche-poigne",
+            nom: "Renforcement de la poigne",
+            categorie: .force,
+            realisation: .autonome,
+            objectif: "La force de préhension de la main gauche conditionne vos transferts et votre sécurité.",
+            etapes: [
+                "Serrez une balle souple ou une serviette roulée dans la main gauche.",
+                "Serrez fort 5 secondes, puis relâchez complètement 5 secondes.",
+                "Variez : serrage à pleine main, puis pincement entre le pouce et chaque doigt.",
+                "Terminez en ouvrant grand la main et en écartant les doigts.",
+            ],
+            dosage: "10 serrages de 5 s",
+            dureeSec: 180,
+            position: .assis
+        ),
+        Exercice(
+            id: "force-droite-isometrique",
+            nom: "Contractions du bras droit",
+            categorie: .force,
+            realisation: .autonome,
+            objectif: "Entretenir le muscle du côté atteint sans réveiller la spasticité.",
+            etapes: [
+                "Bras droit posé et bien soutenu, épaule détendue.",
+                "Essayez de contracter le muscle sans produire de mouvement : une contraction retenue, quelques secondes.",
+                "Trois secondes de contraction, puis dix secondes de repos complet.",
+                "Si le bras se raidit ou se replie, la spasticité prend le dessus : arrêtez, soufflez, massez, reprenez plus doucement.",
+                "Même une contraction à peine perceptible compte : c'est la commande que l'on entretient.",
+            ],
+            dosage: "8 contractions de 3 s",
+            dureeSec: 200,
+            position: .assis
+        ),
+        Exercice(
+            id: "force-droite-deux-mains",
+            nom: "Poussée à deux mains",
+            categorie: .force,
+            realisation: .autonome,
+            objectif: "Faire travailler le bras droit à l'effort, guidé et soutenu par le gauche.",
+            etapes: [
+                "Doigts croisés ou mains jointes, avant-bras posés sur une table.",
+                "Poussez les deux bras vers l'avant, le gauche menant le mouvement et le droit l'accompagnant.",
+                "Allez lentement, sans à-coup, et revenez encore plus lentement.",
+                "Demandez au bras droit de participer à chaque poussée, même un peu.",
+                "Soufflez pendant la poussée.",
+            ],
+            dosage: "3 séries de 8 poussées",
+            dureeSec: 220,
+            position: .assis
+        ),
+        Exercice(
+            id: "force-tronc-gainage",
+            nom: "Gainage assis",
+            categorie: .force,
+            realisation: .autonome,
+            objectif: "Renforcer la ceinture qui vous tient assis : c'est elle qui rend les transferts sûrs.",
+            etapes: [
+                "Freins bloqués. Décollez le dos du dossier de quelques centimètres seulement, mains sur les accoudoirs, prêtes à vous rattraper.",
+                "Serrez le ventre comme pour rentrer le nombril, sans bloquer la respiration.",
+                "Tenez 5 secondes en respirant normalement, puis reposez-vous contre le dossier.",
+                "Si l'équilibre est incertain, gardez le contact avec le dossier et contractez simplement le ventre : le muscle travaille quand même.",
+                "Jamais près d'un bord, jamais sans les freins.",
+            ],
+            dosage: "8 tenues de 5 s",
+            dureeSec: 200,
+            position: .assis
+        ),
+        Exercice(
+            id: "force-tronc-resistance",
+            nom: "Tronc contre résistance",
+            categorie: .force,
+            realisation: .autonome,
+            objectif: "Renforcer le tronc dans toutes les directions, sans jamais se déséquilibrer.",
+            etapes: [
+                "Dos soutenu, main gauche posée à plat contre votre cuisse ou contre l'accoudoir.",
+                "Poussez le tronc contre votre propre main, qui résiste : vers l'avant, puis sur le côté.",
+                "Rien ne bouge : c'est un bras de fer contre vous-même, tout en retenue.",
+                "Trois secondes de poussée, cinq secondes de repos, en soufflant pendant l'effort.",
+                "L'amplitude étant nulle, il n'y a aucun risque de basculer.",
+            ],
+            dosage: "6 poussées dans chaque direction",
+            dureeSec: 220,
+            position: .assis
+        ),
+        Exercice(
+            id: "force-jambes-isometrique",
+            nom: "Contractions des cuisses",
+            categorie: .force,
+            realisation: .autonome,
+            objectif: "Entretenir la masse des cuisses, qui fond vite lorsqu'on ne marche plus.",
+            etapes: [
+                "Assis, pieds posés, dos calé.",
+                "Contractez la cuisse gauche comme pour tendre le genou, sans bouger le pied. Tenez 5 secondes.",
+                "Faites de même à droite : même si le muscle répond peu, la contraction et l'intention comptent.",
+                "Relâchez complètement entre chaque contraction.",
+                "Cette contraction sans mouvement entretient aussi l'os, qui se déminéralise quand on ne marche plus.",
+            ],
+            dosage: "10 contractions de 5 s par jambe",
+            dureeSec: 260,
+            position: .assis
+        ),
+        Exercice(
+            id: "force-jambes-elastique",
+            nom: "Extension de genou contre élastique",
+            categorie: .force,
+            realisation: .autonome,
+            objectif: "Renforcer la cuisse avec une résistance progressive, réglable au plus juste.",
+            etapes: [
+                "Passez un élastique léger autour des deux chevilles, ou autour d'un pied et d'un montant du fauteuil.",
+                "Tendez lentement le genou gauche contre la résistance, puis revenez en freinant.",
+                "À droite, accompagnez le mouvement avec la main gauche, ou allégez l'élastique jusqu'à ce que le mouvement devienne possible.",
+                "Jamais d'à-coup : l'élastique reste tendu du début à la fin.",
+                "N'augmentez la résistance que lorsque douze répétitions deviennent faciles.",
+            ],
+            dosage: "3 séries de 10 par jambe",
+            dureeSec: 280,
+            position: .assis
+        ),
+        Exercice(
+            id: "force-endurance",
+            nom: "Endurance des bras et du souffle",
+            categorie: .force,
+            realisation: .autonome,
+            objectif: "Retrouver du souffle et de l'endurance, perdus aussi sûrement que le muscle.",
+            etapes: [
+                "Assis, dos calé, bras libres.",
+                "Enchaînez des mouvements amples et continus du bras gauche : vers l'avant, vers le haut, sur le côté, comme une nage lente.",
+                "Emmenez le bras droit dans le mouvement, mains jointes, s'il ne suit pas seul.",
+                "Gardez un rythme où vous pouvez encore parler : c'est le bon repère d'intensité.",
+                "Deux minutes d'effort, une minute de repos, puis on recommence.",
+            ],
+            dosage: "3 fois 2 minutes",
+            dureeSec: 300,
+            position: .assis
+        ),
+        Exercice(
+            id: "force-aide-droite",
+            nom: "Renforcement guidé du côté droit",
+            categorie: .force,
+            realisation: .tiercePersonne,
+            objectif: "Une résistance dosée à la main permet de faire travailler le côté droit là où aucun élastique ne le peut.",
+            etapes: [
+                "Personne aidante : massez d'abord le membre deux minutes. La spasticité baisse, et le muscle répond bien mieux.",
+                "Placez votre main de façon à offrir une résistance douce au mouvement que la personne tente.",
+                "Demandez un effort de trois secondes, puis un relâchement complet de dix secondes.",
+                "Adaptez la résistance en continu : elle doit permettre au mouvement d'exister, jamais le bloquer.",
+                "Arrêtez dès que le membre se raidit : c'est la spasticité qui prend le dessus, pas le muscle qui travaille.",
+            ],
+            dosage: "8 efforts par mouvement",
+            dureeSec: 300,
+            position: .assis
+        ),
+
         // ——— Massage et détente ———
         Exercice(
             id: "aide-massage-bras",
@@ -935,14 +1159,28 @@ enum Catalogue {
                 exercices: ["detente-respiration", "massage-avant-bras", "main-poignet-actif", "main-tenodese", "main-ouverture", "main-appui-paume"].map(exercice),
                 realisation: .autonome
             )
-        case 3, 6: // mardi, vendredi
+        case 3: // mardi
+            return Seance(
+                titre: "Renforcement du haut du corps",
+                description: "On reconstruit la force du bras gauche, celui qui porte tout, et on entretient le droit.",
+                exercices: ["detente-respiration", "force-gauche-poussees", "force-gauche-tirage", "force-gauche-rotateurs", "force-droite-isometrique"].map(exercice),
+                realisation: .autonome
+            )
+        case 6: // vendredi
             return Seance(
                 titre: "Bras et épaule",
                 description: "Le bras droit bouge en douceur, guidé par le gauche.",
                 exercices: ["detente-respiration", "massage-avant-bras", "massage-epaule", "bras-glisser-table", "bras-elevation", "main-ouverture"].map(exercice),
                 realisation: .autonome
             )
-        case 4, 7: // mercredi, samedi
+        case 7: // samedi
+            return Seance(
+                titre: "Renforcement du tronc et des jambes",
+                description: "Gainage, cuisses et endurance : ce qui rend les transferts plus sûrs et les journées moins lourdes.",
+                exercices: ["detente-respiration", "force-tronc-gainage", "force-tronc-resistance", "force-jambes-isometrique", "force-endurance"].map(exercice),
+                realisation: .autonome
+            )
+        case 4: // mercredi
             return Seance(
                 titre: "Tronc et jambes",
                 description: "Posture, appuis et souplesse des jambes, entièrement en sécurité dans le fauteuil.",
