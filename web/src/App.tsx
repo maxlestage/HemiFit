@@ -282,6 +282,7 @@ function Exercices(props: { onSeanceLibre: (s: Seance) => void }) {
     "bras",
     "tronc",
     "jambe",
+    "force",
     "electrodes",
   ];
 
@@ -565,6 +566,41 @@ const CONSEILS: { titre: string; texte: string }[] = [
     titre: "Électrodes : les précautions à connaître",
     texte:
       "Trois situations imposent un avis médical avant toute utilisation : un stimulateur cardiaque ou un défibrillateur implanté, un antécédent de crise d'épilepsie — question qui se pose après une lésion cérébrale — et une peau dont la sensibilité est diminuée, car on ne sent alors pas venir la brûlure. Ne montez jamais l'intensité simplement pour « sentir quelque chose ». Jamais d'électrodes sur une peau abîmée, irritée ou blessée, ni sur l'avant du cou. Éteignez toujours l'appareil avant de décoller les électrodes, et remplacez-les dès qu'elles n'adhèrent plus partout. Enfin, les réglages de l'appareil — fréquence, largeur d'impulsion, temps de montée, durée de contraction et de repos — doivent être fixés par votre kinésithérapeute ou votre médecin, pas réglés au hasard.",
+  },
+  {
+    titre: "Comment on regagne vraiment du muscle",
+    texte:
+      "Le muscle ne se reconstruit pas en faisant un peu de tout tous les jours. Il lui faut trois choses. Un effort suffisant, d'abord : les dernières répétitions d'une série doivent être difficiles, sinon le muscle n'a aucune raison de changer. De la régularité ensuite : deux à trois séances par semaine pour un même groupe musculaire, pas davantage. Et surtout du repos — quarante-huit heures entre deux séances qui sollicitent les mêmes muscles, car c'est pendant le repos que le muscle se construit, jamais pendant l'effort. N'augmentez la difficulté que lorsque la dernière répétition devient facile.",
+  },
+  {
+    titre: "Protégez votre épaule gauche",
+    texte:
+      "Votre épaule gauche fait tout : les transferts, les poussées, l'assistance au côté droit. C'est l'articulation la plus exposée à l'usure chez les personnes en fauteuil, et une épaule gauche douloureuse coûterait bien plus cher que tout ce que l'on peut gagner ailleurs. C'est la raison d'être de l'exercice des rotateurs, à ne jamais sauter : il renforce les petits muscles profonds qui maintiennent l'épaule en place. Résistance légère, amplitude modérée — ce n'est pas là qu'il faut forcer.",
+  },
+  {
+    titre: "Ne bloquez jamais votre respiration",
+    texte:
+      "Retenir son souffle pendant un effort fait grimper brutalement la tension artérielle. Soufflez pendant la phase difficile, inspirez pendant le retour. Un repère simple : si vous ne pouvez pas parler pendant l'exercice, c'est que vous bloquez votre respiration ou que l'effort est trop intense.",
+  },
+  {
+    titre: "Sans protéines, l'entraînement ne donne rien",
+    texte:
+      "On ne reconstruit pas du muscle sans matériau. Après une longue période d'immobilité, l'apport en protéines est souvent devenu insuffisant, et l'entraînement seul n'apporte alors presque rien. Mieux vaut les répartir sur la journée qu'en un seul repas. Demandez à votre médecin de vérifier vos apports, et au besoin de vous orienter vers un diététicien : c'est une consultation qui change les résultats.",
+  },
+  {
+    titre: "À quoi s'attendre, honnêtement",
+    texte:
+      "Les deux côtés ne progresseront pas au même rythme. Le côté gauche, simplement désentraîné, peut regagner de la force en quelques semaines — vous le sentirez d'abord dans vos transferts. Le côté droit, où la commande nerveuse est abîmée, progresse beaucoup plus lentement, et parfois très peu en force pure. Ce n'est pas un échec : de ce côté, l'objectif est d'entretenir le muscle, de garder la commande vivante et d'empêcher que la situation ne se dégrade. Les deux comptent, et le premier rend le second possible.",
+  },
+  {
+    titre: "Le matériel, du plus simple au plus utile",
+    texte:
+      "Commencez sans rien : le poids de votre bras, la résistance de votre propre main, les accoudoirs du fauteuil. Ajoutez ensuite un jeu d'élastiques de résistances différentes — c'est le matériel le plus utile en fauteuil : léger, progressif, et sans danger s'il vous échappe. Les bracelets lestés et les petits haltères viennent après. Évitez tout ce qui doit être soulevé au-dessus de la tête tant que votre équilibre assis n'est pas parfaitement sûr.",
+  },
+  {
+    titre: "Courbatures ou douleur ?",
+    texte:
+      "Une courbature diffuse, qui apparaît le lendemain et s'estompe en deux ou trois jours, est normale et sans gravité. Une douleur vive pendant l'effort, une douleur d'articulation, un gonflement ou une rougeur ne le sont pas : on arrête et on en parle. Et si la spasticité augmente nettement dans les heures qui suivent une séance, c'est que l'effort était trop intense ou trop rapide — réduisez la charge et ralentissez le mouvement.",
   },
   {
     titre: "Pourquoi masser avant de bouger",
