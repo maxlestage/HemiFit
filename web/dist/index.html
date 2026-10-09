@@ -14,10 +14,10 @@
     />
 
     <!-- Icônes : écran d'accueil iOS, onglet du navigateur, installation. -->
-    <link rel="icon" href="./icone-ewe2y4x5.svg" type="image/svg+xml" />
-    <link rel="icon" href="./icone-32-9eg9dfje.png" sizes="32x32" type="image/png" />
-    <link rel="apple-touch-icon" href="./icone-180-gkzk9pct.png" />
-    <link rel="manifest" href="./manifest-b79egf85.webmanifest" />
+    <link rel="icon" href="/icone.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icone-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/icone-180.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
 
     <!-- Ouverture en plein écran depuis l'écran d'accueil. -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -39,10 +39,50 @@
       media="(prefers-color-scheme: dark)"
     />
 
+    <!-- Construction par Trunk : styles, application Yew et fichiers publics. -->
+    <link rel="stylesheet" href="/styles-d631662344699c18.css"/>
+    <!-- wasm-opt doit connaître les fonctionnalités WebAssembly que Rust
+         active par défaut (toutes reconnues par Safari depuis iOS 15). -->
     
-  <link rel="stylesheet" crossorigin href="./index-22m8f86q.css"><script type="module" crossorigin src="./index-mdrfg9jj.js"></script></head>
+<script type="module">
+import init, * as bindings from '/hemifit-33a44a0116e9b7a5.js';
+const wasm = await init({ module_or_path: '/hemifit-33a44a0116e9b7a5_bg.wasm' });
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script>
+    
+    
+    
+    
+    
+    
+  <link rel="modulepreload" href="/hemifit-33a44a0116e9b7a5.js" crossorigin="anonymous"><link rel="preload" href="/hemifit-33a44a0116e9b7a5_bg.wasm" crossorigin="anonymous" as="fetch" type="application/wasm"></head>
   <body>
-    <div id="root"></div>
-    
+    <!-- Rideau d'ouverture : affiché dès le premier rendu, pendant le
+         chargement du WebAssembly ; l'application le lève ensuite. -->
+    <div id="rideau" aria-hidden="true">
+      <svg class="rideau-anneau" viewBox="0 0 1024 1024">
+        <circle class="rideau-trace" cx="512" cy="512" r="290" />
+        <circle class="rideau-point" cx="512" cy="512" r="80" />
+      </svg>
+      <p class="rideau-marque"><span>HemiFit</span></p>
+      <p class="rideau-devise"><span>Un petit mouvement à la fois</span></p>
+      <p class="rideau-compte"></p>
+    </div>
+
+    <div id="app"></div>
+
+    <noscript>
+      <p class="sans-script">
+        HemiFit a besoin de JavaScript et de WebAssembly pour fonctionner.
+        Activez JavaScript dans les réglages du navigateur, puis rechargez
+        la page.
+      </p>
+    </noscript>
   </body>
 </html>

@@ -21,20 +21,24 @@ Face à la spasticité, l'application applique les bons réflexes : **jamais de 
 
 L'interface est conçue pour être utilisée **d'une seule main (la gauche)** : gros boutons (64 px minimum), navigation en bas d'écran, texte large et contrasté, mode sombre automatique, et un jeu d'icônes vectorielles sobre — sans aucun emoji.
 
+Le site prend du mouvement **dans l'esprit de [zamocorp.com](https://zamocorp.com)** : un rideau d'ouverture où l'anneau de la marque se trace pendant qu'un compteur monte jusqu'à 100, un grain léger de papier, des titres qui sortent d'une fente mot par mot, des cartes qui montent en cascade, des filets qui se déroulent, un bandeau de principes qui défile et une phrase qui s'allume mot à mot. Rien ne gêne l'usage : un appui lève le rideau, aucune animation n'est rapide ni clignotante, et tout s'arrête si le téléphone demande de **réduire les animations**.
+
 ## Deux applications
 
 | Dossier | Description |
 |---|---|
-| [`web/`](web/) | Site mobile-first — **React 19.2 + Bun 1.4 + TypeScript 7** |
+| [`web/`](web/) | Site mobile-first — **Rust 1.99 + Yew 0.23, compilé en WebAssembly** |
 | [`ios/`](ios/) | Application iPhone — **Swift 6.3 + SwiftUI + SwiftData** (Xcode 26.6, iOS 26) |
 
 ### Versions utilisées
 
 | Élément | Version | Remarque |
 |---|---|---|
-| Bun | 1.4.0 | Développement et construction du site |
-| React | 19.2.8 | |
-| TypeScript | 7.0.2 | Réécriture native ; `baseUrl` supprimé |
+| Rust | 1.99.0 | Édition 2024, cible `wasm32-unknown-unknown` |
+| Yew | 0.23.0 | Composants déclarés avec `#[component]` |
+| wasm-bindgen / web-sys | 0.2.129 / 0.3.106 | Pont entre Rust et le navigateur |
+| Trunk | 0.21.14 | Construction du site |
+| binaryen (wasm-opt) | 133 | Fixé dans `web/Trunk.toml` : la version par défaut de Trunk est trop ancienne |
 | Node (Heroku) | 24.x | LTS active, recommandée par Heroku en production |
 | Pile Heroku | heroku-26 | Ubuntu 26.04 LTS |
 | Swift | 6.3 | Fourni par Xcode 26.6 |
@@ -53,8 +57,8 @@ En résumé : le site déjà construit (`web/dist`, versionné exprès) est serv
 ## Démarrage rapide
 
 ```bash
-# Site web
-cd web && bun install && bun dev
+# Site web (Rust, Trunk et la cible wasm32-unknown-unknown installés)
+cd web && trunk serve      # http://127.0.0.1:8080, rechargement automatique
 
 # Application iPhone
 open "ios/HemiFit ‣.xcodeproj"   # projet versionné, rien à installer
