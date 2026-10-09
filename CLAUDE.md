@@ -20,6 +20,8 @@ En conséquence :
 
 Le catalogue d'exercices est **dupliqué volontairement** entre `web/src/exercices.rs` et `ios/HemiFit/Exercices.swift` : toute modification de l'un doit être reportée à l'identique dans l'autre.
 
+Une troisième copie, traduite en anglais et en espagnol, vit dans **Striv** (dépôt `maxlestage/mon-coach`, dossier `ios/MonCoachKit/Sources/MonCoachKit/Care/`), avec les mêmes identifiants et les mêmes séances. Toute modification d'une fiche ou d'une séance doit y être reportée aussi. Striv n'écrit jamais « droit » ni « gauche » en dur : le côté atteint s'y note `{A}` / `{Af}` et le côté valide `{V}` / `{Vf}` (masculin / féminin), remplacés d'après le profil.
+
 L'historique du site est stocké dans le navigateur sous la clé `hemifit.progression.v1`, au format JSON hérité de l'ancienne version React (`date`, `titre`, `minutes`, `exercicesFaits`, `ressenti`). **Ne jamais changer cette clé ni ce format** sans migration : ce serait effacer les progrès du propriétaire.
 
 ## ⚠️ Reconstruire le site après chaque modification du web
