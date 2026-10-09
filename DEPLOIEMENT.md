@@ -45,24 +45,22 @@ HemiFit apparaît sur votre écran d'accueil et s'ouvre en plein écran, comme u
 - **Comment ça marche** : le site est déjà construit dans `web/dist` (versionné exprès) ; Heroku le sert avec `server.js` (Node, zéro dépendance) via le buildpack standard `heroku/nodejs`. Fiable et sans surprise.
 - **En cas de souci** : dans le dashboard Heroku, onglet **Activity** pour voir les déploiements, **More → View logs** pour les journaux.
 
-## Pourquoi le buildpack Node alors que le projet utilise Bun ?
+## Pourquoi le buildpack Node alors que le site est écrit en Rust ?
 
-Question légitime — voici la réponse : **Bun est utilisé pour développer et construire le site, pas pour le servir.**
+Question légitime — voici la réponse : **Rust et Trunk servent à construire le site, pas à le servir.**
 
 | Étape | Outil | Où ça se passe |
 |---|---|---|
-| Développer le site | **Bun** (`bun dev`) | En local |
-| Construire le site | **Bun** (`bun run build`) → `web/dist` | En local, avant le commit |
+| Développer le site | **Trunk** (`trunk serve`) | En local |
+| Construire le site | **Trunk** (`trunk build --release`) → `web/dist` | En local, avant le commit |
 | Servir le site | **Node** (`server.js`) | Sur Heroku |
 
-Quand Bun a terminé la construction, il ne reste que du HTML, du CSS et du JavaScript ordinaires dans `web/dist` — que n'importe quel serveur sait servir. `server.js` est du Node pur, **sans aucune dépendance**, et ne mentionne Bun nulle part. Heroku n'a donc jamais besoin d'installer Bun, et le buildpack officiel `heroku/nodejs` convient parfaitement.
+Une fois la construction terminée, il ne reste dans `web/dist` que des fichiers ordinaires : du HTML, du CSS, un petit fichier JavaScript de démarrage et le programme compilé en WebAssembly (`.wasm`). N'importe quel serveur sait les servir. `server.js` est du Node pur, **sans aucune dépendance** : il envoie le WebAssembly avec le bon type (`application/wasm`) et le compresse, ce qui divise son poids par trois sur le réseau. Heroku n'a donc jamais besoin d'installer Rust, et le buildpack officiel `heroku/nodejs` convient parfaitement.
 
 C'est un choix volontaire, pour deux raisons :
 
-- **Fiabilité** : le buildpack Node est officiel et maintenu par Heroku. Les buildpacks Bun existants sont communautaires et non officiels — s'ils cassent un jour, le site tombe.
+- **Fiabilité** : le buildpack Node est officiel et maintenu par Heroku. Compiler du Rust sur Heroku demanderait un buildpack communautaire — s'il cassait un jour, le site tomberait.
 - **Zéro build sur le serveur** : comme `web/dist` est déjà construit et versionné, il n'y a aucune étape de compilation sur Heroku, donc rien qui puisse échouer à distance — précieux quand on ne peut pas déboguer depuis un téléphone.
-
-> Faire tourner Bun sur Heroku reste possible (buildpack communautaire, ou déploiement en conteneur Docker), mais cela ajoute une pièce fragile sans rien apporter au site : le résultat affiché serait exactement le même.
 
 ## Si le déploiement échoue
 
@@ -74,8 +72,8 @@ Dans l'onglet **Deploy** de l'app, vérifiez que la branche choisie est bien **`
 
 ### « Application error » à l'ouverture du site
 
-Le site est déployé mais le serveur ne démarre pas. Touchez **More → View logs** en haut à droite du dashboard et regardez les dernières lignes. Vous devriez y voir `💚 HemiFit en écoute sur le port …` si tout va bien.
+Le site est déployé mais le serveur ne démarre pas. Touchez **More → View logs** en haut à droite du dashboard et regardez les dernières lignes. Vous devriez y voir `HemiFit en écoute sur le port …` si tout va bien.
 
-### Le site s'ouvre mais reste blanc
+### Le site s'ouvre mais reste blanc, ou bloqué sur l'écran d'ouverture
 
-Le dossier `web/dist` (le site construit) manque. Vérifiez sur GitHub que le dossier **web/dist** existe bien sur la branche `master` : https://github.com/maxlestage/HemiFit/tree/master/web/dist
+Le dossier `web/dist` (le site construit) manque ou est incomplet : il doit contenir un fichier `.wasm`. Vérifiez sur GitHub que le dossier **web/dist** existe bien sur la branche `master` : https://github.com/maxlestage/HemiFit/tree/master/web/dist

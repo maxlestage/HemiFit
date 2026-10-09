@@ -9,6 +9,13 @@
 
    Contraintes d'accessibilité conservées : cibles tactiles de 64 px,
    texte large, contrastes élevés, navigation au pouce gauche.
+
+   Mouvement, dans l'esprit de zamocorp.com : rideau d'ouverture, grain,
+   titres qui sortent d'une fente, cartes qui montent en cascade, filets
+   qui se déroulent. Tout est désactivé avec « réduire les animations ».
+   Les classes posées sur <html> par src/mouvement.rs :
+   - .mouvement   : les animations sont permises ;
+   - .scene-prete : le rideau est levé, les entrées peuvent se jouer.
    ———————————————————————————————————————————————— */
 
 /* Palette « papier » : blanc clinique, filets fins, bleu ardoise.
@@ -55,6 +62,15 @@
   --ombre-sombre: none;
 
   --transition: 180ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Courbes du mouvement. */
+  --sortie: cubic-bezier(0.16, 1, 0.3, 1);
+  --rideau: cubic-bezier(0.76, 0, 0.24, 1);
+  --dessin: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Grain très léger : un papier, pas un écran. */
+  --grain: 0.035;
+  --grain-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
 }
 
 @media (prefers-color-scheme: dark) {
@@ -90,6 +106,9 @@
 
     --ombre: none;
     --ombre-sombre: none;
+
+    --grain: 0.06;
+    --grain-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
   }
 }
 
@@ -114,7 +133,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-#root {
+#app {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
@@ -139,18 +158,53 @@ svg {
   margin: 18px 0 22px;
 }
 
+/* Grand titre d'écran, à la manière d'une affiche. */
 .entete h1 {
-  font-size: clamp(2rem, 8.5vw, 2.5rem);
+  font-size: clamp(2.45rem, 11.5vw, 3.4rem);
   font-weight: 800;
-  margin: 0 0 4px;
-  letter-spacing: -0.038em;
-  line-height: 1.08;
+  margin: 0 0 10px;
+  letter-spacing: -0.05em;
+  line-height: 1;
 }
 
-.entete p {
+.entete .chapo {
   margin: 0;
   color: var(--encre-tenue);
   font-size: 1.02rem;
+}
+
+/* Petit surtitre précédé d'un filet d'accent. */
+.surtitre-page {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 12px;
+  color: var(--encre-tenue);
+  font-size: 0.74rem;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.surtitre-page::before {
+  content: "";
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+/* Texte réservé aux lecteurs d'écran. */
+.lecteur-ecran {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* ——— Cartes ——— */
@@ -191,6 +245,9 @@ svg {
 /* La séance du jour : seule zone sombre de l'écran, elle porte
    l'action principale et structure toute la page. */
 .carte-vedette {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   background: linear-gradient(158deg, var(--sombre-1), var(--sombre-2));
   border: none;
   box-shadow: var(--ombre-sombre);
@@ -228,6 +285,26 @@ svg {
 
 .carte-vedette .btn-principal:active {
   background: #dfeae6;
+}
+
+/* L'anneau de la marque, en filigrane dans le coin de la carte. */
+.filigrane {
+  position: absolute;
+  z-index: -1;
+  top: -78px;
+  right: -78px;
+  width: 250px;
+  height: 250px;
+  rotate: -90deg;
+  pointer-events: none;
+}
+
+.filigrane circle {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.07);
+  stroke-width: 70;
+  stroke-linecap: round;
+  stroke-dasharray: 1518 1823;
 }
 
 /* ——— En-tête de carte ——— */
@@ -337,12 +414,16 @@ button {
   touch-action: manipulation;
   transition:
     transform var(--transition),
-    background var(--transition);
+    background var(--transition),
+    translate 0.6s var(--sortie);
 }
 
+/* Les boutons principaux se laissent attirer par la souris
+   (variables posées par src/mouvement.rs, jamais au toucher). */
 .btn-principal {
   background: var(--accent);
   color: var(--accent-contraste);
+  translate: var(--mx, 0) var(--my, 0);
 }
 
 .btn-principal:active {
@@ -480,6 +561,7 @@ button {
 /* ——— Navigation basse ——— */
 
 .nav-basse {
+  --actif: 0;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -519,6 +601,24 @@ button {
 
 .nav-basse button.actif svg {
   color: var(--accent);
+}
+
+/* Le repère de l'onglet actif glisse d'un onglet à l'autre. */
+.nav-basse::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 25%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 30%,
+    var(--accent) 30% 70%,
+    transparent 70%
+  );
+  translate: calc(var(--actif) * 100%) 0;
+  transition: translate 0.6s var(--rideau);
 }
 
 /* ——— Séance guidée ——— */
@@ -700,7 +800,7 @@ button {
 /* ——— Liste d'exercices ——— */
 
 .titre-section {
-  margin: 26px 0 10px;
+  margin: 30px 0 12px;
   font-size: 0.78rem;
   font-weight: 750;
   letter-spacing: 0.07em;
@@ -709,6 +809,22 @@ button {
   align-items: center;
   gap: 9px;
   color: var(--encre-tenue);
+}
+
+/* Numéro de section et filet qui file jusqu'au bord. */
+.numero {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+.titre-section::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  margin-left: 4px;
+  background: var(--bordure-nette);
+  transform-origin: left center;
 }
 
 .ligne-exercice {
@@ -725,9 +841,9 @@ button {
   margin-bottom: 8px;
   min-height: 72px;
   cursor: pointer;
-  transition:
-    transform var(--transition),
+  --transitions-propres: transform var(--transition),
     border-color var(--transition);
+  transition: var(--transitions-propres);
 }
 
 .ligne-exercice:hover {
@@ -909,6 +1025,7 @@ button {
 }
 
 .sceau-fin {
+  position: relative;
   display: grid;
   place-items: center;
   width: 76px;
@@ -985,7 +1102,566 @@ button {
   background: currentColor;
 }
 
-/* ——— Accessibilité : mouvement réduit ——— */
+/* ——— Conseils numérotés ——— */
+
+.conseil .numero {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+/* ——— Bandeau des principes ———
+   Les principes défilent lentement, d'un bord à l'autre de l'écran.
+   Un appui arrête ou relance le défilement. */
+
+.bandeau {
+  margin: 22px -18px 6px;
+  border-block: 1px solid var(--bordure);
+  overflow: hidden;
+}
+
+.bandeau-defilant {
+  display: block;
+  width: 100%;
+  min-height: 64px;
+  padding: 15px 0;
+  border: 0;
+  background: none;
+  color: var(--encre);
+  text-align: left;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.bandeau-piste {
+  display: flex;
+  width: max-content;
+}
+
+.bandeau-groupe {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.principe {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  padding-left: 20px;
+  font-size: 1.3rem;
+  font-weight: 750;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+
+/* Séparateur : un petit anneau, rappel de la marque. */
+.principe::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+}
+
+/* ——— Manifeste ——— */
+
+.manifeste {
+  margin: 30px 0 30px;
+  font-size: clamp(1.45rem, 6.6vw, 1.95rem);
+  font-weight: 750;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+  color: var(--encre);
+}
+
+/* ——— Rideau d'ouverture ———
+   Présent dans index.html : il s'affiche dès le premier rendu, pendant
+   le chargement du WebAssembly, puis l'application le lève. */
+
+@property --compte {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 0;
+}
+
+#rideau {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 18px;
+  padding: env(safe-area-inset-top) 24px env(safe-area-inset-bottom);
+  background:
+    radial-gradient(120% 70% at 50% 0%, #2b425a 0%, transparent 62%),
+    linear-gradient(158deg, #1e2e3e, #0b141c);
+  color: #f4f7fa;
+  transition:
+    translate 1.1s var(--rideau),
+    border-radius 1.1s var(--rideau);
+}
+
+.rideau-leve #rideau {
+  translate: 0 -100%;
+  border-bottom-left-radius: 50% 14%;
+  border-bottom-right-radius: 50% 14%;
+  pointer-events: none;
+}
+
+.rideau-anneau {
+  width: min(38vw, 168px);
+  height: auto;
+  rotate: -90deg;
+}
+
+.rideau-trace {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 84;
+  stroke-linecap: round;
+  stroke-dasharray: 1518 1823;
+}
+
+.rideau-point {
+  fill: currentColor;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.rideau-marque,
+.rideau-devise {
+  margin: 0;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+}
+
+.rideau-marque span,
+.rideau-devise span {
+  display: inline-block;
+}
+
+.rideau-marque {
+  font-size: 2.6rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.rideau-devise {
+  position: absolute;
+  left: 24px;
+  bottom: calc(30px + env(safe-area-inset-bottom));
+  max-width: 50%;
+  color: #a9bdd0;
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+/* Compteur de 0 à 100, animé en CSS. */
+.rideau-compte {
+  position: absolute;
+  right: 24px;
+  bottom: calc(18px + env(safe-area-inset-bottom));
+  margin: 0;
+  font-size: 3.6rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  counter-reset: compte var(--compte);
+}
+
+.rideau-compte::before {
+  content: counter(compte);
+}
+
+.rideau-bref .rideau-compte {
+  visibility: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rideau-trace {
+    animation: tracer-anneau 1.25s var(--dessin) 0.15s both;
+  }
+
+  .rideau-point {
+    animation: poser-point 0.8s var(--sortie) 1.05s both;
+  }
+
+  .rideau-marque span {
+    animation: sortir-fente 1.1s var(--sortie) 0.4s both;
+  }
+
+  .rideau-devise span {
+    animation: sortir-fente 1.1s var(--sortie) 0.6s both;
+  }
+
+  .rideau-compte {
+    animation: compter 1.6s var(--dessin) 0.1s both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #rideau {
+    transition: none;
+  }
+
+  .rideau-leve #rideau {
+    visibility: hidden;
+  }
+
+  .rideau-compte {
+    display: none;
+  }
+}
+
+.sans-script {
+  position: fixed;
+  inset: auto 18px 40px;
+  z-index: 3000;
+  margin: 0;
+  padding: 16px 18px;
+  border-radius: var(--rayon);
+  background: #f4f7fa;
+  color: #14181c;
+  font-size: 0.95rem;
+}
+
+/* ——— Grain ———
+   Un voile de grain très léger sur tout l'écran, comme un papier.
+   Il ne s'anime qu'à la souris, et jamais avec le mouvement réduit. */
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  pointer-events: none;
+  background-image: var(--grain-image);
+  background-size: 180px;
+  opacity: var(--grain);
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  body::after {
+    inset: -50%;
+    animation: grain 0.9s steps(5) infinite;
+  }
+}
+
+/* ——— Anneau du curseur (souris uniquement) ——— */
+
+.curseur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1500;
+  width: 38px;
+  height: 38px;
+  margin: -19px 0 0 -19px;
+  border: 1.5px solid var(--encre);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 0.3s,
+    width 0.4s var(--sortie),
+    height 0.4s var(--sortie),
+    margin 0.4s var(--sortie),
+    border-color 0.4s,
+    background-color 0.4s;
+}
+
+.curseur.visible {
+  opacity: 0.5;
+}
+
+.curseur.survol {
+  width: 66px;
+  height: 66px;
+  margin: -33px 0 0 -33px;
+  border-color: var(--accent);
+  background-color: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+/* ——— Entrées ———
+   Rien n'est masqué tant que l'application n'a pas posé .mouvement :
+   sans animation, la page est complète et immobile. */
+
+.mouvement :is(.contenu, .seance-corps) {
+  animation: entrer-page 0.6s var(--sortie) both;
+}
+
+.mouvement .seance-plein-ecran {
+  animation: monter-ecran 0.7s var(--sortie) both;
+}
+
+/* Titres : chaque mot sort de sa fente. */
+.titre-fente .fente {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+
+.titre-fente .fente > span {
+  display: inline-block;
+  transform-origin: 0 100%;
+}
+
+.mouvement .titre-fente .fente > span {
+  animation: sortir-fente 1.05s var(--sortie) both;
+  animation-delay: calc(var(--i, 0) * 80ms + 150ms);
+}
+
+.mouvement :is(.surtitre-page, .chapo) {
+  animation: apparaitre 0.9s var(--sortie) both;
+}
+
+.mouvement .chapo {
+  animation-delay: 0.45s;
+}
+
+/* Tant que le rideau est baissé, les entrées attendent. */
+.mouvement:not(.scene-prete)
+  :is(.contenu, .titre-fente .fente > span, .surtitre-page, .chapo) {
+  animation-play-state: paused;
+}
+
+/* Révélations au défilement : les cartes montent en cascade. */
+.mouvement [data-revele] {
+  opacity: 0;
+  translate: 0 30px;
+  transition:
+    opacity 0.7s ease var(--delai, 0ms),
+    translate 1.1s var(--sortie) var(--delai, 0ms),
+    var(--transitions-propres, visibility 0s);
+}
+
+.mouvement.scene-prete [data-revele][data-vu] {
+  opacity: 1;
+  translate: none;
+}
+
+[data-delai="1"] { --delai: 80ms; }
+[data-delai="2"] { --delai: 160ms; }
+[data-delai="3"] { --delai: 240ms; }
+[data-delai="4"] { --delai: 320ms; }
+[data-delai="5"] { --delai: 400ms; }
+[data-delai="6"] { --delai: 480ms; }
+[data-delai="7"] { --delai: 560ms; }
+
+/* Le filet des sections se déroule. */
+.mouvement .titre-section::after {
+  scale: 0 1;
+  transition: scale 1.3s var(--dessin) calc(var(--delai, 0ms) + 150ms);
+}
+
+.mouvement.scene-prete .titre-section[data-vu]::after {
+  scale: 1 1;
+}
+
+/* L'anneau en filigrane de la séance du jour se trace. */
+.mouvement .filigrane circle {
+  stroke-dashoffset: 1518;
+  transition: stroke-dashoffset 2s var(--dessin) 0.4s;
+}
+
+.mouvement.scene-prete [data-vu] .filigrane circle {
+  stroke-dashoffset: 0;
+}
+
+/* Le manifeste s'allume mot à mot. */
+.mouvement .manifeste[data-revele] {
+  opacity: 1;
+  translate: none;
+}
+
+.mouvement .manifeste .mot {
+  opacity: 0.14;
+  transition: opacity 0.6s ease calc(var(--i, 0) * 70ms + 200ms);
+}
+
+.mouvement.scene-prete .manifeste[data-vu] .mot {
+  opacity: 1;
+}
+
+/* Les principes défilent. */
+.mouvement .bandeau-piste {
+  animation: defiler 48s linear infinite;
+}
+
+.bandeau-defilant.en-pause .bandeau-piste {
+  animation-play-state: paused;
+}
+
+/* Les jours de la semaine se posent l'un après l'autre. */
+.mouvement .semaine .pastille {
+  animation: poser-pastille 0.7s var(--sortie) both;
+  animation-delay: calc(var(--i, 0) * 70ms + 300ms);
+}
+
+.mouvement .carte:not([data-vu]) .semaine .pastille {
+  animation-play-state: paused;
+}
+
+/* Le détail d'un exercice se déplie. */
+.mouvement .detail-exercice {
+  animation: apparaitre 0.5s var(--sortie) both;
+}
+
+/* Le minuteur se trace à l'arrivée de l'exercice, et respire une fois
+   quand il est terminé. */
+.mouvement .minuteur-anneau .jauge {
+  animation: tracer-jauge 1.2s var(--dessin) 0.25s backwards;
+}
+
+.mouvement .minuteur-anneau.fini {
+  animation: battement 1s var(--sortie);
+}
+
+/* Fin de séance : le sceau se pose, la coche se trace, une onde s'élargit. */
+.mouvement .sceau-fin {
+  animation: poser-point 0.8s var(--sortie) both;
+}
+
+.mouvement .sceau-fin .trace-valide {
+  stroke-dasharray: 22;
+  stroke-dashoffset: 22;
+  animation: tracer-valide 0.6s var(--dessin) 0.45s forwards;
+}
+
+.mouvement .sceau-fin::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  animation: onde 1.6s var(--sortie) 0.35s both;
+}
+
+@keyframes sortir-fente {
+  from {
+    translate: 0 110%;
+    rotate: 4deg;
+  }
+}
+
+@keyframes apparaitre {
+  from {
+    opacity: 0;
+    translate: 0 12px;
+  }
+}
+
+@keyframes entrer-page {
+  from {
+    opacity: 0;
+    translate: 0 16px;
+  }
+}
+
+@keyframes monter-ecran {
+  from {
+    opacity: 0;
+    translate: 0 5%;
+  }
+}
+
+@keyframes tracer-anneau {
+  from {
+    stroke-dashoffset: 1518;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes poser-point {
+  from {
+    scale: 0;
+  }
+}
+
+@keyframes compter {
+  from {
+    --compte: 0;
+  }
+  to {
+    --compte: 100;
+  }
+}
+
+@keyframes grain {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  20% {
+    translate: -4% 3%;
+  }
+  40% {
+    translate: 3% -5%;
+  }
+  60% {
+    translate: -2% 6%;
+  }
+  80% {
+    translate: 5% -2%;
+  }
+}
+
+@keyframes defiler {
+  to {
+    translate: -50% 0;
+  }
+}
+
+@keyframes poser-pastille {
+  from {
+    opacity: 0;
+    scale: 0.4;
+  }
+}
+
+@keyframes tracer-jauge {
+  from {
+    stroke-dashoffset: var(--circonference);
+  }
+}
+
+@keyframes battement {
+  40% {
+    scale: 1.05;
+  }
+}
+
+@keyframes tracer-valide {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes onde {
+  from {
+    opacity: 0.55;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 1.9;
+  }
+}
+
+/* ——— Accessibilité : mouvement réduit ———
+   Filet de sécurité : même si une règle ci-dessus était oubliée,
+   rien ne bouge. */
 
 @media (prefers-reduced-motion: reduce) {
   *,

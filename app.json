@@ -1,7 +1,7 @@
 {
   "name": "HemiFit",
   "description": "Ma rééducation en douceur — exercices quotidiens pour le côté droit",
-  "keywords": ["rééducation", "santé", "react", "mobile-first"],
+  "keywords": ["rééducation", "santé", "yew", "webassembly", "mobile-first"],
   "website": "https://github.com/maxlestage/HemiFit",
   "repository": "https://github.com/maxlestage/HemiFit",
   "stack": "heroku-26",

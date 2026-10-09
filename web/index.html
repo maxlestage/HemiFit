@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+
+    <title>HemiFit — Ma rééducation en douceur</title>
+    <meta
+      name="description"
+      content="HemiFit — rééducation douce et régulière du côté droit, à mon rythme."
+    />
+
+    <!-- Icônes : écran d'accueil iOS, onglet du navigateur, installation. -->
+    <link rel="icon" href="/icone.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icone-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/icone-180.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <!-- Ouverture en plein écran depuis l'écran d'accueil. -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="HemiFit" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+
+    <meta
+      name="theme-color"
+      content="#ffffff"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#0d1014"
+      media="(prefers-color-scheme: dark)"
+    />
+
+    <!-- Construction par Trunk : styles, application Yew et fichiers publics. -->
+    <link data-trunk rel="css" href="styles.css" />
+    <!-- wasm-opt doit connaître les fonctionnalités WebAssembly que Rust
+         active par défaut (toutes reconnues par Safari depuis iOS 15). -->
+    <link
+      data-trunk
+      rel="rust"
+      href="Cargo.toml"
+      data-bin="hemifit"
+      data-wasm-opt="z"
+      data-wasm-opt-params="--enable-bulk-memory --enable-nontrapping-float-to-int --enable-sign-ext --enable-mutable-globals --enable-reference-types --enable-multivalue"
+    />
+    <link data-trunk rel="copy-file" href="public/icone.svg" />
+    <link data-trunk rel="copy-file" href="public/icone-32.png" />
+    <link data-trunk rel="copy-file" href="public/icone-180.png" />
+    <link data-trunk rel="copy-file" href="public/icone-192.png" />
+    <link data-trunk rel="copy-file" href="public/icone-512.png" />
+    <link data-trunk rel="copy-file" href="public/manifest.webmanifest" />
+  </head>
+  <body>
+    <!-- Rideau d'ouverture : affiché dès le premier rendu, pendant le
+         chargement du WebAssembly ; l'application le lève ensuite. -->
+    <div id="rideau" aria-hidden="true">
+      <svg class="rideau-anneau" viewBox="0 0 1024 1024">
+        <circle class="rideau-trace" cx="512" cy="512" r="290" />
+        <circle class="rideau-point" cx="512" cy="512" r="80" />
+      </svg>
+      <p class="rideau-marque"><span>HemiFit</span></p>
+      <p class="rideau-devise"><span>Un petit mouvement à la fois</span></p>
+      <p class="rideau-compte"></p>
+    </div>
+
+    <div id="app"></div>
+
+    <noscript>
+      <p class="sans-script">
+        HemiFit a besoin de JavaScript et de WebAssembly pour fonctionner.
+        Activez JavaScript dans les réglages du navigateur, puis rechargez
+        la page.
+      </p>
+    </noscript>
+  </body>
+</html>

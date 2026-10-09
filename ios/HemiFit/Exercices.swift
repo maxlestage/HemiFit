@@ -13,7 +13,7 @@
 //  - jamais de mouvement rapide ni forcé (réflexe spastique) ;
 //  - étirements lents et prolongés, précédés de détente et de massage.
 //
-//  Ce fichier est le miroir de web/src/data/exercises.ts : toute
+//  Ce fichier est le miroir de web/src/exercices.rs : toute
 //  modification de l'un doit être reportée à l'identique dans l'autre.
 //
 

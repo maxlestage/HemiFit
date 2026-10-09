@@ -1,0 +1,54 @@
+[package]
+name = "hemifit"
+version = "1.0.0"
+edition = "2024"
+rust-version = "1.99"
+description = "HemiFit — ma rééducation en douceur (site web en Yew + WebAssembly)"
+publish = false
+
+[dependencies]
+gloo-events = "0.3.0"
+gloo-timers = "0.4.0"
+js-sys = "0.3.106"
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.151"
+wasm-bindgen = "0.2.129"
+yew = { version = "0.23.0", features = ["csr"] }
+
+[dependencies.web-sys]
+version = "0.3.106"
+features = [
+    "CssStyleDeclaration",
+    "CustomEvent",
+    "CustomEventInit",
+    "Document",
+    "DomRect",
+    "DomTokenList",
+    "Element",
+    "Event",
+    "EventTarget",
+    "HtmlElement",
+    "IntersectionObserver",
+    "IntersectionObserverEntry",
+    "IntersectionObserverInit",
+    "MediaQueryList",
+    "MutationObserver",
+    "MutationObserverInit",
+    "MutationRecord",
+    "Node",
+    "NodeList",
+    "Performance",
+    "PointerEvent",
+    "ScrollBehavior",
+    "ScrollToOptions",
+    "Storage",
+    "Window",
+]
+
+# Le site est servi sur téléphone : on privilégie un fichier .wasm léger.
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
