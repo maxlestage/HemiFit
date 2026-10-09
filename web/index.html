@@ -40,28 +40,24 @@
     />
 
     <!-- Construction par Trunk : styles, application Yew et fichiers publics. -->
-    <link rel="stylesheet" href="/styles-d631662344699c18.css"/>
+    <link data-trunk rel="css" href="styles.css" />
     <!-- wasm-opt doit connaître les fonctionnalités WebAssembly que Rust
          active par défaut (toutes reconnues par Safari depuis iOS 15). -->
-    
-<script type="module">
-import init, * as bindings from '/hemifit-33a44a0116e9b7a5.js';
-const wasm = await init({ module_or_path: '/hemifit-33a44a0116e9b7a5_bg.wasm' });
-
-
-window.wasmBindings = bindings;
-
-
-dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
-
-</script>
-    
-    
-    
-    
-    
-    
-  <link rel="modulepreload" href="/hemifit-33a44a0116e9b7a5.js" crossorigin="anonymous"><link rel="preload" href="/hemifit-33a44a0116e9b7a5_bg.wasm" crossorigin="anonymous" as="fetch" type="application/wasm"></head>
+    <link
+      data-trunk
+      rel="rust"
+      href="Cargo.toml"
+      data-bin="hemifit"
+      data-wasm-opt="z"
+      data-wasm-opt-params="--enable-bulk-memory --enable-nontrapping-float-to-int --enable-sign-ext --enable-mutable-globals --enable-reference-types --enable-multivalue"
+    />
+    <link data-trunk rel="copy-file" href="public/icone.svg" />
+    <link data-trunk rel="copy-file" href="public/icone-32.png" />
+    <link data-trunk rel="copy-file" href="public/icone-180.png" />
+    <link data-trunk rel="copy-file" href="public/icone-192.png" />
+    <link data-trunk rel="copy-file" href="public/icone-512.png" />
+    <link data-trunk rel="copy-file" href="public/manifest.webmanifest" />
+  </head>
   <body>
     <!-- Rideau d'ouverture : affiché dès le premier rendu, pendant le
          chargement du WebAssembly ; l'application le lève ensuite. -->

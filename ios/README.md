@@ -60,6 +60,6 @@ Il est conservé comme mémo lisible des réglages, mais **le projet Xcode fait 
 
 Le programme de la semaine se règle dans `Exercices.swift` (`Catalogue.seanceDuJour`) : lundi la main et l'ouverture, mardi le renforcement du haut du corps, mercredi le tronc et les jambes, jeudi la main et le poignet, vendredi le bras et l'épaule, samedi le renforcement du tronc et des jambes, dimanche massage et détente. Les deux séances de renforcement sont volontairement espacées : un muscle a besoin de quarante-huit heures de repos pour se reconstruire. La séance du soir avec une tierce personne est définie juste en dessous (`Catalogue.seanceDuSoir`). Les exercices eux-mêmes (consignes, durées) sont dans le même fichier — n'hésitez pas à les ajuster avec votre kinésithérapeute.
 
-> Ce catalogue est le miroir de `web/src/data/exercises.ts` : toute modification de l'un doit être reportée à l'identique dans l'autre.
+> Ce catalogue est le miroir de `web/src/exercices.rs` : toute modification de l'un doit être reportée à l'identique dans l'autre.
 
 > ⚕️ HemiFit accompagne la rééducation mais ne remplace ni kinésithérapeute ni médecin. Montrez-leur les exercices et arrêtez tout mouvement douloureux.

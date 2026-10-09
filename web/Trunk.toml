@@ -1,0 +1,20 @@
+# Construction du site : `trunk build --release` (voir README).
+[build]
+target = "index.html"
+dist = "dist"
+public_url = "/"
+filehash = true
+# Pas d'intégrité SRI : Heroku sert les fichiers tels quels, et on évite
+# qu'un proxy qui recompresse les ressources ne bloque le chargement.
+no_sri = true
+
+[serve]
+addresses = ["127.0.0.1"]
+port = 8080
+
+# Versions des outils téléchargés par Trunk. Trunk 0.21 propose par défaut
+# binaryen 123, trop ancien pour le WebAssembly de Rust 1.99 (opérations
+# mémoire « bulk memory ») : on fixe la dernière version publiée.
+[tools]
+wasm_bindgen = "0.2.129"
+wasm_opt = "version_133"

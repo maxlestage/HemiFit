@@ -14,36 +14,43 @@ En conséquence :
 
 | Dossier | Contenu |
 |---|---|
-| `web/` | Site mobile-first — React 19 + Bun + TypeScript |
+| `web/` | Site mobile-first — Rust + Yew, compilé en WebAssembly (Trunk) |
 | `ios/` | Application iPhone — Swift 6 + SwiftUI + SwiftData |
 | `server.js`, `Procfile`, `app.json` | Déploiement Heroku |
 
-Le catalogue d'exercices est **dupliqué volontairement** entre `web/src/data/exercises.ts` et `ios/HemiFit/Exercices.swift` : toute modification de l'un doit être reportée à l'identique dans l'autre.
+Le catalogue d'exercices est **dupliqué volontairement** entre `web/src/exercices.rs` et `ios/HemiFit/Exercices.swift` : toute modification de l'un doit être reportée à l'identique dans l'autre.
+
+L'historique du site est stocké dans le navigateur sous la clé `hemifit.progression.v1`, au format JSON hérité de l'ancienne version React (`date`, `titre`, `minutes`, `exercicesFaits`, `ressenti`). **Ne jamais changer cette clé ni ce format** sans migration : ce serait effacer les progrès du propriétaire.
 
 ## ⚠️ Reconstruire le site après chaque modification du web
 
-Heroku ne construit rien : il sert le dossier **`web/dist`, qui est versionné exprès**. Après toute modification dans `web/src`, il faut impérativement reconstruire et committer le résultat, sinon le site en ligne reste inchangé :
+Heroku ne construit rien : il sert le dossier **`web/dist`, qui est versionné exprès**. Après toute modification dans `web/` (`src/`, `styles.css`, `index.html`), il faut impérativement reconstruire et committer le résultat, sinon le site en ligne reste inchangé :
 
 ```bash
-cd web && bunx tsc --noEmit && bun run build   # met à jour web/dist
+rustup target add wasm32-unknown-unknown       # une fois
+cd web && cargo test && trunk build --release   # met à jour web/dist
 ```
 
-Vérifications avant de pousser : `bunx tsc --noEmit` puis `bun run build` doivent passer.
+Vérifications avant de pousser : `cargo fmt --check`, `cargo clippy --target wasm32-unknown-unknown` (sans avertissement), `cargo test` puis `trunk build --release` doivent passer. Vérifier aussi le rendu dans Chromium (Playwright est installé) au format téléphone, en clair, en sombre et avec `reducedMotion: "reduce"`.
 
 ## Versions
 
 Le propriétaire souhaite que tout reste à jour. **Ne jamais se fier à sa mémoire pour les numéros de version** : les interroger en direct.
 
 ```bash
-curl -s https://registry.npmjs.org/<paquet>/latest   # npm (react, typescript, bun…)
+curl -s https://static.rust-lang.org/dist/channel-rust-stable.toml | grep -m1 '^version'  # Rust stable
+curl -s -H "User-Agent: hemifit" https://crates.io/api/v1/crates/<crate>                 # yew, trunk, wasm-bindgen…
 curl -s https://nodejs.org/dist/index.json           # versions Node et statut LTS
-cd web && bun update --latest                        # met à jour les dépendances du site
+rustup update stable                                 # met à jour Rust
+cd web && cargo update                               # met à jour les dépendances du site
 ```
+
+Trunk télécharge lui-même `wasm-bindgen` et `wasm-opt` (binaryen) : leurs versions sont fixées dans `web/Trunk.toml`. Garder `wasm_bindgen` égal à la version de la crate `wasm-bindgen`, et `wasm_opt` sur la dernière version de binaryen (trouver la plus récente en testant `https://github.com/WebAssembly/binaryen/releases/download/version_<N>/binaryen-version_<N>-x86_64-linux.tar.gz`).
 
 Deux règles de jugement :
 
 - **Node (Heroku) reste sur la LTS active**, pas sur la version « Current » : Heroku recommande explicitement les LTS en production. Actuellement **24.x**.
-- **Changer de version majeure demande une vérification**, pas une simple substitution de numéro. Exemple vécu : TypeScript 7 a supprimé `baseUrl`, ce qui cassait le `tsconfig.json`.
+- **Changer de version majeure demande une vérification**, pas une simple substitution de numéro. Exemples vécus : TypeScript 7 a supprimé `baseUrl`, ce qui cassait le `tsconfig.json` ; Rust 1.87+ produit du WebAssembly « bulk memory » que le binaryen 123 proposé par Trunk refuse, d'où la version fixée et les options `data-wasm-opt-params` dans `web/index.html`.
 
 ## Contenu des exercices
 
@@ -66,7 +73,17 @@ Chaque exercice porte un champ `realisation` : `autonome` (réalisable seul) ou 
 
 ## Interface
 
-**Aucun emoji dans l'interface ni dans le contenu** : le propriétaire les trouve peu professionnels. On utilise un jeu d'icônes vectorielles homogène (`web/src/Icones.tsx`) côté web et des symboles SF côté iOS. Les emoji restent proscrits dans les titres, les libellés et les textes de conseils.
+**Aucun emoji dans l'interface ni dans le contenu** : le propriétaire les trouve peu professionnels. On utilise un jeu d'icônes vectorielles homogène (`web/src/icones.rs`) côté web et des symboles SF côté iOS. Les emoji restent proscrits dans les titres, les libellés et les textes de conseils.
+
+### Animations
+
+Le site s'anime dans l'esprit de **zamocorp.com**, choix du propriétaire : rideau d'ouverture, grain, titres en fente, cartes en cascade, filets qui se déroulent (`web/src/mouvement.rs` et la fin de `web/styles.css`). Règles à garder :
+
+- **respecter « réduire les animations »** : rien ne bouge et rien n'est masqué ;
+- **ne jamais retarder une action** : un appui lève le rideau, les boutons répondent tout de suite, seul le contenu sous l'écran attend d'être révélé ;
+- **rien de rapide ni de clignotant** ; ce qui défile en continu doit pouvoir s'arrêter d'un appui ;
+- les effets de souris (magnétisme, anneau) ne s'activent jamais au toucher ;
+- `mouvement.rs` ne crée, ne déplace ni ne supprime aucun nœud géré par Yew : il pose des classes sur `<html>` et des attributs `data-*`.
 
 ## Ton de l'application
 
